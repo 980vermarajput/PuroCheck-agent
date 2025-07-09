@@ -149,6 +149,7 @@ def create_evaluation_prompt(
     documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
     
     prompt_parts = [
+        
         "=== REQUIREMENT TO EVALUATE ===",
         f"Requirement: {requirement}",
         f"{registry_name} Requires: {registry_requires}",
