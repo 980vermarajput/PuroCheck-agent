@@ -15,7 +15,7 @@ from langchain.schema import HumanMessage, SystemMessage
 from dotenv import load_dotenv
 
 from .nodes import get_relevant_docs
-from .prompts import SYSTEM_PROMPT, create_evaluation_prompt
+from .prompts import SYSTEM_PROMPT, create_evaluation_prompt, get_system_prompt_for_registry
 
 # Load environment variables
 load_dotenv()
@@ -33,8 +33,9 @@ class ChecklistEvaluator:
     3. Returns structured evaluation results
     """
     
-    def __init__(self, vector_store, model_name: str = None, api_provider: str = "auto"):
+    def __init__(self, vector_store, model_name: str = None, api_provider: str = "auto", registry: str = "puro"):
         self.vector_store = vector_store
+        self.registry = registry.lower()
         
         # Determine API provider and model based on available keys
         self.api_provider, self.model_name = self._determine_api_provider(api_provider, model_name)
@@ -45,7 +46,7 @@ class ChecklistEvaluator:
         else:  # OpenAI
             self.llm = self._init_openai_llm()
         
-        logger.info(f"Initialized evaluator with {self.api_provider} using model: {self.model_name}")
+        logger.info(f"Initialized evaluator for {self.registry.upper()} registry with {self.api_provider} using model: {self.model_name}")
     
     def _determine_api_provider(self, api_provider: str, model_name: str = None) -> tuple[str, str]:
         """Determine which API provider to use based on available keys and preferences"""
@@ -129,7 +130,7 @@ class ChecklistEvaluator:
         
         # Step 2: Create evaluation prompt
         evaluation_prompt = create_evaluation_prompt(
-            checklist_item, relevant_context, self.api_provider
+            checklist_item, relevant_context, self.api_provider, self.registry
         )
         
         # Step 3: Get GPT-4 evaluation with retry logic
@@ -169,7 +170,7 @@ class ChecklistEvaluator:
                 logger.debug(f"Evaluation attempt {attempt + 1}/{max_retries + 1} for requirement: {requirement}")
                 
                 response = self.llm.invoke([
-                    SystemMessage(content=SYSTEM_PROMPT),
+                    SystemMessage(content=get_system_prompt_for_registry(self.registry)),
                     HumanMessage(content=evaluation_prompt)
                 ])
                 

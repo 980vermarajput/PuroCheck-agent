@@ -1,4 +1,5 @@
 from agent.agent import PuroCheckAgent
+import sys
 
 def main():
     """
@@ -11,18 +12,34 @@ def main():
     - FR4: Use RAG to evaluate each requirement
     - FR5: Return status, reason, and evidence for each item
     - FR6: Output results in CLI and JSON formats
+    
+    Usage:
+        python main.py [registry]
+        
+    Where registry can be:
+        - puro (default): Use Puro.earth biochar checklist
+        - verra: Use Verra VM0047 checklist
     """
     
-    print("🚀 Starting PuroCheck AI - Biochar Project Eligibility Agent")
+    # Parse command line arguments
+    registry = "puro"  # Default
+    if len(sys.argv) > 1:
+        registry = sys.argv[1].lower()
+        if registry not in ["puro", "verra", "vcs"]:
+            print(f"❌ Unknown registry: {registry}")
+            print("Available registries: puro, verra")
+            return 1
+    
+    print(f"🚀 Starting PuroCheck AI - {registry.upper()} Registry Eligibility Agent")
     print("=" * 70)
     
     try:
-        # Initialize the agent
+        # Initialize the agent with registry selection
         agent = PuroCheckAgent(
             data_dir="data/",
-            checklist_path="checklist/sample_checklist.json",
+            registry=registry,  # Dynamic registry selection
             vector_store_dir="chroma_db/",
-            force_rebuild_vectorstore=True  # Set to False since we've already built it
+            force_rebuild_vectorstore=False  # Set to False since we've already built it
         )
         
         # Run the complete evaluation pipeline
@@ -33,10 +50,11 @@ def main():
             print(reports["cli"])
         
         # Save JSON report
+        output_file = f"evaluation_results_{registry}.json"
         if "json" in reports:
-            with open("evaluation_results.json", "w") as f:
+            with open(output_file, "w") as f:
                 f.write(reports["json"])
-            print("\n💾 Detailed results saved to: evaluation_results.json")
+            print(f"\n💾 Detailed results saved to: {output_file}")
         
         print("\n🎉 Evaluation completed successfully!")
         

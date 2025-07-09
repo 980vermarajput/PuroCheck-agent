@@ -1,11 +1,11 @@
 """
-Prompts for Puro.earth Biochar Project Eligibility Evaluation
+Prompts for Multi-Registry Carbon Project Eligibility Evaluation
 
 This module contains all the prompts used by the evaluator to maintain clean code organization.
 All prompts have been moved here from evaluator.py for better maintainability and separation of concerns.
 
 Key Components:
-- SYSTEM_PROMPT: Core evaluation instructions and Puro.earth definitions
+- Registry-specific system prompts (Puro.earth, Verra, etc.)
 - EVALUATION_TASK_INSTRUCTIONS: Response format instructions
 - create_evaluation_prompt(): Dynamic prompt builder with token optimization
 """
@@ -13,8 +13,8 @@ Key Components:
 from typing import Dict, List, Any
 
 
-# System prompt for the evaluator
-SYSTEM_PROMPT = """You are an expert evaluator for Puro.earth biochar project eligibility.
+# Registry-specific system prompts
+PURO_SYSTEM_PROMPT = """You are an expert evaluator for Puro.earth biochar project eligibility.
 
 Your task is to analyze document evidence against specific Puro.earth requirements and determine:
 1. STATUS: "present", "missing", or "unclear"
@@ -42,6 +42,41 @@ KEY PURO.EARTH DEFINITIONS:
 Use these definitions when interpreting vague or partially matching content in documents. Be thorough but concise. Focus on factual evidence from the documents."""
 
 
+VERRA_SYSTEM_PROMPT = """You are an expert evaluator for Verra (VCS) VM0047 Afforestation, Reforestation and Revegetation project eligibility.
+
+Your task is to analyze document evidence against specific Verra VM0047 requirements and determine:
+1. STATUS: "present", "missing", or "unclear"
+2. REASON: Clear explanation of your decision
+3. EVIDENCE: What specific evidence you found (if any)
+4. MISSING: What evidence is still needed (if any)
+5. CONFIDENCE: Your confidence level (0.0-1.0)
+
+EVALUATION CRITERIA:
+- "present": Clear evidence that fully satisfies the requirement
+- "missing": No relevant evidence found or evidence clearly shows non-compliance
+- "unclear": Some evidence found but insufficient or ambiguous
+
+KEY VERRA VM0047 DEFINITIONS:
+
+- Area-based Approach: Uses plot-based biomass sampling and remote sensing with performance benchmark for baseline.
+- Census-based Approach: Direct planting only with full census tracking, zero baseline, no land use change.
+- Additionality: Must demonstrate regulatory surplus; investment analysis required if carbon is sole income.
+- Performance Benchmark: Baseline methodology for area-based projects using regional data.
+- Regulatory Surplus: Project activities exceed what is required by law or regulation.
+- Stock Difference Method: Method for estimating biomass change over time.
+- Uncertainty Deduction: Minimum 10% deduction applied to account for measurement uncertainties.
+- Leakage: Displacement of emissions outside project boundary (area-based only).
+- Monitoring Plan: Defines tasks, boundaries, roles, and data handling procedures.
+- VM0036: Methodology for wetland restoration and conservation (used for wetland components).
+- VMD0054: Module for estimating leakage from displaced agricultural activities.
+
+Use these definitions when interpreting vague or partially matching content in documents. Be thorough but concise. Focus on factual evidence from the documents."""
+
+
+# Default system prompt (can be overridden by registry-specific prompts)
+SYSTEM_PROMPT = PURO_SYSTEM_PROMPT
+
+
 # Evaluation task instructions
 EVALUATION_TASK_INSTRUCTIONS = """=== EVALUATION TASK ===
 Based on the document evidence above, evaluate this requirement and respond in this exact format:
@@ -58,10 +93,30 @@ Remember:
 - 'unclear': Some evidence but insufficient or ambiguous"""
 
 
+def get_system_prompt_for_registry(registry: str = "puro") -> str:
+    """
+    Get the appropriate system prompt based on registry
+    
+    Args:
+        registry: Registry name ("puro", "verra", etc.)
+        
+    Returns:
+        str: Registry-specific system prompt
+    """
+    registry_prompts = {
+        "puro": PURO_SYSTEM_PROMPT,
+        "verra": VERRA_SYSTEM_PROMPT,
+        "vcs": VERRA_SYSTEM_PROMPT,  # Alias for Verra
+    }
+    
+    return registry_prompts.get(registry.lower(), PURO_SYSTEM_PROMPT)
+
+
 def create_evaluation_prompt(
     checklist_item: Dict[str, Any], 
     context: List[Dict[str, Any]],
-    api_provider: str = "openai"
+    api_provider: str = "openai",
+    registry: str = "puro"
 ) -> str:
     """
     Create the evaluation prompt for LLM
@@ -70,6 +125,7 @@ def create_evaluation_prompt(
         checklist_item: The checklist item being evaluated
         context: Retrieved document context
         api_provider: API provider ("openai" or "groq") for token optimization
+        registry: Registry type ("puro", "verra", etc.) for field mapping
         
     Returns:
         str: Formatted prompt for evaluation
@@ -78,18 +134,27 @@ def create_evaluation_prompt(
     # Handle both "requirement" and "parameter" fields
     requirement = checklist_item.get('requirement', checklist_item.get('parameter', 'Unknown requirement'))
     
-    # Handle different JSON key structures
-    puro_requires = checklist_item.get('puroRequires', checklist_item.get('puroLooksFor', checklist_item.get('requirement', 'Not specified')))
+    # Registry-specific field mapping
+    if registry.lower() in ["verra", "vcs"]:
+        # Verra uses different field names
+        registry_requires = checklist_item.get('verraWillCheckFor', checklist_item.get('requirement', 'Not specified'))
+        registry_checks_for = checklist_item.get('verraWillCheckFor', 'Not specified')
+        registry_name = "Verra"
+    else:
+        # Puro.earth field names
+        registry_requires = checklist_item.get('puroRequires', checklist_item.get('puroLooksFor', checklist_item.get('requirement', 'Not specified')))
+        registry_checks_for = checklist_item.get('puroWillCheckFor', checklist_item.get('puroLooksFor', checklist_item.get('puroWillCheck', 'Not specified')))
+        registry_name = "Puro.earth"
+    
     documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
-    puro_checks_for = checklist_item.get('puroWillCheckFor', checklist_item.get('puroLooksFor', checklist_item.get('puroWillCheck', 'Not specified')))
     notes = checklist_item.get('notes', '')
     
     prompt_parts = [
         "=== REQUIREMENT TO EVALUATE ===",
         f"Requirement: {requirement}",
-        f"Puro.earth Requires: {puro_requires}",
+        f"{registry_name} Requires: {registry_requires}",
         f"Documents Needed: {documents_needed}",
-        f"Puro Will Check For: {puro_checks_for}",
+        f"{registry_name} Will Check For: {registry_checks_for}",
     ]
     
     # Add notes if available

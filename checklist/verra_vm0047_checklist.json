@@ -1,0 +1,519 @@
+{
+  "sections": [
+    {
+      "title": "General Applicability",
+      "items": [
+        {
+          "requirement": "Project must increase vegetative cover through afforestation, reforestation or revegetation.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "project",
+            "increase",
+            "vegetative",
+            "cover",
+            "through",
+            "afforestation",
+            "reforestation",
+            "revegetation"
+          ]
+        },
+        {
+          "requirement": "Area-based and census-based approaches must be applied in non-overlapping areas with ≥10m buffer.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "area",
+            "census",
+            "approaches",
+            "applied",
+            "non",
+            "overlapping",
+            "areas",
+            "≥10m",
+            "buffer"
+          ]
+        },
+        {
+          "requirement": "The selected quantification approach (area or census) must be defined at project start and used throughout.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "selected",
+            "quantification",
+            "approach",
+            "area",
+            "census",
+            "defined",
+            "project",
+            "start",
+            "used",
+            "throughout"
+          ]
+        },
+        {
+          "requirement": "Project start date must be clearly documented (site preparation or land use change).",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "project",
+            "start",
+            "date",
+            "clearly",
+            "documented",
+            "site",
+            "preparation",
+            "land",
+            "change"
+          ]
+        },
+        {
+          "requirement": "For projects on wetlands or organic soils, VM0036 must be used for relevant carbon pools.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "projects",
+            "wetlands",
+            "organic",
+            "soils",
+            "vm0036",
+            "used",
+            "relevant",
+            "carbon",
+            "pools"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Approach Selection",
+      "items": [
+        {
+          "requirement": "Select either 'area-based' or 'census-based' approach based on project characteristics.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "select",
+            "either",
+            "area",
+            "based",
+            "census",
+            "approach",
+            "project",
+            "characteristics"
+          ]
+        },
+        {
+          "requirement": "Area-based: uses plot-based biomass sampling and remote sensing with performance benchmark.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "area",
+            "uses",
+            "plot",
+            "biomass",
+            "sampling",
+            "remote",
+            "sensing",
+            "performance",
+            "benchmark"
+          ]
+        },
+        {
+          "requirement": "Census-based: uses direct planting only, with full census (N) and no land use change.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "uses",
+            "direct",
+            "planting",
+            "only",
+            "full",
+            "land",
+            "change"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Eligibility Criteria",
+      "items": [
+        {
+          "requirement": "Area-based: Includes planting or assisted regeneration, with carbon stock estimates established before or within 2 years of start date.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "area",
+            "includes",
+            "planting",
+            "assisted",
+            "regeneration",
+            "carbon",
+            "stock",
+            "estimates",
+            "established",
+            "before",
+            "within",
+            "years",
+            "start",
+            "date"
+          ]
+        },
+        {
+          "requirement": "Census-based: ≥50 planting units per ha; planting units tracked individually with stable pre-existing land use; no deep soil inversion or biomass extraction within 10 years.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "planting",
+            "units",
+            "tracked",
+            "individually",
+            "stable",
+            "pre",
+            "existing",
+            "land",
+            "deep",
+            "soil",
+            "inversion",
+            "biomass",
+            "extraction",
+            "within",
+            "years"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Additionality",
+      "items": [
+        {
+          "requirement": "Area-based: Demonstrate regulatory surplus, apply performance benchmark, and investment analysis if carbon is sole income.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "area",
+            "demonstrate",
+            "regulatory",
+            "surplus",
+            "performance",
+            "benchmark",
+            "investment",
+            "analysis",
+            "carbon",
+            "sole",
+            "income"
+          ]
+        },
+        {
+          "requirement": "Census-based: Must show regulatory surplus and perform investment analysis; conduct common practice analysis if adoption rate ≥15%.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "show",
+            "regulatory",
+            "surplus",
+            "perform",
+            "investment",
+            "analysis",
+            "conduct",
+            "common",
+            "practice",
+            "adoption",
+            "rate",
+            "≥15"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Carbon Quantification",
+      "items": [
+        {
+          "requirement": "Use stock difference method for estimating biomass change.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "stock",
+            "difference",
+            "method",
+            "estimating",
+            "biomass",
+            "change"
+          ]
+        },
+        {
+          "requirement": "Apply uncertainty deduction of at least 10%; must not exceed 100% of estimated removals.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "uncertainty",
+            "deduction",
+            "not",
+            "exceed",
+            "100",
+            "estimated",
+            "removals"
+          ]
+        },
+        {
+          "requirement": "Include significant carbon pools or provide justification for conservative exclusions.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "include",
+            "significant",
+            "carbon",
+            "pools",
+            "provide",
+            "justification",
+            "conservative",
+            "exclusions"
+          ]
+        },
+        {
+          "requirement": "Census-based: Zero baseline; Area-based: Apply performance benchmark baseline.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "zero",
+            "baseline",
+            "area",
+            "performance",
+            "benchmark"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Leakage and Emissions",
+      "items": [
+        {
+          "requirement": "Area-based projects must apply VMD0054 module to estimate leakage from displaced activity.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "area",
+            "projects",
+            "vmd0054",
+            "module",
+            "estimate",
+            "leakage",
+            "displaced",
+            "activity"
+          ]
+        },
+        {
+          "requirement": "Census-based projects are exempt from leakage deductions due to no land use change.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "projects",
+            "exempt",
+            "leakage",
+            "deductions",
+            "due",
+            "land",
+            "change"
+          ]
+        },
+        {
+          "requirement": "Account for emissions from burning and fertilizer where applicable, using conservative parameters.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "account",
+            "emissions",
+            "burning",
+            "fertilizer",
+            "where",
+            "applicable",
+            "conservative",
+            "parameters"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Monitoring",
+      "items": [
+        {
+          "requirement": "Prepare a monitoring plan that defines tasks, boundaries, roles, and data handling.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "prepare",
+            "monitoring",
+            "plan",
+            "defines",
+            "tasks",
+            "boundaries",
+            "roles",
+            "data",
+            "handling"
+          ]
+        },
+        {
+          "requirement": "Collect field data (biomass, mortality, plot attributes) and stocking index (if area-based).",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "collect",
+            "field",
+            "data",
+            "biomass",
+            "mortality",
+            "plot",
+            "attributes",
+            "stocking",
+            "index",
+            "area"
+          ]
+        },
+        {
+          "requirement": "Archive all monitoring and QA/QC data for at least 2 years after the crediting period ends.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "archive",
+            "all",
+            "monitoring",
+            "data",
+            "years",
+            "after",
+            "crediting",
+            "period",
+            "ends"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Ex-Ante Estimation",
+      "items": [
+        {
+          "requirement": "Estimate removals for entire crediting period using growth and yield models.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "estimate",
+            "removals",
+            "entire",
+            "crediting",
+            "period",
+            "growth",
+            "yield",
+            "models"
+          ]
+        },
+        {
+          "requirement": "Apply a minimum of 10% uncertainty deduction.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "minimum",
+            "uncertainty",
+            "deduction"
+          ]
+        },
+        {
+          "requirement": "Census-based: baseline is zero. Area-based: use modeled performance benchmark for comparison.",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "census",
+            "baseline",
+            "zero",
+            "area",
+            "modeled",
+            "performance",
+            "benchmark",
+            "comparison"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Supporting Documentation",
+      "items": [
+        {
+          "requirement": "Project Description (PD)",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "project",
+            "description"
+          ]
+        },
+        {
+          "requirement": "GIS shapefiles for all project areas and accounting boundaries",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "gis",
+            "shapefiles",
+            "all",
+            "project",
+            "areas",
+            "accounting",
+            "boundaries"
+          ]
+        },
+        {
+          "requirement": "Monitoring Plan with parameters and SOPs",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "monitoring",
+            "plan",
+            "parameters",
+            "sops"
+          ]
+        },
+        {
+          "requirement": "Evidence of additionality and adoption rate (if applicable)",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "evidence",
+            "additionality",
+            "adoption",
+            "rate",
+            "applicable"
+          ]
+        },
+        {
+          "requirement": "Carbon pool sampling data (t=0 and ongoing)",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "carbon",
+            "pool",
+            "sampling",
+            "data",
+            "ongoing"
+          ]
+        },
+        {
+          "requirement": "Remote sensing imagery, benchmark slope calculations (area-based only)",
+          "documentsNeeded": "Project evidence per VM0047",
+          "verraWillCheckFor": "Compliance with VM0047 requirement",
+          "searchKeywords": [
+            "remote",
+            "sensing",
+            "imagery",
+            "benchmark",
+            "slope",
+            "calculations",
+            "area",
+            "only"
+          ]
+        }
+      ]
+    }
+  ]
+}

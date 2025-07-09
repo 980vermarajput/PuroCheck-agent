@@ -51,14 +51,21 @@ class PuroCheckAgent:
     def __init__(
         self,
         data_dir: str = "data/",
-        checklist_path: str = "checklist/sample_checklist.json",
+        checklist_path: str = None,
+        registry: str = "puro",
         vector_store_dir: str = "chroma_db/",
         force_rebuild_vectorstore: bool = False,
         api_provider: str = "auto",
         model_name: str = None
     ):
         self.data_dir = Path(data_dir)
+        self.registry = registry.lower()
+        
+        # Set default checklist path based on registry if not provided
+        if checklist_path is None:
+            checklist_path = self._get_default_checklist_path(self.registry)
         self.checklist_path = Path(checklist_path)
+        
         self.vector_store_dir = vector_store_dir
         self.force_rebuild_vectorstore = force_rebuild_vectorstore
         self.api_provider = api_provider
@@ -69,7 +76,7 @@ class PuroCheckAgent:
         self.checklist = None
         self.evaluator = None
         
-        logger.info(f"🚀 PuroCheck Agent initialized with API provider: {api_provider}")
+        logger.info(f"🚀 PuroCheck Agent initialized for {self.registry.upper()} registry with API provider: {api_provider}")
     
     def initialize(self) -> None:
         """Initialize all components of the agent"""
@@ -137,7 +144,8 @@ class PuroCheckAgent:
         self.evaluator = ChecklistEvaluator(
             self.vector_store, 
             model_name=self.model_name, 
-            api_provider=self.api_provider
+            api_provider=self.api_provider,
+            registry=self.registry
         )
     
     def _is_critical_api_failure(self, evaluation: EvaluationResult) -> bool:
@@ -339,6 +347,15 @@ class PuroCheckAgent:
         
         logger.info("🎉 Full evaluation pipeline completed!")
         return reports
+    
+    def _get_default_checklist_path(self, registry: str) -> str:
+        """Get the default checklist path for a given registry"""
+        registry_checklists = {
+            "puro": "checklist/puro_biochar_checklist.json",
+            "verra": "checklist/verra_vm0047_checklist.json",
+            "vcs": "checklist/verra_vm0047_checklist.json",  # Alias for Verra
+        }
+        return registry_checklists.get(registry, "checklist/puro_biochar_checklist.json")
 
 
 def main():

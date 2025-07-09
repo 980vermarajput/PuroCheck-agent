@@ -1,17 +1,18 @@
 # PuroCheck Agent
 
-A sophisticated RAG (Retrieval-Augmented Generation) agent that evaluates biochar project eligibility against Puro.earth standards. The agent uses advanced document parsing, vector search, and LLM reasoning to assess compliance with biochar methodology requirements.
+A sophisticated RAG (Retrieval-Augmented Generation) agent that evaluates carbon project eligibility against multiple registry standards including Puro.earth and Verra VCS. The agent uses advanced document parsing, vector search, and LLM reasoning to assess compliance with different carbon methodology requirements.
 
 ## Features
 
 - 🔍 **Multi-format Document Processing**: Supports PDF, DOCX, TXT, CSV, and Excel files
 - 🤖 **Dual LLM Support**: Compatible with OpenAI GPT and Groq models with automatic API detection
 - 📊 **Vector Search**: ChromaDB-powered semantic search for relevant document sections
-- ✅ **Compliance Evaluation**: Automated assessment against Puro.earth biochar methodology
+- ✅ **Compliance Evaluation**: Automated assessment against multiple carbon methodologies
 - � **Robust Error Handling**: Exponential backoff retry logic for API rate limits and token errors
 - �📈 **Detailed Reporting**: Comprehensive evaluation results with evidence tracking and source attribution
 - � **Flexible Configuration**: Customizable checklists, search parameters, and force rebuild options
 - 🎯 **Token Optimization**: Automatic context size adjustment for different API providers
+- 🌍 **Multi-Registry Support**: Evaluate projects against Puro.earth, Verra VCS VM0047, and other carbon registries
 
 ## Installation
 
@@ -77,20 +78,33 @@ Place your project documents in the `data/` folder. Supported formats:
 
 ### Basic Usage
 
-Run the agent with default settings:
+Run the agent with default settings (Puro.earth biochar evaluation):
 
 ```bash
 python main.py
 ```
 
+### Registry Selection
+
+Evaluate projects against different carbon registries:
+
+```bash
+# Evaluate against Puro.earth biochar methodology (default)
+python main.py puro
+
+# Evaluate against Verra VCS VM0047 methodology
+python main.py verra
+```
+
 ### Advanced Usage
 
-You can customize the evaluation by modifying the parameters in `main.py` or by using command-line arguments:
+You can customize the evaluation by modifying the parameters in `main.py` or by using the agent directly:
 
 ```python
-# Example: Force rebuild vector store and use specific model
-results = agent.evaluate_checklist(
-    checklist_path="checklist/sample_checklist.json",
+# Example: Initialize agent for specific registry
+agent = PuroCheckAgent(
+    data_dir="data/",
+    registry="verra",  # or "puro"
     force_rebuild_vectorstore=True,
     api_provider="openai",  # or "groq" or "auto"
     model_name="gpt-4"      # or specific Groq model
@@ -147,6 +161,12 @@ You can modify the evaluation checklist by editing `checklist/sample_checklist.j
 - **`requirement`**: Description of what needs to be checked
 - **`searchKeywords`**: Keywords to guide document search
 - **`category`**: Grouping for organization
+
+## Supported Carbon Registries
+
+- **Puro.earth**: Biochar methodology evaluation
+- **Verra VCS**: VM0047 Afforestation, Reforestation and Revegetation methodology
+- **Extensible**: Easy to add new registries by adding checklist JSON files
 
 ## Output
 
