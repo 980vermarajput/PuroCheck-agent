@@ -1,0 +1,230 @@
+{
+  "sections": [
+    {
+      "title": "General Eligibility",
+      "items": [
+        {
+          "requirement": "Eligible Process",
+          "puroRequires": "Pyrolysis/gasification with engineered CH₄ control",
+          "documentsNeeded": "Technology description, reactor spec",
+          "puroWillCheckFor": "Combustion design, emissions controls",
+          "searchKeywords": ["pyrolysis", "gasification", "reactor", "process", "combustion", "temperature", "technology description", "emissions controls"]
+        },
+        {
+          "requirement": "H/Corg Ratio",
+          "puroRequires": "Must be < 0.7",
+          "documentsNeeded": "Lab report, ASTM/ISO tests",
+          "puroWillCheckFor": "Verified ratio & lab accreditation",
+          "searchKeywords": ["carbon ratio", "H/C ratio", "H/Corg ratio", "oxygen carbon", "molar ratio", "ASTM", "ISO", "lab report", "stability"]
+        },
+        {
+          "requirement": "Biochar Stability",
+          "puroRequires": "Long-term carbon storage use (non-fuel)",
+          "documentsNeeded": "Use case documentation",
+          "puroWillCheckFor": "Soil use, insulation, construction, etc.",
+          "searchKeywords": ["H/Corg ratio", "carbon permanence", "Fp factor", "organic carbon", "biochar stability", "soil", "construction", "insulation", "non-fuel"]
+        },
+        {
+          "requirement": "Biomass Source",
+          "puroRequires": "Sustainable or waste biomass",
+          "documentsNeeded": "Feedstock list, sustainability certs",
+          "puroWillCheckFor": "FSC/PEFC certification, or local approvals for non-forest feedstock",
+          "searchKeywords": ["feedstock", "biomass source", "raw material", "wood chips", "agricultural residue", "FSC", "PEFC", "sustainability", "waste biomass"]
+        }
+      ]
+    },
+    {
+      "title": "Technical Criteria – Production Facility",
+      "items": [
+        {
+          "requirement": "Biomass Origin & Type",
+          "documentsNeeded": "Feedstock list, sourcing contracts",
+          "puroLooksFor": "Match EBC positive list, invasive species justification",
+          "searchKeywords": ["feedstock", "biomass source", "raw material", "wood chips", "agricultural residue", "EBC positive list", "invasive species", "sourcing"]
+        },
+        {
+          "requirement": "Reactor Specs",
+          "documentsNeeded": "Equipment questionnaire, tech specs",
+          "puroLooksFor": "Reactor type, H/C ratio capability, combustion completeness",
+          "searchKeywords": ["pyrolysis", "gasification", "reactor", "process", "combustion", "temperature", "equipment", "technical specifications"]
+        },
+        {
+          "requirement": "Emissions Safety",
+          "documentsNeeded": "Emission test report, air/water permits",
+          "puroLooksFor": "Compliance with local limits (e.g. PM, NOx, SO₂)",
+          "searchKeywords": ["LCA", "ISO 14040", "ISO 14044", "greenhouse gases", "emissions", "pollutants", "environmental", "PM", "NOx", "SO2"]
+        },
+        {
+          "requirement": "Waste Management",
+          "documentsNeeded": "Environmental impact summary",
+          "puroLooksFor": "Handling of oil, tars, wastewater, ash",
+          "searchKeywords": ["waste management", "oil", "tars", "wastewater", "ash", "environmental impact", "waste handling"]
+        },
+        {
+          "requirement": "Energy Co-use (optional)",
+          "documentsNeeded": "Energy integration plan",
+          "puroLooksFor": "Use of waste heat, internal or external applications",
+          "searchKeywords": ["energy integration", "waste heat", "heat recovery", "energy efficiency", "cogeneration"]
+        },
+        {
+          "requirement": "End-Use Eligibility",
+          "documentsNeeded": "Product application description",
+          "puroLooksFor": "Biochar not used for fuel, well-defined market",
+          "searchKeywords": ["offtake agreement", "non-fuel use", "use in soil or construction", "biochar application", "soil amendment", "end use"]
+        },
+        {
+          "requirement": "Additionality",
+          "documentsNeeded": "Financial model, IRR, regulatory gap",
+          "puroLooksFor": "Not mandated by law; viability needs carbon revenue",
+          "searchKeywords": ["project not mandated by law", "carbon finance dependency", "baseline analysis", "financial viability", "IRR", "additionality"]
+        }
+      ]
+    },
+    {
+      "title": "Environmental & Social Safeguards",
+      "items": [
+        {
+          "requirement": "EIA or Equivalent",
+          "documentsNeeded": "Environmental permit, impact summary",
+          "puroLooksFor": "Risk identification for air, water, land, community",
+          "searchKeywords": ["EIA", "environmental impact assessment", "environmental permit", "risk assessment", "community impact", "environmental"]
+        },
+        {
+          "requirement": "Stakeholder Consultation",
+          "documentsNeeded": "Meeting notes, approval letters",
+          "puroLooksFor": "Local support, consent, consultation process",
+          "searchKeywords": ["stakeholder consultation", "community consent", "grievance policy", "public support", "local approval", "consultation"]
+        },
+        {
+          "requirement": "Safety Protocols",
+          "documentsNeeded": "MSDS, fire control, transport precautions",
+          "puroLooksFor": "Safe handling, storage, and transport of biochar",
+          "searchKeywords": ["safety protocols", "handling procedures", "storage", "transport", "fire control", "MSDS", "safety"]
+        }
+      ]
+    },
+    {
+      "title": "Laboratory Testing (Accredited Labs Only)",
+      "items": [
+        {
+          "requirement": "H/Corg Ratio",
+          "parameter": "< 0.7",
+          "notes": "Carbon permanence indicator",
+          "searchKeywords": ["carbon ratio", "H/C ratio", "H/Corg ratio", "oxygen carbon", "molar ratio", "ASTM", "ISO", "lab report", "stability"]
+        },
+        {
+          "requirement": "Organic Carbon Content",
+          "parameter": "High (ideally >50%)",
+          "notes": "Used in CO₂ storage calc",
+          "searchKeywords": ["organic carbon", "carbon content", "CO2 storage", "carbon storage calculation", "biochar carbon"]
+        },
+        {
+          "requirement": "PAHs & Heavy Metals",
+          "parameter": "Must meet end-use safety",
+          "notes": "Use EBC or IBI limits",
+          "searchKeywords": ["PAHs", "heavy metals", "contaminants", "EBC limits", "IBI limits", "safety", "toxicity"]
+        },
+        {
+          "requirement": "Moisture, Ash, pH, EC",
+          "parameter": "Supporting metrics",
+          "notes": "Must be reported, not restricted",
+          "searchKeywords": ["moisture content", "ash content", "pH", "electrical conductivity", "EC", "proximate analysis"]
+        }
+      ]
+    },
+    {
+      "title": "Legal & Organisational",
+      "items": [
+        {
+          "requirement": "Company Identity",
+          "documentsNeeded": "Trade registry extract",
+          "puroWillValidate": "Legal registration, business ID",
+          "searchKeywords": ["company registration", "trade registry", "business ID", "legal entity", "corporate documents"]
+        },
+        {
+          "requirement": "Facility Location",
+          "documentsNeeded": "Maps, coordinates, address",
+          "puroWillValidate": "Accurate siting for audit & monitoring",
+          "searchKeywords": ["facility location", "coordinates", "maps", "address", "site location", "geographical coordinates"]
+        },
+        {
+          "requirement": "Public Support",
+          "documentsNeeded": "Declaration",
+          "puroWillValidate": "Declare public funding if any",
+          "searchKeywords": ["public funding", "government support", "subsidies", "public financing", "declaration"]
+        },
+        {
+          "requirement": "KYC",
+          "documentsNeeded": "For all facility owners",
+          "puroWillValidate": "Agent and developer checks completed",
+          "searchKeywords": ["KYC", "know your customer", "due diligence", "background checks", "facility owners"]
+        }
+      ]
+    },
+    {
+      "title": "Carbon Quantification – CORC Issuance",
+      "items": [
+        {
+          "requirement": "Carbon Storage Equation",
+          "documentsNeeded": "LCA + lab data",
+          "puroRequires": "Use Puro's Eq. with 𝐸stored, 𝐸biomass, 𝐸production, 𝐸use",
+          "searchKeywords": ["carbon storage", "carbon equation", "LCA", "stored carbon", "biomass carbon", "production emissions", "carbon calculation"]
+        },
+        {
+          "requirement": "Soil Temp Justification",
+          "documentsNeeded": "Soil temp source (default: 14.9°C)",
+          "puroRequires": "Used in permanence factor (Fp)",
+          "searchKeywords": ["soil temperature", "permanence factor", "Fp", "temperature data", "soil conditions"]
+        },
+        {
+          "requirement": "Offtake Proof",
+          "documentsNeeded": "Contracts, invoices, shipping docs",
+          "puroRequires": "Ensures permanent, non-fuel use",
+          "searchKeywords": ["offtake agreement", "contracts", "invoices", "shipping", "delivery", "non-fuel use", "permanent use"]
+        },
+        {
+          "requirement": "Double Counting Avoidance",
+          "documentsNeeded": "Statement on CORC use",
+          "puroRequires": "Separation of claim & physical product",
+          "searchKeywords": ["double counting", "CORC", "carbon credits", "claim separation", "accounting", "verification"]
+        }
+      ]
+    },
+    {
+      "title": "Monitoring, Reporting & Verification (MRV)",
+      "note": "Not included in registration",
+      "items": [
+        {
+          "requirement": "Biomass and Biochar Tracking",
+          "documentsNeeded": "MRV protocols, load cell logs",
+          "puroWillCheck": "Moisture, dry weight, source logs",
+          "searchKeywords": ["monitoring", "tracking", "measurement", "data collection", "MRV", "load cell", "biomass tracking", "biochar tracking"]
+        },
+        {
+          "requirement": "Sampling Protocols",
+          "documentsNeeded": "Sampling SOPs, frequency logs",
+          "puroWillCheck": "Representative, recurring lab tests",
+          "searchKeywords": ["sampling protocol", "sample collection", "testing procedure", "quality control", "SOP", "sampling frequency"]
+        },
+        {
+          "requirement": "Emissions Monitoring",
+          "documentsNeeded": "LCA, emissions logs",
+          "puroWillCheck": "Source-separated GHG impacts",
+          "searchKeywords": ["LCA", "ISO 14040", "ISO 14044", "greenhouse gases", "emissions", "pollutants", "environmental", "GHG monitoring"]
+        },
+        {
+          "requirement": "LCA (Life Cycle Assessment)",
+          "documentsNeeded": "ISO 14040/44-compliant report",
+          "puroWillCheck": "Includes biomass, production, distribution, use",
+          "searchKeywords": ["LCA", "life cycle assessment", "ISO 14040", "ISO 14044", "environmental impact", "carbon footprint", "lifecycle"]
+        },
+        {
+          "requirement": "Facility Emissions",
+          "documentsNeeded": "Pollution reports, local compliance docs",
+          "puroWillCheck": "Direct and indirect GHGs, pollution mitigation",
+          "searchKeywords": ["facility emissions", "pollution reports", "GHG emissions", "direct emissions", "indirect emissions", "pollution control"]
+        }
+      ]
+    }
+  ]
+}

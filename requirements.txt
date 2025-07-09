@@ -1,0 +1,35 @@
+# Core dependencies
+langchain>=0.1.0
+langchain-community>=0.0.10
+langchain-openai>=0.0.5
+langchain-groq>=0.0.1
+
+# Vector store and embeddings
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+
+# Document processing
+pypdf>=3.0.0
+python-docx>=0.8.11
+openpyxl>=3.1.0
+pandas>=2.0.0
+
+# API clients
+openai>=1.0.0
+groq>=0.4.0
+
+# Graph and workflow
+langgraph>=0.0.20
+
+# HTTP requests
+requests>=2.31.0
+
+# Environment management
+python-dotenv>=1.0.0
+
+# JSON schema validation
+jsonschema>=4.17.0
+
+# Utilities
+typing-extensions>=4.0.0
+pydantic>=2.0.0
