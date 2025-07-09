@@ -39,7 +39,7 @@ def main():
             data_dir="data/",
             registry=registry,  # Dynamic registry selection
             vector_store_dir="chroma_db/",
-            force_rebuild_vectorstore=False  # Set to False since we've already built it
+            force_rebuild_vectorstore=True  # Set to False since we've already built it
         )
         
         # Run the complete evaluation pipeline
