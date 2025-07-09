@@ -238,7 +238,7 @@ class ChecklistEvaluator:
         )
     
     def _generate_search_queries(self, checklist_item: Dict[str, Any]) -> List[str]:
-        """Generate search queries for RAG retrieval using checklist-defined keywords"""
+        """Generate search queries for RAG retrieval using checklist-defined keywords and context"""
         # Handle both "requirement" and "parameter" fields
         requirement = checklist_item.get('requirement', checklist_item.get('parameter', ''))
         puro_requires = checklist_item.get('puroRequires', checklist_item.get('puroLooksFor', checklist_item.get('requirement', '')))
@@ -265,7 +265,55 @@ class ChecklistEvaluator:
             # This maintains backward compatibility with old checklists
             queries.extend(self._extract_fallback_keywords(requirement, puro_requires))
         
+        # Extract additional search terms from context fields
+        context_search_terms = self._extract_context_search_terms(checklist_item)
+        queries.extend(context_search_terms)
+        
         return list(set(queries))  # Remove duplicates
+    
+    def _extract_context_search_terms(self, checklist_item: Dict[str, Any]) -> List[str]:
+        """Extract search terms from additional context fields"""
+        search_terms = []
+        
+        # Fields that might contain searchable terms
+        searchable_fields = [
+            'context', 'evaluationContext', 'notes', 'technicalDetails',
+            'acceptableEvidence', 'commonIssues'
+        ]
+        
+        for field in searchable_fields:
+            value = checklist_item.get(field)
+            if not value:
+                continue
+                
+            if isinstance(value, str):
+                # Extract key terms from text (avoid too generic words)
+                words = value.split()
+                meaningful_terms = [
+                    word.strip('.,()[]') for word in words 
+                    if len(word) > 4 and word.lower() not in {
+                        'should', 'would', 'could', 'these', 'those', 'their', 'there', 
+                        'where', 'which', 'while', 'during', 'before', 'after'
+                    }
+                ]
+                search_terms.extend(meaningful_terms[:5])  # Limit to avoid too many terms
+                
+            elif isinstance(value, list):
+                # Handle list of strings
+                for item in value:
+                    if isinstance(item, str):
+                        search_terms.append(item)
+                        
+            elif isinstance(value, dict):
+                # Handle nested dictionaries (like technicalDetails)
+                for subkey, subvalue in value.items():
+                    if isinstance(subvalue, (str, list)):
+                        if isinstance(subvalue, str):
+                            search_terms.append(subvalue)
+                        else:
+                            search_terms.extend([str(item) for item in subvalue])
+        
+        return search_terms[:10]  # Limit total additional terms
     
     def _extract_fallback_keywords(self, requirement: str, puro_requires: str) -> List[str]:
         """Fallback keyword extraction for backward compatibility"""

@@ -1,9 +1,9 @@
 {
   "summary": {
     "total_requirements": 31,
-    "present": 9,
-    "missing": 5,
-    "unclear": 17,
+    "present": 8,
+    "missing": 0,
+    "unclear": 23,
     "overall_status": "likely_ineligible",
     "evaluation_completed": true,
     "termination_reason": null
@@ -15,46 +15,50 @@
         {
           "requirement": "Eligible Process",
           "status": "unclear",
-          "reason": "The documents provide some information about the pyrolysis process and reactor specifications, but they do not clearly confirm the presence of engineered CH\u2084 control, which is a specific requirement for the eligible process. The evidence mentions the use of partial oxidation of carbonization gases and a downstream high-temperature combustion chamber, but it does not explicitly detail engineered methane control mechanisms.",
+          "reason": "The documents provide some information about the pyrolysis process, but it is unclear whether the process is designed with engineered CH\u2084 control. The Carbo-FORCE reactor is mentioned, but the details about the control system are not provided.",
           "evidence_found": [
-            "- Evidence 4 and 5 describe the Carbo-FORCE reactor's use of partial oxidation and high-temperature combustion.\n- Evidence 25 and 26 mention the combustion air system and the oxidation of synthesis gases.\n- Evidence 24 describes the pyrolysis units and their components, including a gas capture system. (Sources: Air Permit.pdf, CarboForce Agreement.pdf, MRV Process by Cula.pdf...)"
+            "Evidence 1, Evidence 2, Evidence 5, Evidence 12, Evidence 15, Evidence 21 (Sources: MRV Process by Cula.pdf, CarboForce Agreement.pdf, Feasibility Study (1).pdf...)"
           ],
           "missing_evidence": [
-            "Specific details or documentation confirming the engineered control of methane (CH\u2084) emissions during the pyrolysis/gasification process."
+            "Clear evidence of engineered CH\u2084 control in the pyrolysis process"
           ],
           "confidence_score": 0.6
         },
         {
           "requirement": "H/Corg Ratio",
-          "status": "present",
-          "reason": "The requirement for the H/Corg ratio to be less than 0.7 is clearly satisfied by the evidence provided. The IBI Biochar Report and the Technical IBI Biochar Report both indicate a Hydrogen/Carbon (H:C) molar ratio of 0.30, which is well below the required threshold of 0.7. Additionally, the reports specify that the analysis was conducted using ASTM D1762-84, a recognized standard method, and the laboratory is accredited, ensuring the reliability of the results.",
+          "status": "unclear",
+          "reason": "There are multiple lab reports (Evidence 5, 13, 19, 21) that show the H/Corg ratio, but only one of them (Evidence 5) shows a ratio below 0.7 (0.30). The other reports do not provide sufficient information to determine if the ratio is below 0.7. Additionally, there is no clear evidence of lab accreditation for the tests.",
           "evidence_found": [
-            "Evidence 28 and Evidence 29 from the IBI Biochar Report and Technical IBI Biochar Report, respectively, both show a H/C ratio of 0.30. (Sources: CarboForce Agreement.pdf, Biomass Raw Material Report.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 5 shows a H/Corg ratio of 0.30, which is below 0.7. (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, Biochar sampling protocol.docx...)"
           ],
-          "missing_evidence": [],
-          "confidence_score": 1.0
+          "missing_evidence": [
+            "Clear evidence of lab accreditation for the tests and more lab reports showing a H/Corg ratio below 0.7."
+          ],
+          "confidence_score": 0.6
         },
         {
           "requirement": "Biochar Stability",
-          "status": "present",
-          "reason": "The evidence provided demonstrates that the biochar produced is intended for long-term carbon storage applications, specifically as a soil amendment. This aligns with Puro.earth's requirement for biochar to be used in non-fuel applications that ensure carbon permanence. The H/Corg ratio of 0.30, as shown in Evidence 1 and 2, indicates high stability and suitability for long-term carbon storage. Additionally, Evidence 18 and 26 describe the biochar's use in soil amendment, which is a recognized method for carbon sequestration and aligns with the requirement for non-fuel, carbon-retaining applications.",
+          "status": "unclear",
+          "reason": "The provided documents contain some evidence of biochar stability, but it is not comprehensive enough to fully satisfy the requirement. There are multiple documents mentioning the use of biochar in soil, insulation, and construction, but they do not provide a clear and detailed explanation of how the biochar is used and its long-term stability.",
           "evidence_found": [
-            "Evidence 1, 2, 18, and 26. (Sources: CarboForce Agreement.pdf, Durr CO2 Sync warrant agreement.pdf, Feasibility Study (1).pdf...)"
+            "Evidence 11 (from data/Feasibility Study (1).pdf) mentions the use of biochar in agriculture and landscaping, which improves soil health and sequesters carbon. Evidence 21 (from data/Durr CO2 Sync warrant agreement.pdf) mentions the use of insulation, and Evidence 23 (from data/CarboForce Agreement.pdf) mentions the use of construction materials. However, these documents do not provide a clear explanation of how the biochar is used and its long-term stability. (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, Biochar sampling protocol.docx...)"
           ],
-          "missing_evidence": [],
-          "confidence_score": 0.95
+          "missing_evidence": [
+            "A detailed explanation of how the biochar is used and its long-term stability, including information on the H/Corg ratio, permanence factors, and other relevant metrics."
+          ],
+          "confidence_score": 0.6
         },
         {
           "requirement": "Biomass Source",
           "status": "unclear",
-          "reason": "The evidence indicates that the primary feedstock is wood chips derived from standing dead trees, specifically beetle kill forests, which suggests a sustainable or waste biomass source. However, there is no explicit mention of FSC/PEFC certification or local approvals, which are required to fully satisfy the Puro.earth criteria for sustainable biomass sourcing.",
+          "reason": "The documents provide some evidence of sustainable biomass sourcing, but it is not clear if the biomass is waste or sustainably sourced. Evidence 5 and 9 suggest that the transportation of biomass is tracked, which is a positive step. However, Evidence 3 and 4 from the CarboForce Agreement mention the importance of contaminants and grain size, but do not explicitly state that the biomass is waste or sustainably sourced. Evidence 10 from the Biomass Raw Material Report provides analytical data on the biomass, but does not mention the source or sustainability of the biomass.",
           "evidence_found": [
-            "- Evidence 1, 6, 10, 15, 17, 26: Mention of wood chips from standing dead trees and beetle kill forests.\n- Evidence 24, 28: Details on the feedstock process and tracking, indicating the use of wood chips from standing dead trees. (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Material Container - Jan 2025.xlsx...)"
+            "Evidence 5, 9, 10, 3, 4, 22, 23, 24 (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "Explicit documentation or certification such as FSC/PEFC certification or local approvals for the biomass source."
+            "Clear evidence of waste or sustainably sourced biomass, such as a feedstock list or sustainability certifications (e.g., FSC/PEFC certification)"
           ],
-          "confidence_score": 0.7
+          "confidence_score": 0.6
         }
       ]
     },
@@ -64,80 +68,72 @@
         {
           "requirement": "Biomass Origin & Type",
           "status": "unclear",
-          "reason": "The evidence provided includes some information about the biomass origin and type, specifically mentioning the use of wood chips from standing dead trees, particularly beetle-kill forests, which could potentially align with the EBC positive list. However, there is no explicit confirmation that the biomass matches the EBC positive list or any detailed justification for the use of invasive species, if applicable. The documents do not provide a comprehensive feedstock list or sourcing contracts that would clearly demonstrate compliance with Puro.earth's requirements.",
+          "reason": "The provided documents contain some information about the biomass origin and type, but it is not clear if they match the EBC positive list or if there is an invasive species justification. Evidence 3 and 4 mention that the primary feedstock is wood chips derived from standing dead trees, which could be considered a sustainable source. However, there is no explicit mention of the EBC positive list or invasive species justification. Evidence 13 and 14 provide information about the raw material specifications, but it is not directly related to the biomass origin and type. Evidence 15 and 16 mention that the feedstock is utilized from a brownfield site, which could be considered a sustainable source, but it is not clear if it matches the EBC positive list.",
           "evidence_found": [
-            "- Evidence 3 and 9 mention the use of wood chips from standing dead trees, focusing on beetle-kill forests.\n- Evidence 13 discusses the environmental impact of beetle infestations, which could imply a justification for using such biomass. (Sources: MRV Process by Cula.pdf, CarboForce Agreement.pdf, Material Container - Jan 2025.xlsx...)"
+            "Evidence 3, 4, 13, 14, 15, 16 (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "Explicit confirmation that the biomass matches the EBC positive list and detailed justification for the use of invasive species, if applicable. A comprehensive feedstock list and sourcing contracts are also needed."
+            "Clear evidence that the biomass origin and type match the EBC positive list and invasive species justification"
           ],
           "confidence_score": 0.6
         },
         {
           "requirement": "Reactor Specs",
-          "status": "unclear",
-          "reason": "The documents provide some information about the reactor type and its operation, including the Carbo-FORCE reactor's ability to handle high temperatures and its continuous operation design. However, there is no explicit mention of the reactor's capability to achieve a specific H/C ratio or detailed evidence of combustion completeness. The evidence suggests a robust system with integrated drying and heat recovery, but it lacks specific technical specifications or test results that confirm the reactor's ability to meet the H/C ratio requirement and combustion completeness.",
-          "evidence_found": [
-            "Evidence 2, 3, 4, 5, 25, 26, 28, 29, 31, 32 (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Durr CO2 Sync warrant agreement.pdf...)"
-          ],
-          "missing_evidence": [
-            "Specific technical specifications or test results confirming the reactor's capability to achieve the required H/C ratio and combustion completeness."
-          ],
-          "confidence_score": 0.7
-        },
-        {
-          "requirement": "Emissions Safety",
           "status": "present",
-          "reason": "The evidence from the Air Permit document indicates that the emissions from the project fall well below the EPA thresholds that would require a Title 5 permit, and no Hazardous Air Pollutants (HAPs) are emitted. The document specifies that the emissions are within EPA guidelines, which are the only guiding factors for the state of Utah and Carbon County. This suggests compliance with local limits for emissions such as PM, NOx, and SO\u2082.",
+          "reason": "The documents provide clear evidence of the reactor type, H/C ratio capability, and combustion completeness.",
           "evidence_found": [
-            "Evidence 1, 3, 11, 12, 14, 18, 31 from the Air Permit document. (Sources: Air Permit.pdf, MRV Process by Cula.pdf, CarboForce Agreement.pdf...)"
+            "Evidence 5 (from data/CarboForce Agreement.pdf) provides specific details about the reactor type (Carbo-FORCE CF-1000iD), H/C ratio capability (0.30, which is below the 0.7 threshold), and combustion completeness (exhaust gas emissions are specified, indicating that the combustion process is complete). (Sources: MRV Process by Cula.pdf, CarboForce Agreement.pdf, Feasibility Study (1).pdf...)"
           ],
           "missing_evidence": [],
           "confidence_score": 0.9
         },
         {
-          "requirement": "Waste Management",
+          "requirement": "Emissions Safety",
           "status": "unclear",
-          "reason": "The documents provide some information related to waste management, such as the handling of wastewater and ash, but there is no comprehensive environmental impact summary detailing the handling of oil, tars, wastewater, and ash. Specific mentions include wastewater disposal via the sewer system and minimal inert wood ash disposal (Evidence 19), and sewerage outlets and water-side connections (Evidence 20). However, there is no detailed description of how oil and tars are managed, nor is there a complete environmental impact summary that covers all required aspects.",
+          "reason": "The provided documents contain some information related to emissions, but it is not clear if the project complies with local limits for PM, NOx, and SO\u2082. Evidence 16 from Air Permit.pdf shows that the project's emissions fall below the EPA threshold, but it does not provide specific information about the local limits. Additionally, Evidence 3 from CarboForce Agreement.pdf provides some information about NOx emissions, but it is not clear if this is compliant with local limits.",
           "evidence_found": [
-            "Evidence 19 mentions wastewater disposal and ash handling. Evidence 20 mentions sewerage outlets. (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Biomass Raw Material Report.pdf...)"
+            "Evidence 16 from Air Permit.pdf, Evidence 3 from CarboForce Agreement.pdf (Sources: Biomass Raw Material Report.pdf, Corporate Structure and Bio.pdf, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "A comprehensive environmental impact summary detailing the handling of oil, tars, wastewater, and ash."
+            "Specific information about local limits for PM, NOx, and SO\u2082, or evidence that the project complies with these limits."
           ],
           "confidence_score": 0.6
         },
         {
-          "requirement": "Energy Co-use (optional)",
+          "requirement": "Waste Management",
           "status": "unclear",
-          "reason": "The documents provide some information about energy production and potential heat recovery systems, such as the use of Organic Rankine Cycle (ORC) systems and heat exchangers, which suggest the possibility of waste heat utilization. However, there is no explicit mention of an energy integration plan or specific details on how waste heat is being used for internal or external applications. The evidence is fragmented and lacks a comprehensive description of the energy co-use strategy.",
+          "reason": "===\n\nThe requirement for waste management involves handling of oil, tars, wastewater, and ash. While some documents mention the handling of contaminants, such as plastics and iron/steel particles, and the need for cleaning the fuel on site, there is no clear evidence that specifically addresses the handling of oil, tars, and wastewater. The documents do mention the use of magnetic separators and the importance of removing contaminants, but this is more related to the feedstock quality than the handling of waste.",
+          "evidence_found": [],
+          "missing_evidence": [],
+          "confidence_score": 0.0
+        },
+        {
+          "requirement": "Energy Co-use (optional)",
+          "status": "present",
+          "reason": "The documents provide clear evidence of the use of waste heat, internal or external applications, which satisfies the requirement.",
           "evidence_found": [
-            "Evidence 10, 11, 12, 13, 14, 16, 20, 21, 23 mention components like ORC systems and heat exchangers that could be used for waste heat recovery. (Sources: CarboForce Agreement.pdf, Durr CO2 Sync warrant agreement.pdf, Feasibility Study (1).pdf...)"
+            "Evidence 5 (Feasibility Study (1).pdf) mentions the interest in renewable energy sources, particularly in the context of waste management, and the use of waste biomass to generate usable fuels like bio-oil and biogas for heat and power generation. Evidence 8 (Feasibility Study (1).pdf) also mentions the acquisition of two new CarboForce1000 pyrolysis reactors that will generate electricity for customers. Additionally, Evidence 16 (CarboForce Agreement.pdf) describes the heat distribution and decoupling system, which utilizes the thermal energy from the combustion zone. (Sources: Expansion Financial model.xlsx, Feasibility Study (1).pdf, CarboForce Agreement.pdf...)"
           ],
-          "missing_evidence": [
-            "A detailed energy integration plan explicitly outlining the use of waste heat for internal or external applications."
-          ],
-          "confidence_score": 0.6
+          "missing_evidence": [],
+          "confidence_score": 0.9
         },
         {
           "requirement": "End-Use Eligibility",
           "status": "present",
-          "reason": "The documents provide clear evidence that the biochar produced is not intended for use as fuel and has a well-defined market. The biochar is primarily used for agriculture, soil remediation, landscaping, construction, and other environmental applications, which are all carbon-retaining uses. There is no indication that the biochar is used as fuel, and the market validation data shows a broad and growing market for these applications.",
-          "evidence_found": [
-            "Evidence 1, 2, 4, 7, 12, 25, and 26 describe various non-fuel applications of biochar, such as soil amendment, construction materials, and water filtration. Evidence 4, 25, and 26 provide market validation data showing a broad market base for biochar. (Sources: Market Validation.pdf, CarboForce Agreement.pdf, MRV Process by Cula.pdf...)"
-          ],
+          "reason": "Unable to parse evaluation response",
+          "evidence_found": [],
           "missing_evidence": [],
-          "confidence_score": 0.95
+          "confidence_score": 0.9
         },
         {
           "requirement": "Additionality",
           "status": "unclear",
-          "reason": "The evidence provided includes some indications that the project may be considered additional, such as the engagement of Accend to establish additionality and the statement that the project is considered \"automatically additional\" according to Puro's standard (Evidence 8, 26). However, there is no detailed financial model or IRR analysis explicitly demonstrating that the project's viability depends on carbon revenue. Additionally, while there is mention of tax credits and legislative efforts to include biochar in tax credit schemes (Evidence 11, 12, 14), it is not clear how these factors impact the project's financial viability or additionality.",
+          "reason": "The evidence suggests that the project viability needs carbon revenue, but it is unclear whether the project is not mandated by law. Some documents mention that the project is not required by law (Evidence 13 and 14), but others do not provide clear information on this aspect. Additionally, the financial model and IRR are not explicitly linked to the requirement of not being mandated by law.",
           "evidence_found": [
-            "Evidence 8, 11, 12, 14, 26 (Sources: Market Validation.pdf, Feasibility Study (1).pdf, Tax credit overview.pdf...)"
+            "Evidence 13 and 14 suggest that the project is not mandated by law, but Evidence 11, 12, and 17 do not provide clear information on this aspect. (Sources: Expansion Financial model.xlsx, Biochar sampling protocol.docx, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "Detailed financial model or IRR analysis explicitly showing the project's dependency on carbon revenue for viability. Clear documentation that the project is not mandated by law."
+            "Clear evidence that the project is not mandated by law and that its viability needs carbon revenue."
           ],
           "confidence_score": 0.6
         }
@@ -149,38 +145,38 @@
         {
           "requirement": "EIA or Equivalent",
           "status": "unclear",
-          "reason": "The documents provide some information related to environmental impacts and mitigation strategies, particularly in the \"Application of Conditional Use Permit\" document, which discusses impacts on health, safety, and community, as well as mitigation methods. However, there is no comprehensive Environmental Impact Assessment (EIA) or equivalent document that clearly identifies risks for air, water, land, and community in a structured manner. The evidence is fragmented and lacks a cohesive summary or permit that explicitly addresses all required risk identifications.",
+          "reason": "===\nThe provided documents contain some information related to environmental impact assessments, risk identification, and permits, but it is not clear if they fully satisfy the requirement for an EIA or equivalent. The documents mention the EPA regulations, permits, and emissions monitoring, but they do not provide a comprehensive risk identification for air, water, land, and community.\n\n=== EVIDENCE: ===",
           "evidence_found": [
-            "Evidence 10, 11, 12, 17, 18, 21 (Application of Conditional Use Permit) (Sources: Air Permit.pdf, CarboForce Agreement.pdf, Tax credit overview.pdf...)"
+            "===\nEvidence 5 (from data/MRV Process by Cula.pdf) mentions MRV software that tracks carbon sequestration, but it does not provide a clear link to an EIA or equivalent. Evidence 6 (from data/Feasibility Study (1).pdf) mentions the use of state-of-the-art MRV software, but it does not provide a clear description of the EIA or equivalent. Evidence 13 (from data/Durr CO2 Sync warrant agreement.pdf) mentions a performance guarantee, but it is not clear if it is related to an EIA or equivalent.\n\n=== MISSING: ===\nTo fully satisfy the requirement, the following evidence is still needed:\n\n- A clear description of the EIA or equivalent, including its scope, methodology, and results.\n- A comprehensive risk identification for air, water, land, and community.\n- Evidence that the EIA or equivalent was conducted by a qualified and independent third-party organization.\n\n=== CONFIDENCE: === (Sources: Expansion Financial model.xlsx, MRV Process by Cula.pdf, Feasibility Study (1).pdf...)"
           ],
           "missing_evidence": [
-            "A comprehensive Environmental Impact Assessment (EIA) or equivalent document that clearly identifies and assesses risks for air, water, land, and community, along with an environmental permit."
+            "===\nTo fully satisfy the requirement, the following evidence is still needed:\n\n- A clear description of the EIA or equivalent, including its scope, methodology, and results.\n- A comprehensive risk identification for air, water, land, and community.\n- Evidence that the EIA or equivalent was conducted by a qualified and independent third-party organization.\n\n=== CONFIDENCE: ==="
           ],
-          "confidence_score": 0.6
+          "confidence_score": 0.0
         },
         {
           "requirement": "Stakeholder Consultation",
           "status": "unclear",
-          "reason": "There is some evidence suggesting local support and consultation processes, such as the approval of a Memorandum of Understanding (MOU) for property lease and testing between Carbon County and Clean Development International (Evidence 4, 6, 12). However, there is no direct evidence of comprehensive stakeholder consultation, such as meeting notes or approval letters, that clearly demonstrate local support, consent, and a formal consultation process. Additionally, there is mention of a stakeholder meeting document with non-working links (Evidence 10, 13, 22), which further complicates the assessment.",
+          "reason": "While there are some mentions of local support, consent, and consultation processes, the evidence provided does not clearly demonstrate a comprehensive stakeholder consultation process. The documents mention meetings, approvals, and agreements, but they do not provide detailed information about the consultation process, such as who was consulted, how they were consulted, and what their feedback was.",
           "evidence_found": [
-            "Evidence 4, 6, 12 (MOU approval), Evidence 10, 13, 22 (non-working links to stakeholder meeting document). (Sources: MRV Process by Cula.pdf, CarboForce Agreement.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 5 (Final minutes of the December 18, 2024 Carbon County Commission Meeting \u2013 page 3 of 7) mentions significant changes in the subdivision process, but it does not provide information about stakeholder consultation. Evidence 6 (Final minutes of the December 18, 2024 Carbon County Commission Meeting \u2013 page 2 of 7) mentions an MOU with Utah State University Extension and Carbon County, but it does not provide information about stakeholder consultation. (Sources: Carbon County Utah Approvals For Land Sale.pdf, Organisation Structure.pdf, Durr CO2 Sync warrant agreement.pdf)"
           ],
           "missing_evidence": [
-            "Meeting notes, approval letters, or other documentation explicitly detailing the stakeholder consultation process, including evidence of local support and consent."
+            "Detailed information about the stakeholder consultation process, including who was consulted, how they were consulted, and what their feedback was."
           ],
           "confidence_score": 0.6
         },
         {
           "requirement": "Safety Protocols",
           "status": "unclear",
-          "reason": "The documents provide some information on safety protocols related to the handling, storage, and transport of biochar, but the evidence is fragmented and lacks comprehensive detail. There are mentions of safety devices, fire control measures, and storage protocols, but these are not fully detailed or specific to biochar. For instance, there is mention of a temperature-controlled extinguishing water system (Evidence 5 and 6), and biochar being stored in large tote bags with QR code tracking (Evidence 13 and 23). However, there is no comprehensive MSDS or detailed fire control and transport precautions specifically for biochar.",
+          "reason": "Some evidence of safety protocols is present, but it is mostly related to equipment and transportation, and there is no comprehensive documentation of safety procedures for handling, storage, and transport of biochar.",
           "evidence_found": [
-            "- Evidence 5 and 6: Temperature-controlled extinguishing water system.\n- Evidence 13 and 23: Biochar stored in large tote bags with QR code tracking.\n- Evidence 25: Mention of fire safety and suppression measures. (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 5 (Durr CO2 Sync warrant agreement.pdf) mentions the customer's responsibility to point out obstacles and risks during transportation, and Evidence 13 (Durr CO2 Sync warrant agreement.pdf) describes safety features and equipment for the ORC module. Evidence 17 (Cula Tracking Cycle (1).pdf) and Evidence 18 (MRV Process by Cula.pdf) mention tracking and validating biochar transportation, but these are more related to logistics and inventory control than safety protocols. (Sources: Biochar sampling protocol.docx, MRV Process by Cula.pdf, CarboForce Agreement.pdf...)"
           ],
           "missing_evidence": [
-            "A comprehensive MSDS for biochar, detailed fire control measures specific to biochar, and specific transport precautions."
+            "Comprehensive documentation of safety procedures for handling, storage, and transport of biochar, including emergency response plans, personal protective equipment requirements, and training protocols."
           ],
-          "confidence_score": 0.7
+          "confidence_score": 0.6
         }
       ]
     },
@@ -190,41 +186,41 @@
         {
           "requirement": "H/Corg Ratio",
           "status": "present",
-          "reason": "The requirement for the H/Corg ratio to be less than 0.7 is clearly satisfied by the evidence provided in the Technical IBI Biochar Report. The report specifies a Hydrogen/Carbon (H:C) molar ratio of 0.30, which is well below the required maximum of 0.7, indicating compliance with the carbon permanence indicator.",
+          "reason": "The H/Corg ratio is explicitly mentioned in multiple documents (Evidence 2, Evidence 5, Evidence 13, Evidence 19, and Evidence 20) as being within the acceptable range (< 0.7). This indicates that the biochar produced by CO2-SYNC LLC meets the required stability criteria.",
           "evidence_found": [
-            "Evidence 24, 25, 26, and 33 from the Technical IBI Biochar Report, which states the H/C ratio as 0.30. (Sources: CarboForce Agreement.pdf, Biomass Raw Material Report.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 2, Evidence 5, Evidence 13, Evidence 19, and Evidence 20 (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, Biochar sampling protocol.docx...)"
           ],
           "missing_evidence": [],
-          "confidence_score": 1.0
+          "confidence_score": 0.9
         },
         {
           "requirement": "Organic Carbon Content",
-          "status": "present",
-          "reason": "The requirement for Organic Carbon Content is clearly satisfied by the evidence provided. The IBI Biochar Report and the Technical IBI Biochar Report both indicate that the organic carbon content of the biochar is 77.4% of the total dry mass. This is a substantial percentage, indicating a high level of organic carbon content, which is crucial for CO\u2082 storage calculations.",
+          "status": "unclear",
+          "reason": "The evidence provided shows that the biomass raw material has a carbon content, but it does not explicitly state the organic carbon content. The Feasibility Study mentions utilizing feedstock that would otherwise decompose or contribute to wildfire risks, implying that the organic carbon content is relevant, but it does not provide a specific value.",
           "evidence_found": [
-            "Evidence 4, Evidence 5, Evidence 10, Evidence 11, Evidence 16, Evidence 17, Evidence 20, Evidence 21 all report the organic carbon content as 77.4% of total dry mass. (Sources: Feasibility Study (1).pdf, Vericap Due-Diligence.csv, Technical IBI Biochar Report.pdf...)"
+            "Evidence 6 (from data/Biomass Raw Material Report.pdf) shows the carbon content of the biomass raw material, but it does not distinguish between organic and inorganic carbon. (Sources: Biomass Raw Material Report.pdf, Biochar sampling protocol.docx, Term Sheet Climeworks CO2Sync.pdf...)"
           ],
-          "missing_evidence": [],
-          "confidence_score": 1.0
+          "missing_evidence": [
+            "A clear and explicit statement of the organic carbon content of the biomass raw material."
+          ],
+          "confidence_score": 0.6
         },
         {
           "requirement": "PAHs & Heavy Metals",
-          "status": "unclear",
-          "reason": "The evidence provided includes detailed measurements of heavy metals in the biochar, such as arsenic, cadmium, chromium, and others, with results compared to maximum levels. However, there is no specific mention of PAHs (Polycyclic Aromatic Hydrocarbons) in the documents provided. The requirement for PAHs & Heavy Metals is not fully addressed as the PAHs data is missing.",
+          "status": "present",
+          "reason": "The documents provide evidence of PAHs and heavy metals testing, with results below the reporting limits or within acceptable ranges. Evidence 5, 10, 11, and 15 show the results of heavy metals testing, and Evidence 5 and 11 show the results of PAHs testing. Additionally, Evidence 13 mentions EBC limits, which implies that the project is following EBC guidelines for heavy metals and PAHs.",
           "evidence_found": [
-            "Evidence 4, 5, 7, 8, 10, 11, 13, 14, 22, 23 (detailed heavy metals analysis). (Sources: Air Permit.pdf, Biomass Raw Material Report.pdf, CarboForce Agreement.pdf...)"
+            "Evidence 5, 10, 11, 15, and 13 (Sources: Biochar sampling protocol.docx, Term Sheet Climeworks CO2Sync.pdf, CarboForce Agreement.pdf...)"
           ],
-          "missing_evidence": [
-            "Specific data or analysis on PAHs levels in the biochar, compared to EBC or IBI limits."
-          ],
-          "confidence_score": 0.7
+          "missing_evidence": [],
+          "confidence_score": 0.9
         },
         {
           "requirement": "Moisture, Ash, pH, EC",
           "status": "present",
-          "reason": "The requirement for reporting moisture, ash, pH, and electrical conductivity (EC) is satisfied by the evidence provided in the documents. The IBI Biochar Report and the Technical IBI Biochar Report contain detailed measurements of these parameters, including moisture content (30.9% wet wt.), total ash (16.7% of total dry mass), pH value (7.97), and electrical conductivity (0.305 dS/m).",
+          "reason": "Multiple documents provide evidence of moisture content, including Evidence 3 (Technical IBI Biochar Report.pdf), Evidence 7 (Technical IBI Biochar Report.pdf), Evidence 8 (Biomass Raw Material Report.pdf), and Evidence 9 (Technical IBI Biochar Report.pdf), which all report moisture content values.",
           "evidence_found": [
-            "Evidence 5, 6, 7, 8, 10, 11, 14, and 15 from the IBI Biochar Report and Technical IBI Biochar Report. (Sources: MRV Process by Cula.pdf, Biomass Raw Material Report.pdf, Puro LCA Result Reporting Template.xlsx...)"
+            "Evidence 3, Evidence 7, Evidence 8, and Evidence 9 (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, Biochar sampling protocol.docx...)"
           ],
           "missing_evidence": [],
           "confidence_score": 1.0
@@ -237,9 +233,9 @@
         {
           "requirement": "Company Identity",
           "status": "present",
-          "reason": "The requirement for Company Identity is satisfied by the presence of a trade registry extract, which is evidenced by the Certificate of Organization for CO2-Sync, LLC. This document confirms the company's registration as a Utah Limited Liability Company, including its file number, purpose, and perpetual duration.",
+          "reason": "The provided documents contain multiple pieces of evidence that confirm the company identity, including the Certificate of Organization (Evidence 12 and 13), which explicitly states the name of the limited liability company as CO2-Sync, LLC, and its registered address in Utah. Additionally, the trade registry extract (Evidence 4) provides the business entity's physical address and the registered agent's information.",
           "evidence_found": [
-            "Evidence 5 and Evidence 10 from the \"Organisation Certification.pdf\" document provide the Certificate of Organization for CO2-Sync, LLC, confirming its registration and legal status. (Sources: Organisation Certifcation.pdf, MRV Process by Cula.pdf, CarboForce Agreement.pdf...)"
+            "Evidence 12, Evidence 13, and Evidence 4 (Sources: MRV Process by Cula.pdf, Durr CO2 Sync warrant agreement.pdf, Organisation Certifcation.pdf)"
           ],
           "missing_evidence": [],
           "confidence_score": 1.0
@@ -247,36 +243,38 @@
         {
           "requirement": "Facility Location",
           "status": "unclear",
-          "reason": "The evidence provided does not include specific maps, coordinates, or a complete address that clearly identifies the facility location. While there are references to the facility being located in an industrial park and in a low-income community, these do not provide precise location details such as a specific address or geographical coordinates.",
+          "reason": "While there are mentions of locations and addresses, the specific facility location(s) where the biochar production takes place are not clearly stated. Some documents mention the Heber City headquarters, but it is unclear if this is the primary production facility or a separate location.",
           "evidence_found": [
-            "Evidence 7, 14, 16, and 20 mention the facility being located in an industrial park, and Evidence 8, 13, and 19 mention siting in a low-income community. However, none of these provide specific maps, coordinates, or a full address. (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 5 (address: 2250 Elk Meadows Drive, Kamas, UT 84036), Evidence 7 (sampling location, but no specific geographical coordinates), Evidence 9 (Heber City headquarters), Evidence 11 (Heber City headquarters) (Sources: Expansion Financial model.xlsx, Biochar sampling protocol.docx, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "Specific maps, geographical coordinates, or a complete address of the facility location."
+            "Specific facility location(s) where biochar production takes place, including geographical coordinates or a clear description of the location."
           ],
           "confidence_score": 0.6
         },
         {
           "requirement": "Public Support",
-          "status": "missing",
-          "reason": "The requirement for public support necessitates a declaration or letter of support from Puro or another relevant registry. The evidence provided indicates that such a letter of support has not yet been obtained. Specifically, Evidence 1 and Evidence 20 both state that the letter of support is not yet available and that an audit by Puro is pending.",
+          "status": "unclear",
+          "reason": "Some evidence suggests public support, but it is not clear if it is sufficient or relevant to the project. Evidence 8 (from data/Carbon County Utah Approvals For Land Sale.pdf) shows a motion to approve a grant application, which implies public support. However, the context is unclear, and it is not evident if this support is directly related to the project.",
           "evidence_found": [
-            "Evidence 1 and Evidence 20 both mention the absence of a letter of support from Puro. (Sources: Durr CO2 Sync warrant agreement.pdf, Feasibility Study (1).pdf, Tax credit overview.pdf...)"
+            "Evidence 8 (from data/Carbon County Utah Approvals For Land Sale.pdf) (Sources: Expansion Financial model.xlsx, Term Sheet Climeworks CO2Sync.pdf, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "A letter of support or equivalent documentation from Puro or another relevant registry confirming public support."
+            "Clear and direct evidence of public support for the project, such as a declaration or a statement from a relevant authority."
           ],
-          "confidence_score": 0.9
+          "confidence_score": 0.6
         },
         {
           "requirement": "KYC",
-          "status": "missing",
-          "reason": "The provided documents do not contain any specific evidence related to Know Your Customer (KYC) procedures or documentation for facility owners. The evidence provided mainly pertains to operational agreements, due diligence, and compliance with biochar standards, but does not address KYC requirements directly.",
-          "evidence_found": [],
-          "missing_evidence": [
-            "Specific documentation or evidence showing that KYC procedures have been conducted for all facility owners, such as identity verification, background checks, or any related compliance documentation."
+          "status": "unclear",
+          "reason": "The provided documents contain some information related to the customer (CO2-Sync) but it is not clear if it is sufficient for a thorough KYC process. Evidence 9 and 10 from the Durr CO2 Sync warrant agreement.pdf seem to be related to the customer's obligations and responsibilities, but they do not provide any information about the customer's identity, ownership structure, or other relevant details.",
+          "evidence_found": [
+            "Evidence 9 and 10 from the Durr CO2 Sync warrant agreement.pdf, which mention the customer's obligations and responsibilities. (Sources: Feasibility Study (1).pdf, Organisation Structure.pdf, Durr CO2 Sync warrant agreement.pdf...)"
           ],
-          "confidence_score": 0.9
+          "missing_evidence": [
+            "Clear and comprehensive information about the customer's identity, ownership structure, and other relevant details."
+          ],
+          "confidence_score": 0.6
         }
       ]
     },
@@ -286,44 +284,50 @@
         {
           "requirement": "Carbon Storage Equation",
           "status": "unclear",
-          "reason": "The evidence provided includes various references to emissions and carbon storage calculations, but it is not clear if Puro's specific carbon storage equation, which includes \ud835\udc38stored, \ud835\udc38biomass, \ud835\udc38production, and \ud835\udc38use, is being used. The documents contain detailed LCA data and emissions factors, but there is no explicit mention or demonstration of using Puro's equation as required.",
+          "reason": "The documents provide some evidence related to carbon storage, but it is not directly related to the use of Puro's equation with \ud835\udc38stored, \ud835\udc38biomass, \ud835\udc38production, and \ud835\udc38use. Evidence 15 (Term Sheet Climeworks CO2Sync.pdf) mentions reserved quantities and commitment, but it does not explicitly mention the use of Puro's equation. Evidence 17 (Expansion Financial model.xlsx) and Evidence 18 (MRV Process by Cula.pdf) provide some information on production emissions and MRV process, but they do not directly relate to the carbon storage equation. Evidence 19 (Biomass Raw Material Report.pdf) and Evidence 20 (Feasibility Study (1).pdf) provide information on biomass carbon, but it is not directly related to the carbon storage equation.",
           "evidence_found": [
-            "Evidence 13, 14, 19, 20, 21, and 30 from the Puro LCA Result Reporting Template.xlsx mention emissions and carbon storage components, but do not explicitly confirm the use of Puro's specific equation. (Sources: Material Container - Jan 2025.xlsx, Feasibility Study (1).pdf, Vericap Due-Diligence.csv...)"
+            "Evidence 15 (Term Sheet Climeworks CO2Sync.pdf), Evidence 17 (Expansion Financial model.xlsx), Evidence 18 (MRV Process by Cula.pdf), Evidence 19 (Biomass Raw Material Report.pdf), and Evidence 20 (Feasibility Study (1).pdf) (Sources: Expansion Financial model.xlsx, Biomass Raw Material Report.pdf, Term Sheet Climeworks CO2Sync.pdf...)"
           ],
           "missing_evidence": [
-            "Explicit confirmation or demonstration that Puro's carbon storage equation is used, including all required components (\ud835\udc38stored, \ud835\udc38biomass, \ud835\udc38production, \ud835\udc38use)."
+            "Clear evidence that directly uses Puro's equation with \ud835\udc38stored, \ud835\udc38biomass, \ud835\udc38production, and \ud835\udc38use to calculate carbon storage."
+          ],
+          "confidence_score": 0.4
+        },
+        {
+          "requirement": "Soil Temp Justification",
+          "status": "unclear",
+          "reason": "The provided documents contain some information related to soil temperature and biochar application, but there is no clear evidence that directly links the soil temperature to the permanence factor (Fp) used in the project. Evidence 9 (Technical IBI Biochar Report.pdf) provides some data on soil temperature, but it is not explicitly linked to the Fp. Additionally, Evidence 11 and 12 (Feasibility Study (1).pdf) mention the importance of soil temperature in biochar application, but do not provide a clear justification for the Fp used in the project.",
+          "evidence_found": [
+            "Evidence 9 (Technical IBI Biochar Report.pdf) provides some data on soil temperature, but it is not explicitly linked to the Fp. (Sources: Biomass Raw Material Report.pdf, Corporate Structure and Bio.pdf, CarboForce Agreement.pdf...)"
+          ],
+          "missing_evidence": [
+            "Clear evidence that directly links the soil temperature to the permanence factor (Fp) used in the project."
           ],
           "confidence_score": 0.6
         },
         {
-          "requirement": "Soil Temp Justification",
-          "status": "missing",
-          "reason": "The requirement for Soil Temp Justification used in the permanence factor (Fp) is not clearly addressed in any of the provided documents. There is no specific mention or evidence of soil temperature data or justification being used in the calculation of the permanence factor (Fp) as required by Puro.earth. The documents do not provide any information on the soil temperature source or any justification for the soil temperature used in the permanence factor.",
-          "evidence_found": [],
-          "missing_evidence": [
-            "Specific evidence of soil temperature data or justification used in the permanence factor (Fp), including the source of soil temperature (default: 14.9\u00b0C) or any alternative temperature used."
-          ],
-          "confidence_score": 0.9
-        },
-        {
           "requirement": "Offtake Proof",
-          "status": "missing",
-          "reason": "The requirement for Offtake Proof to ensure permanent, non-fuel use of biochar is not clearly satisfied by the provided documents. The evidence reviewed includes various contracts and agreements, but none explicitly demonstrate that the biochar is being used in a permanent, non-fuel application. There are no specific contracts, invoices, or shipping documents that confirm the biochar's end-use aligns with Puro.earth's criteria for non-fuel applications.",
-          "evidence_found": [],
-          "missing_evidence": [
-            "Specific contracts, invoices, or shipping documents that confirm the biochar is being used in applications such as soil amendment, construction materials, or insulation, and not as a fuel."
+          "status": "unclear",
+          "reason": "While there are some documents related to contracts, offtake agreements, and shipping, they do not directly prove the permanent, non-fuel use of the biochar. Some documents mention the use of biochar for electricity generation, which could be considered a non-fuel use, but it is not explicitly stated that the biochar is not used as fuel. Additionally, there is no clear evidence of offtake agreements that ensure the biochar is used in a way that meets the Puro.earth requirements.",
+          "evidence_found": [
+            "Evidence 2 (Durr CO2 Sync warrant agreement.pdf), Evidence 3 (CarboForce Agreement.pdf), Evidence 4 (Feasibility Study (1).pdf), Evidence 5 (CarboForce Agreement.pdf), Evidence 6 (Feasibility Study (1).pdf), Evidence 13 (Durr CO2 Sync warrant agreement.pdf), Evidence 14 (CarboForce Agreement.pdf), Evidence 15 (Durr CO2 Sync warrant agreement.pdf), Evidence 16 (Term Sheet Climeworks CO2Sync.pdf), Evidence 17 (Durr CO2 Sync warrant agreement.pdf), Evidence 18 (Biochar sampling protocol.docx), Evidence 19 (Durr CO2 Sync warrant agreement.pdf), Evidence 20 (Durr CO2 Sync warrant agreement.pdf) (Sources: Biochar sampling protocol.docx, Term Sheet Climeworks CO2Sync.pdf, MRV Process by Cula.pdf...)"
           ],
-          "confidence_score": 0.8
+          "missing_evidence": [
+            "Clear evidence of offtake agreements that ensure the biochar is used in a way that meets the Puro.earth requirements, such as contracts or agreements that explicitly state the biochar will not be used as fuel."
+          ],
+          "confidence_score": 0.6
         },
         {
           "requirement": "Double Counting Avoidance",
-          "status": "missing",
-          "reason": "The requirement for Double Counting Avoidance necessitates a clear separation of the claim and the physical product, typically demonstrated through a statement on CORC use. The provided documents do not contain any explicit statement or evidence addressing the separation of claims from the physical product or the use of CORCs in a manner that prevents double counting.",
-          "evidence_found": [],
-          "missing_evidence": [
-            "A statement or documentation explicitly detailing the separation of claims from the physical product and how CORCs are used to avoid double counting."
+          "status": "unclear",
+          "reason": "Some evidence suggests separation of claim and physical product, but it is not clear if it is sufficient to meet the requirement. Evidence 7 and 8 from CarboForce Agreement.pdf show that Carbo-FORCE retains title to the product until all claims are settled, which implies separation of claim and physical product. However, Evidence 13 from Durr CO2 Sync warrant agreement.pdf mentions acceleration costs and delay, which could be related to double counting avoidance, but it is not clear if it is sufficient to meet the requirement.",
+          "evidence_found": [
+            "Evidence 7 and 8 from CarboForce Agreement.pdf, Evidence 13 from Durr CO2 Sync warrant agreement.pdf (Sources: Expansion Financial model.xlsx, Biochar sampling protocol.docx, Corporate Structure and Bio.pdf...)"
           ],
-          "confidence_score": 0.9
+          "missing_evidence": [
+            "A clear statement from the project that they have implemented measures to avoid double counting, and evidence that these measures are effective."
+          ],
+          "confidence_score": 0.6
         }
       ]
     },
@@ -332,59 +336,59 @@
       "items": [
         {
           "requirement": "Biomass and Biochar Tracking",
-          "status": "unclear",
-          "reason": "The evidence provided includes various aspects of biomass and biochar tracking, such as tracking the location, biomass type, and fuel used during harvesting (Evidence 5, 13, 15), and generating tracking links for biochar deliveries (Evidence 6, 22). There is also mention of integrating weighing data to reduce manual errors (Evidence 21). However, there is no specific mention of load cell logs or detailed MRV protocols that include moisture and dry weight measurements, which are crucial for comprehensive biomass and biochar tracking as required by Puro.earth.",
+          "status": "present",
+          "reason": "The project provides clear evidence of biomass and biochar tracking through various documents, including MRV protocols, load cell logs, and tracking cycles. The evidence shows that the project logs location, biomass type, fuel to harvest at the source, transportation details, and production activities. Additionally, the project uses APIs to track data automatically, and the Cula MRV platform logs weight data and other relevant production conditions. The project also has a comprehensive biochar sampling and testing protocol in place, which ensures representative sampling and appropriate testing frequency.",
           "evidence_found": [
-            "- Evidence 5: \"We track the location, biomass type, fuel to harvest at the source.\"\n- Evidence 6: \"Create Tracking Links for Biochar Deliveries (Shareable Links or QR Codes).\"\n- Evidence 21: \"Direct Integration of Weighing Data.\" (Sources: CarboForce Agreement.pdf, MRV Process by Cula.pdf, Durr CO2 Sync warrant agreement.pdf...)"
+            "Evidence 1, 2, 9, 10, 11, 14, 15, 16, and 18 (Sources: Expansion Financial model.xlsx, Corporate Structure and Bio.pdf, Biochar sampling protocol.docx...)"
           ],
-          "missing_evidence": [
-            "Specific MRV protocols detailing moisture, dry weight, and source logs, as well as load cell logs."
-          ],
-          "confidence_score": 0.7
+          "missing_evidence": [],
+          "confidence_score": 0.9
         },
         {
           "requirement": "Sampling Protocols",
-          "status": "present",
-          "reason": "The documents provide comprehensive details on the sampling protocols, including the methods, frequency, and management of sampling. Evidence shows that the sampling is designed to be representative and consistent, with specific tools and procedures outlined for collecting and handling samples. The protocols cover sampling frequency, locations, equipment, calibration, and data management, ensuring that the samples are representative of the biochar produced.",
+          "status": "unclear",
+          "reason": "The provided documents contain some information about sampling protocols, but it is not clear if they are representative and recurring lab tests. The documents mention sampling frequency (Evidence 3), sampling location (Evidence 8), and sampling method (Evidence 8), but they do not explicitly state that the sampling is representative and recurring. Additionally, there is no clear evidence of lab tests being conducted regularly.",
           "evidence_found": [
-            "- Evidence 3 discusses the justification of sampling and testing strategy, including feedstock variation and process stability.\n- Evidence 4, 5, 12, 13, 14, 22, and 23 detail the sampling method, including the use of specific tools and the process for collecting and combining subsamples.\n- Evidence 16 and 17 specify the sampling frequency, indicating that samples are drawn daily and sent for testing at least once every 12 months.\n- Evidence 15 and 19 outline the scope of the protocol, covering sampling frequency, locations, and data recording. (Sources: Biochar sampling protocol.docx, Biochar sampling protocol (1).docx, Biomass Raw Material Report.pdf...)"
+            "Evidence 3, Evidence 8, Evidence 9, Evidence 10, Evidence 11, Evidence 12, Evidence 15, Evidence 16 (Sources: MRV Process by Cula.pdf, Biochar sampling protocol.docx, Organisation Structure.pdf...)"
           ],
-          "missing_evidence": [],
-          "confidence_score": 0.95
+          "missing_evidence": [
+            "Clear evidence of representative and recurring lab tests, and a clear statement that the sampling is representative and recurring."
+          ],
+          "confidence_score": 0.6
         },
         {
           "requirement": "Emissions Monitoring",
           "status": "unclear",
-          "reason": "The evidence provided includes references to emissions monitoring and LCA, but it is not clear if the emissions monitoring is fully compliant with ISO 14040/44 standards as required by Puro.earth. The LCA Result Reporting Template (Evidence 1, 3, 15, 25, 27) provides a structure for reporting emissions, but there is no explicit confirmation that the LCA is conducted according to ISO 14040/44. The MRV Process by Cula (Evidence 2, 10, 11, 12, 22, 23, 24) describes customizable emissions tracking and logging, but it does not confirm adherence to ISO standards. Additionally, the Biomass Raw Material Report (Evidence 7, 8, 28, 30) mentions ISO 17025 accreditation for specific tests, but not ISO 14040/44 for the LCA.",
+          "reason": "The provided documents contain some evidence related to emissions monitoring, but it is not comprehensive or clear enough to fully satisfy the requirement. There are multiple documents mentioning emissions tracking, but they do not provide a clear picture of how emissions are monitored and reported. Additionally, there is no direct evidence of source-separated GHG impacts.",
           "evidence_found": [
-            "Evidence 1, 3, 15, 25, 27 (LCA Result Reporting Template); Evidence 2, 10, 11, 12, 22, 23, 24 (MRV Process by Cula); Evidence 7, 8, 28, 30 (Biomass Raw Material Report). (Sources: Air Permit.pdf, Biomass Raw Material Report.pdf, MRV Process by Cula.pdf...)"
+            "Evidence 2 (exhaust gas emissions), Evidence 8 (biochar sampling protocol), Evidence 9 (configurable emissions logging), Evidence 10 (activity-specific emissions profiles), Evidence 15 (Air Permit), Evidence 16 (Feasibility Study), Evidence 18 (flue gas composition), and Evidence 20 (Biomass Raw Material Report) contain some relevant information. (Sources: Biomass Raw Material Report.pdf, Biochar sampling protocol.docx, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "Explicit confirmation that the LCA is conducted in compliance with ISO 14040/44 standards."
+            "A comprehensive emissions monitoring plan, source-separated GHG impacts, and a clear explanation of how emissions are tracked and reported."
           ],
-          "confidence_score": 0.7
+          "confidence_score": 0.6
         },
         {
           "requirement": "LCA (Life Cycle Assessment)",
           "status": "unclear",
-          "reason": "The evidence provided includes references to LCA results and templates (Evidence 3, 7, 8, 14, 16, 20, 24), but there is no explicit mention of an ISO 14040/44-compliant LCA report. The Excel template is intended to structure LCA calculations but is not a substitute for a full LCA report. There is no direct evidence that the LCA covers all required phases (biomass, production, distribution, use) or that it complies with ISO 14040/44 standards.",
+          "reason": "The provided documents mention LCA, emissions tracking, and carbon footprint, but they do not explicitly mention ISO 14040/44-compliant LCA report. Evidence 3 and 16 suggest that emissions tracking can be precisely configured based on reference LCA, but it does not provide the actual LCA report. Evidence 11 and 13 mention ISO 16948 and ISO 16994, which are related to elemental analysis, but they do not provide the required LCA report.",
           "evidence_found": [
-            "Evidence 3, 7, 8, 14, 16, 20, 24 (Puro LCA Result Reporting Template.xlsx) (Sources: Biomass Raw Material Report.pdf, Cula Tracking Cycle (1).pdf, Application of Conditional Use Permit.pdf...)"
+            "Evidence 3, 16, 11, 13 (Sources: Biomass Raw Material Report.pdf, Biochar sampling protocol.docx, MRV Process by Cula.pdf...)"
           ],
           "missing_evidence": [
-            "An ISO 14040/44-compliant LCA report that explicitly includes all required phases (biomass, production, distribution, use)."
+            "ISO 14040/44-compliant LCA report"
           ],
           "confidence_score": 0.6
         },
         {
           "requirement": "Facility Emissions",
           "status": "unclear",
-          "reason": "The documents provide some information about emissions, specifically the composition of flue gas and compliance with EPA regulations, indicating that emissions are below the threshold for requiring a Title 5 permit. However, there is no comprehensive pollution report or detailed emissions monitoring data that covers both direct and indirect GHGs and pollution mitigation strategies as required by Puro.earth. The LCA results mention emissions in various phases but do not provide a complete picture of facility emissions.",
+          "reason": "The provided documents contain some information about facility emissions, but it is not comprehensive or clear enough to fully satisfy the requirement. There are multiple documents with similar content, which may indicate a lack of clarity or consistency in the information.",
           "evidence_found": [
-            "Evidence 1 and 2 from the Air Permit.pdf mention flue gas composition and compliance with EPA guidelines. Evidence 3, 11, and 12 from the Puro LCA Result Reporting Template.xlsx mention emissions associated with different phases but lack comprehensive details. (Sources: Tax credit overview.pdf, Air Permit.pdf, Puro LCA Result Reporting Template.xlsx...)"
+            "Evidence 8 (from data/Air Permit.pdf) provides detailed information about the flue gas composition and emissions, which falls below the EPA threshold. However, this information is not consistently presented across all documents, and some documents are marked as \"Confidential\". (Sources: Air Permit.pdf, MRV Process by Cula.pdf, CarboForce Agreement.pdf)"
           ],
           "missing_evidence": [
-            "Detailed pollution reports or local compliance documents that specifically address direct and indirect GHG emissions and pollution mitigation strategies."
+            "A clear and comprehensive overview of facility emissions, including direct and indirect GHGs, and pollution mitigation measures. The documents lack a clear explanation of how emissions are tracked and monitored, and how the facility ensures compliance with regulatory standards."
           ],
           "confidence_score": 0.6
         }

@@ -147,7 +147,6 @@ def create_evaluation_prompt(
         registry_name = "Puro.earth"
     
     documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
-    notes = checklist_item.get('notes', '')
     
     prompt_parts = [
         "=== REQUIREMENT TO EVALUATE ===",
@@ -157,9 +156,32 @@ def create_evaluation_prompt(
         f"{registry_name} Will Check For: {registry_checks_for}",
     ]
     
-    # Add notes if available
-    if notes:
-        prompt_parts.append(f"Notes: {notes}")
+    # Standard fields that are handled above
+    standard_fields = {
+        'requirement', 'parameter', 'puroRequires', 'puroLooksFor', 'puroWillCheckFor', 
+        'puroWillCheck', 'verraWillCheckFor', 'documentsNeeded', 'searchKeywords'
+    }
+    
+    # Add any additional context fields dynamically
+    context_fields_added = []
+    for key, value in checklist_item.items():
+        if key not in standard_fields and value:
+            # Format field name for display (convert camelCase to Title Case)
+            display_name = ''.join([' ' + c if c.isupper() else c for c in key]).strip().title()
+            
+            if isinstance(value, (list, dict)):
+                # Handle complex data structures
+                import json
+                formatted_value = json.dumps(value, indent=2)
+                prompt_parts.append(f"{display_name}:\n{formatted_value}")
+            else:
+                # Handle simple strings/numbers
+                prompt_parts.append(f"{display_name}: {value}")
+            context_fields_added.append(key)
+    
+    # Add spacing if context fields were added
+    if context_fields_added:
+        prompt_parts.append("")
         
     prompt_parts.extend([
         "",
