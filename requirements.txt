@@ -11,6 +11,7 @@ langchain-groq>=0.3.0,<0.4.0
 # Vector Database and Embeddings
 chromadb>=1.0.0,<2.0.0
 sentence-transformers>=2.2.0,<3.0.0
+langchain-huggingface>=0.3.0,<0.4.0
 
 # Document Processing
 PyMuPDF>=1.23.0,<2.0.0          # PDF processing with pymupdf
@@ -23,6 +24,11 @@ python-dotenv>=1.0.0,<2.0.0
 
 # Data Validation
 pydantic>=2.0.0,<3.0.0
+
+# API Framework
+fastapi>=0.104.0,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
+python-multipart>=0.0.6,<1.0.0    # For file uploads
 
 # HTTP and Async Support
 httpx>=0.25.0,<1.0.0

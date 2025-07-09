@@ -97,32 +97,36 @@ class PuroCheckAgent:
         """Setup vector store with document processing (FR1, FR2)"""
         logger.info("📄 Processing documents and setting up vector store...")
         
-        # Check if vector store exists and we don't want to rebuild
-        vector_store_path = Path(self.vector_store_dir)
-        if vector_store_path.exists() and not self.force_rebuild_vectorstore:
-            logger.info("📚 Loading existing vector store...")
-            self.vector_store = load_vector_store(self.vector_store_dir, self.api_provider)
-        else:
-            logger.info("🔨 Building new vector store from documents...")
-            
-            # FR1: Parse all documents in the /data directory
-            docs = load_documents_from_folder(str(self.data_dir))
-            if not docs:
-                raise ValueError(f"No documents found in {self.data_dir}")
-            
-            logger.info(f"📖 Loaded {len(docs)} documents")
-            
-            # FR2: Chunk and embed content using specified API provider and store in Chroma
-            chunks = chunk_documents(docs)
-            logger.info(f"✂️ Created {len(chunks)} document chunks")
-            
-            self.vector_store = create_vector_store(
-                chunks, 
-                self.vector_store_dir, 
-                self.api_provider, 
-                force_rebuild=True
-            )
-            logger.info("💾 Vector store created and persisted")
+        try:
+            # Check if vector store exists and we don't want to rebuild
+            vector_store_path = Path(self.vector_store_dir)
+            if vector_store_path.exists() and not self.force_rebuild_vectorstore:
+                logger.info("📚 Loading existing vector store...")
+                self.vector_store = load_vector_store(self.vector_store_dir, self.api_provider)
+            else:
+                logger.info("🔨 Building new vector store from documents...")
+                
+                # FR1: Parse all documents in the /data directory
+                docs = load_documents_from_folder(str(self.data_dir))
+                if not docs:
+                    raise ValueError(f"No documents found in {self.data_dir}")
+                
+                logger.info(f"📖 Loaded {len(docs)} documents")
+                
+                # FR2: Chunk and embed content using specified API provider and store in Chroma
+                chunks = chunk_documents(docs)
+                logger.info(f"✂️ Created {len(chunks)} document chunks")
+                
+                self.vector_store = create_vector_store(
+                    chunks, 
+                    self.vector_store_dir, 
+                    self.api_provider, 
+                    force_rebuild=self.force_rebuild_vectorstore
+                )
+                logger.info("💾 Vector store created and persisted")
+        except Exception as e:
+            logger.error(f"Error setting up vector store: {str(e)}", exc_info=True)
+            raise
     
     def _load_checklist(self) -> None:
         """Load checklist items from JSON (FR3)"""
@@ -168,9 +172,12 @@ class PuroCheckAgent:
         is_non_recoverable = "non-recoverable error" in reason_lower
         
         return is_api_error_after_retries or is_non_recoverable
-    def evaluate_project(self) -> Dict[str, Any]:
+    def evaluate_project(self, progress_callback=None) -> Dict[str, Any]:
         """
         Main method to evaluate project against checklist (FR4, FR5)
+        
+        Args:
+            progress_callback: Optional callback function to receive progress updates
         
         Returns:
             Dict containing evaluation results for all checklist items
@@ -197,6 +204,14 @@ class PuroCheckAgent:
         for section in self.checklist['sections']:
             logger.info(f"📊 Evaluating section: {section['title']}")
             
+            # Send section start progress update
+            if progress_callback:
+                progress_callback({
+                    'type': 'section_start',
+                    'section_title': section['title'],
+                    'total_sections': len(self.checklist['sections'])
+                })
+            
             section_results = {
                 "title": section['title'],
                 "items": []
@@ -204,6 +219,14 @@ class PuroCheckAgent:
             
             for item in section['items']:
                 logger.info(f"  🔎 Evaluating: {item['requirement']}")
+                
+                # Send item start progress update
+                if progress_callback:
+                    progress_callback({
+                        'type': 'item_start',
+                        'requirement': item['requirement'],
+                        'current_item': results['summary']['total_requirements'] + 1
+                    })
                 
                 # FR4: Use relevant document context (via RAG) to evaluate each checklist item
                 evaluation = self.evaluator.evaluate_requirement(item)
@@ -235,6 +258,25 @@ class PuroCheckAgent:
                 # Update summary counters
                 results['summary']['total_requirements'] += 1
                 results['summary'][evaluation.status] += 1
+                
+                # Send item completion progress update
+                if progress_callback:
+                    progress_callback({
+                        'type': 'item_complete',
+                        'requirement': evaluation.requirement,
+                        'status': evaluation.status,
+                        'reason': evaluation.reason,
+                        'evidence_found': evaluation.evidence_found,
+                        'missing_evidence': evaluation.missing_evidence,
+                        'confidence_score': float(evaluation.confidence_score),  # Ensure it's a float
+                        'current_item': results['summary']['total_requirements'],
+                        'summary': {
+                            'present': results['summary']['present'],
+                            'missing': results['summary']['missing'],
+                            'unclear': results['summary']['unclear'],
+                            'total': results['summary']['total_requirements']
+                        }
+                    })
                 
                 # Log result
                 status_emoji = {"present": "✅", "missing": "❌", "unclear": "⚠️"}

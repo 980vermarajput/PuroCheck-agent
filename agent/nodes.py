@@ -317,11 +317,26 @@ def chunk_documents(documents: List, chunk_size=1000, chunk_overlap=150) -> List
 def create_vector_store(chunks, persist_dir="chroma_db", api_provider="auto", force_rebuild=False):
     import shutil
     from pathlib import Path
+    import time
+    import os
     
     # If force rebuild is requested, delete existing vector store
     if force_rebuild and Path(persist_dir).exists():
-        logger.info(f"🗑️  Deleting existing vector store at {persist_dir}")
-        shutil.rmtree(persist_dir)
+        logger.info(f"🗑️  Attempting to delete existing vector store at {persist_dir}")
+        try:
+            shutil.rmtree(persist_dir)
+        except OSError as e:
+            # If deletion fails because directory is busy, just use it as is or use a new one
+            logger.warning(f"Could not delete vector store directory: {e}")
+            # If it's in a temp directory, try to use a unique name instead
+            if '/tmp/' in persist_dir or '/temp/' in persist_dir.lower():
+                new_dir = f"{persist_dir}_{int(time.time())}"
+                logger.info(f"Using alternative vector store location: {new_dir}")
+                persist_dir = new_dir
+                Path(persist_dir).mkdir(parents=True, exist_ok=True)
+    
+    # Make sure the directory exists
+    Path(persist_dir).mkdir(parents=True, exist_ok=True)
     
     embedding = get_embedding_model(api_provider)
     vectordb = Chroma.from_documents(
