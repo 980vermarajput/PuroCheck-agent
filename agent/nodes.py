@@ -47,8 +47,13 @@ def get_embedding_model(api_provider: str = "auto"):
                     encode_kwargs={'normalize_embeddings': True}
                 )
             except ImportError:
-                pass
-        if openai_key:
+                print("HuggingFace embeddings not available")
+                if openai_key:
+                    print("Falling back to OpenAI embeddings")
+                    return OpenAIEmbeddings(model="text-embedding-3-small")
+                else:
+                    raise ValueError("Neither HuggingFace embeddings nor OpenAI API key available. Please install langchain-huggingface or set OPENAI_API_KEY.")
+        elif openai_key:
             return OpenAIEmbeddings(model="text-embedding-3-small")
         else:
             raise ValueError("No API keys found. Please set GROQ_API_KEY or OPENAI_API_KEY environment variable.")

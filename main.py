@@ -22,7 +22,7 @@ def main():
             data_dir="data/",
             checklist_path="checklist/sample_checklist.json",
             vector_store_dir="chroma_db/",
-            force_rebuild_vectorstore=True  # Set to True to rebuild vector store with new documents
+            force_rebuild_vectorstore=True  # Set to False since we've already built it
         )
         
         # Run the complete evaluation pipeline

@@ -1,0 +1,127 @@
+"""
+Prompts for Puro.earth Biochar Project Eligibility Evaluation
+
+This module contains all the prompts used by the evaluator to maintain clean code organization.
+All prompts have been moved here from evaluator.py for better maintainability and separation of concerns.
+
+Key Components:
+- SYSTEM_PROMPT: Core evaluation instructions and Puro.earth definitions
+- EVALUATION_TASK_INSTRUCTIONS: Response format instructions
+- create_evaluation_prompt(): Dynamic prompt builder with token optimization
+"""
+
+from typing import Dict, List, Any
+
+
+# System prompt for the evaluator
+SYSTEM_PROMPT = """You are an expert evaluator for Puro.earth biochar project eligibility.
+
+Your task is to analyze document evidence against specific Puro.earth requirements and determine:
+1. STATUS: "present", "missing", or "unclear"
+2. REASON: Clear explanation of your decision
+3. EVIDENCE: What specific evidence you found (if any)
+4. MISSING: What evidence is still needed (if any)
+5. CONFIDENCE: Your confidence level (0.0-1.0)
+
+EVALUATION CRITERIA:
+- "present": Clear evidence that fully satisfies the requirement
+- "missing": No relevant evidence found or evidence clearly shows non-compliance
+- "unclear": Some evidence found but insufficient or ambiguous
+
+KEY PURO.EARTH DEFINITIONS:
+
+- H/Corg Ratio: Indicator of biochar stability; must be < 0.7 for carbon permanence.
+- Additionality: Project must depend on carbon revenue and not be required by law.
+- End-use: Biochar must not be used as fuel or reductant; must be verifiably used in carbon-retaining applications like soil amendment, construction materials, or insulation.
+- Emissions Monitoring: Must use ISO 14040/44-compliant LCA covering biomass, production, distribution, and use phases.
+- Biomass Source: Must be waste or sustainably sourced, aligned with EBC positive lists or IPCC guidelines.
+- Proof Requirements: Look for offtake agreements, stakeholder consultations, accredited lab tests, reactor specifications, environmental permits, and LCA data.
+- Biochar Stability: Long-term carbon storage capability, typically demonstrated through H/Corg ratio and permanence factors.
+- Safety Protocols: Comprehensive procedures for biochar handling, storage, and transport including fire control measures.
+
+Use these definitions when interpreting vague or partially matching content in documents. Be thorough but concise. Focus on factual evidence from the documents."""
+
+
+# Evaluation task instructions
+EVALUATION_TASK_INSTRUCTIONS = """=== EVALUATION TASK ===
+Based on the document evidence above, evaluate this requirement and respond in this exact format:
+
+STATUS: [present/missing/unclear]
+REASON: [Your detailed reasoning]
+EVIDENCE: [Specific evidence found, or 'None']
+MISSING: [What evidence is still needed, or 'None']
+CONFIDENCE: [Your confidence level 0.0-1.0]
+
+Remember:
+- 'present': Clear evidence that fully satisfies the requirement
+- 'missing': No relevant evidence or evidence shows non-compliance
+- 'unclear': Some evidence but insufficient or ambiguous"""
+
+
+def create_evaluation_prompt(
+    checklist_item: Dict[str, Any], 
+    context: List[Dict[str, Any]],
+    api_provider: str = "openai"
+) -> str:
+    """
+    Create the evaluation prompt for LLM
+    
+    Args:
+        checklist_item: The checklist item being evaluated
+        context: Retrieved document context
+        api_provider: API provider ("openai" or "groq") for token optimization
+        
+    Returns:
+        str: Formatted prompt for evaluation
+    """
+    
+    # Handle both "requirement" and "parameter" fields
+    requirement = checklist_item.get('requirement', checklist_item.get('parameter', 'Unknown requirement'))
+    
+    # Handle different JSON key structures
+    puro_requires = checklist_item.get('puroRequires', checklist_item.get('puroLooksFor', checklist_item.get('requirement', 'Not specified')))
+    documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
+    puro_checks_for = checklist_item.get('puroWillCheckFor', checklist_item.get('puroLooksFor', checklist_item.get('puroWillCheck', 'Not specified')))
+    notes = checklist_item.get('notes', '')
+    
+    prompt_parts = [
+        "=== REQUIREMENT TO EVALUATE ===",
+        f"Requirement: {requirement}",
+        f"Puro.earth Requires: {puro_requires}",
+        f"Documents Needed: {documents_needed}",
+        f"Puro Will Check For: {puro_checks_for}",
+    ]
+    
+    # Add notes if available
+    if notes:
+        prompt_parts.append(f"Notes: {notes}")
+        
+    prompt_parts.extend([
+        "",
+        "=== DOCUMENT EVIDENCE ===",
+    ])
+    
+    if not context:
+        prompt_parts.append("No relevant document evidence found.")
+    else:
+        for i, ctx in enumerate(context, 1):
+            # Limit context content to reduce token usage for Groq
+            content_limit = 600 if api_provider == "groq" else 800
+            content = ctx['content'][:content_limit]
+            if len(ctx['content']) > content_limit:
+                content += "... [truncated]"
+            
+            prompt_parts.extend([
+                f"Evidence {i} (from {ctx['source']}):",
+                f"Query used: {ctx['query']}",
+                f"Content: {content}",
+                ""
+            ])
+    
+    # Add evaluation task instructions
+    prompt_parts.extend([
+        "",
+        EVALUATION_TASK_INSTRUCTIONS
+    ])
+    
+    return "\n".join(prompt_parts)

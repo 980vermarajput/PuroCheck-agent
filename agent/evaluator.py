@@ -8,12 +8,14 @@ RAG (Retrieval-Augmented Generation) with GPT-4 for reasoning.
 import logging
 import re
 import os
+import time
 from typing import Dict, List, Any
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 from dotenv import load_dotenv
 
 from .nodes import get_relevant_docs
+from .prompts import SYSTEM_PROMPT, create_evaluation_prompt
 
 # Load environment variables
 load_dotenv()
@@ -44,34 +46,6 @@ class ChecklistEvaluator:
             self.llm = self._init_openai_llm()
         
         logger.info(f"Initialized evaluator with {self.api_provider} using model: {self.model_name}")
-        
-        # System prompt for evaluation
-        self.system_prompt = """You are an expert evaluator for Puro.earth biochar project eligibility.
-
-Your task is to analyze document evidence against specific Puro.earth requirements and determine:
-1. STATUS: "present", "missing", or "unclear"
-2. REASON: Clear explanation of your decision
-3. EVIDENCE: What specific evidence you found (if any)
-4. MISSING: What evidence is still needed (if any)
-5. CONFIDENCE: Your confidence level (0.0-1.0)
-
-EVALUATION CRITERIA:
-- "present": Clear evidence that fully satisfies the requirement
-- "missing": No relevant evidence found or evidence clearly shows non-compliance
-- "unclear": Some evidence found but insufficient or ambiguous
-
-KEY PURO.EARTH DEFINITIONS:
-
-- H/Corg Ratio: Indicator of biochar stability; must be < 0.7 for carbon permanence.
-- Additionality: Project must depend on carbon revenue and not be required by law.
-- End-use: Biochar must not be used as fuel or reductant; must be verifiably used in carbon-retaining applications like soil amendment, construction materials, or insulation.
-- Emissions Monitoring: Must use ISO 14040/44-compliant LCA covering biomass, production, distribution, and use phases.
-- Biomass Source: Must be waste or sustainably sourced, aligned with EBC positive lists or IPCC guidelines.
-- Proof Requirements: Look for offtake agreements, stakeholder consultations, accredited lab tests, reactor specifications, environmental permits, and LCA data.
-- Biochar Stability: Long-term carbon storage capability, typically demonstrated through H/Corg ratio and permanence factors.
-- Safety Protocols: Comprehensive procedures for biochar handling, storage, and transport including fire control measures.
-
-Use these definitions when interpreting vague or partially matching content in documents. Be thorough but concise. Focus on factual evidence from the documents."""
     
     def _determine_api_provider(self, api_provider: str, model_name: str = None) -> tuple[str, str]:
         """Determine which API provider to use based on available keys and preferences"""
@@ -79,13 +53,13 @@ Use these definitions when interpreting vague or partially matching content in d
         openai_key = os.getenv('OPENAI_API_KEY')
         
         if api_provider == "groq" and groq_key:
-            return "groq", model_name or "llama-3.1-70b-versatile"
+            return "groq", model_name or "llama-3.1-8b-instant"
         elif api_provider == "openai" and openai_key:
             return "openai", model_name or "gpt-4o"
         elif api_provider == "auto":
             # Auto-detect based on available keys, prefer Groq for cost efficiency
             if groq_key:
-                return "groq", model_name or "llama-3.1-70b-versatile"
+                return "groq", model_name or "llama-3.1-8b-instant"
             elif openai_key:
                 return "openai", model_name or "gpt-4o"
             else:
@@ -143,7 +117,9 @@ Use these definitions when interpreting vague or partially matching content in d
         relevant_context = []
         
         for query in search_queries:
-            docs = get_relevant_docs(query, self.vector_store, k=3)
+            # Use fewer documents for Groq to reduce token usage
+            k = 2 if self.api_provider == "groq" else 3
+            docs = get_relevant_docs(query, self.vector_store, k=k)
             for doc in docs:
                 relevant_context.append({
                     'content': doc.page_content,
@@ -152,35 +128,113 @@ Use these definitions when interpreting vague or partially matching content in d
                 })
         
         # Step 2: Create evaluation prompt
-        evaluation_prompt = self._create_evaluation_prompt(
-            checklist_item, relevant_context
+        evaluation_prompt = create_evaluation_prompt(
+            checklist_item, relevant_context, self.api_provider
         )
         
-        # Step 3: Get GPT-4 evaluation
-        try:
-            response = self.llm.invoke([
-                SystemMessage(content=self.system_prompt),
-                HumanMessage(content=evaluation_prompt)
-            ])
-            
-            # Parse the response
-            evaluation_result = self._parse_evaluation_response(
-                response.content, requirement, relevant_context
-            )
-            
-        except Exception as e:
-            logger.error(f"Error during evaluation: {e}")
-            # Fallback result
-            evaluation_result = EvaluationResult(
-                requirement=requirement,
-                status="unclear",
-                reason=f"Error during evaluation: {str(e)}",
-                evidence_found=[],
-                missing_evidence=[documents_needed],
-                confidence_score=0.0
-            )
+        # Step 3: Get GPT-4 evaluation with retry logic
+        evaluation_result = self._evaluate_with_retry(
+            checklist_item, evaluation_prompt, requirement, relevant_context
+        )
         
         return evaluation_result
+    
+    def _evaluate_with_retry(
+        self, 
+        checklist_item: Dict[str, Any], 
+        evaluation_prompt: str, 
+        requirement: str, 
+        relevant_context: List[Dict[str, Any]],
+        max_retries: int = 5
+    ) -> 'EvaluationResult':
+        """
+        Evaluate with retry logic for API errors (especially Groq rate limits and token limits)
+        
+        Args:
+            checklist_item: The checklist item being evaluated
+            evaluation_prompt: The prompt to send to the LLM
+            requirement: The requirement text
+            relevant_context: The retrieved context
+            max_retries: Maximum number of retry attempts (default: 5)
+            
+        Returns:
+            EvaluationResult: The evaluation result or error result if all retries fail
+        """
+        from .agent import EvaluationResult  # Import here to avoid circular import
+        
+        documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
+        
+        for attempt in range(max_retries + 1):  # +1 because we want max_retries actual retries after the first attempt
+            try:
+                logger.debug(f"Evaluation attempt {attempt + 1}/{max_retries + 1} for requirement: {requirement}")
+                
+                response = self.llm.invoke([
+                    SystemMessage(content=SYSTEM_PROMPT),
+                    HumanMessage(content=evaluation_prompt)
+                ])
+                
+                # If we get here, the API call was successful
+                evaluation_result = self._parse_evaluation_response(
+                    response.content, requirement, relevant_context
+                )
+                
+                if attempt > 0:
+                    logger.info(f"Successfully evaluated requirement '{requirement}' after {attempt} retries")
+                
+                return evaluation_result
+                
+            except Exception as e:
+                error_message = str(e).lower()
+                
+                # Check if this is a recoverable API error
+                is_rate_limit_error = any(code in error_message for code in ['429', 'rate limit', 'rate_limit'])
+                is_token_limit_error = any(code in error_message for code in ['413', 'token limit', 'token_limit', 'context length'])
+                is_api_error = any(code in error_message for code in ['400', '401', '403', '500', '502', '503', '504'])
+                
+                is_recoverable_error = is_rate_limit_error or is_token_limit_error or is_api_error
+                
+                if attempt < max_retries and is_recoverable_error:
+                    # Calculate exponential backoff delay
+                    delay = min(60, (2 ** attempt) + (0.1 * attempt))  # Cap at 60 seconds
+                    
+                    logger.warning(
+                        f"API error on attempt {attempt + 1}/{max_retries + 1} for requirement '{requirement}': {e}. "
+                        f"Retrying in {delay:.1f} seconds..."
+                    )
+                    
+                    time.sleep(delay)
+                    continue
+                else:
+                    # Either we've exhausted retries or it's a non-recoverable error
+                    if is_recoverable_error:
+                        logger.error(
+                            f"Failed to evaluate requirement '{requirement}' after {max_retries} retries. "
+                            f"Final error: {e}"
+                        )
+                        error_reason = f"API error after {max_retries} retries: {str(e)}"
+                    else:
+                        logger.error(f"Non-recoverable error evaluating requirement '{requirement}': {e}")
+                        error_reason = f"Non-recoverable error: {str(e)}"
+                    
+                    # Return error result - this will terminate evaluation for this requirement
+                    return EvaluationResult(
+                        requirement=requirement,
+                        status="unclear",
+                        reason=error_reason,
+                        evidence_found=[],
+                        missing_evidence=[documents_needed],
+                        confidence_score=0.0
+                    )
+        
+        # This should never be reached, but just in case
+        return EvaluationResult(
+            requirement=requirement,
+            status="unclear",
+            reason="Unknown error: Maximum retries exceeded",
+            evidence_found=[],
+            missing_evidence=[documents_needed],
+            confidence_score=0.0
+        )
     
     def _generate_search_queries(self, checklist_item: Dict[str, Any]) -> List[str]:
         """Generate search queries for RAG retrieval using checklist-defined keywords"""
@@ -246,68 +300,6 @@ Use these definitions when interpreting vague or partially matching content in d
             fallback_keywords.extend(['monitoring', 'tracking', 'measurement', 'data collection', 'MRV'])
         
         return fallback_keywords
-    
-    def _create_evaluation_prompt(
-        self, 
-        checklist_item: Dict[str, Any], 
-        context: List[Dict[str, Any]]
-    ) -> str:
-        """Create the evaluation prompt for GPT-4"""
-        
-        # Handle both "requirement" and "parameter" fields
-        requirement = checklist_item.get('requirement', checklist_item.get('parameter', 'Unknown requirement'))
-        
-        # Handle different JSON key structures
-        puro_requires = checklist_item.get('puroRequires', checklist_item.get('puroLooksFor', checklist_item.get('requirement', 'Not specified')))
-        documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
-        puro_checks_for = checklist_item.get('puroWillCheckFor', checklist_item.get('puroLooksFor', checklist_item.get('puroWillCheck', 'Not specified')))
-        notes = checklist_item.get('notes', '')
-        
-        prompt_parts = [
-            "=== REQUIREMENT TO EVALUATE ===",
-            f"Requirement: {requirement}",
-            f"Puro.earth Requires: {puro_requires}",
-            f"Documents Needed: {documents_needed}",
-            f"Puro Will Check For: {puro_checks_for}",
-        ]
-        
-        # Add notes if available
-        if notes:
-            prompt_parts.append(f"Notes: {notes}")
-            
-        prompt_parts.extend([
-            "",
-            "=== DOCUMENT EVIDENCE ===",
-        ])
-        
-        if not context:
-            prompt_parts.append("No relevant document evidence found.")
-        else:
-            for i, ctx in enumerate(context, 1):
-                prompt_parts.extend([
-                    f"Evidence {i} (from {ctx['source']}):",
-                    f"Query used: {ctx['query']}",
-                    f"Content: {ctx['content'][:800]}...",  # Limit content length
-                    ""
-                ])
-        
-        prompt_parts.extend([
-            "=== EVALUATION TASK ===",
-            "Based on the document evidence above, evaluate this requirement and respond in this exact format:",
-            "",
-            "STATUS: [present/missing/unclear]",
-            "REASON: [Your detailed reasoning]",
-            "EVIDENCE: [Specific evidence found, or 'None']",
-            "MISSING: [What evidence is still needed, or 'None']",
-            "CONFIDENCE: [Your confidence level 0.0-1.0]",
-            "",
-            "Remember:",
-            "- 'present': Clear evidence that fully satisfies the requirement",
-            "- 'missing': No relevant evidence or evidence shows non-compliance", 
-            "- 'unclear': Some evidence but insufficient or ambiguous",
-        ])
-        
-        return "\n".join(prompt_parts)
     
     def _parse_evaluation_response(
         self, 

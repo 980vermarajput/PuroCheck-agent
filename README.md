@@ -5,11 +5,13 @@ A sophisticated RAG (Retrieval-Augmented Generation) agent that evaluates biocha
 ## Features
 
 - 🔍 **Multi-format Document Processing**: Supports PDF, DOCX, TXT, CSV, and Excel files
-- 🤖 **Dual LLM Support**: Compatible with OpenAI GPT and Groq models
+- 🤖 **Dual LLM Support**: Compatible with OpenAI GPT and Groq models with automatic API detection
 - 📊 **Vector Search**: ChromaDB-powered semantic search for relevant document sections
 - ✅ **Compliance Evaluation**: Automated assessment against Puro.earth biochar methodology
-- 📈 **Detailed Reporting**: Comprehensive evaluation results with evidence tracking
-- 🔄 **Flexible Configuration**: Customizable checklists and search parameters
+- � **Robust Error Handling**: Exponential backoff retry logic for API rate limits and token errors
+- �📈 **Detailed Reporting**: Comprehensive evaluation results with evidence tracking and source attribution
+- � **Flexible Configuration**: Customizable checklists, search parameters, and force rebuild options
+- 🎯 **Token Optimization**: Automatic context size adjustment for different API providers
 
 ## Installation
 
@@ -165,6 +167,17 @@ Results are saved to `evaluation_results.json`.
 2. **API Key Errors**: Verify your API keys are correctly set in the `.env` file
 3. **Vector Store Issues**: Try setting `force_rebuild_vectorstore=True` to rebuild the database
 4. **Document Processing Errors**: Ensure documents are in supported formats and not corrupted
+5. **API Rate Limits**: The agent automatically handles rate limits with exponential backoff retry logic
+6. **Token Limit Errors**: Context size is automatically optimized for different API providers (Groq uses smaller context)
+
+### Retry Logic
+
+The agent includes robust error handling for API failures:
+
+- **Rate Limits (429)**: Automatic retry with exponential backoff (1s, 2s, 4s, 8s, 16s)
+- **Token Limits (413)**: Automatic context reduction and retry
+- **API Errors (4xx/5xx)**: Up to 5 retry attempts before terminating evaluation
+- **Graceful Termination**: If all retries fail, evaluation stops with clear error reporting
 
 ### Debug Mode
 

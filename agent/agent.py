@@ -140,6 +140,26 @@ class PuroCheckAgent:
             api_provider=self.api_provider
         )
     
+    def _is_critical_api_failure(self, evaluation: EvaluationResult) -> bool:
+        """
+        Check if an evaluation result indicates a critical API failure that should terminate evaluation
+        
+        Args:
+            evaluation: The evaluation result to check
+            
+        Returns:
+            bool: True if this is a critical failure that should stop evaluation
+        """
+        # Check if the reason indicates an API error after retries
+        reason_lower = evaluation.reason.lower()
+        is_api_error_after_retries = (
+            "api error after" in reason_lower and "retries" in reason_lower
+        )
+        
+        # Also check for non-recoverable errors
+        is_non_recoverable = "non-recoverable error" in reason_lower
+        
+        return is_api_error_after_retries or is_non_recoverable
     def evaluate_project(self) -> Dict[str, Any]:
         """
         Main method to evaluate project against checklist (FR4, FR5)
@@ -158,7 +178,9 @@ class PuroCheckAgent:
                 "present": 0,
                 "missing": 0,
                 "unclear": 0,
-                "overall_status": "unknown"
+                "overall_status": "unknown",
+                "evaluation_completed": True,
+                "termination_reason": None
             },
             "sections": []
         }
@@ -178,6 +200,28 @@ class PuroCheckAgent:
                 # FR4: Use relevant document context (via RAG) to evaluate each checklist item
                 evaluation = self.evaluator.evaluate_requirement(item)
                 
+                # Check if this is a critical API failure that should terminate evaluation
+                if self._is_critical_api_failure(evaluation):
+                    logger.error(f"💥 Critical API failure detected. Terminating evaluation.")
+                    logger.error(f"   Failed requirement: {evaluation.requirement}")
+                    logger.error(f"   Failure reason: {evaluation.reason}")
+                    
+                    # Add the failed evaluation to results
+                    section_results['items'].append(evaluation.__dict__)
+                    results['summary']['total_requirements'] += 1
+                    results['summary'][evaluation.status] += 1
+                    
+                    # Mark evaluation as incomplete and set termination reason
+                    results['summary']['evaluation_completed'] = False
+                    results['summary']['termination_reason'] = f"API failure on requirement: {evaluation.requirement}"
+                    results['summary']['overall_status'] = "evaluation_failed"
+                    
+                    # Add current section to results (even if incomplete)
+                    results['sections'].append(section_results)
+                    
+                    logger.warning("⚠️  Evaluation terminated due to API failure. Partial results available.")
+                    return results
+                
                 section_results['items'].append(evaluation.__dict__)
                 
                 # Update summary counters
@@ -190,14 +234,15 @@ class PuroCheckAgent:
             
             results['sections'].append(section_results)
         
-        # Calculate overall status
-        present_ratio = results['summary']['present'] / results['summary']['total_requirements']
-        if present_ratio >= 0.8:
-            results['summary']['overall_status'] = "likely_eligible"
-        elif present_ratio >= 0.5:
-            results['summary']['overall_status'] = "needs_review"
-        else:
-            results['summary']['overall_status'] = "likely_ineligible"
+        # Calculate overall status (only if evaluation completed successfully)
+        if results['summary']['evaluation_completed']:
+            present_ratio = results['summary']['present'] / results['summary']['total_requirements']
+            if present_ratio >= 0.8:
+                results['summary']['overall_status'] = "likely_eligible"
+            elif present_ratio >= 0.5:
+                results['summary']['overall_status'] = "needs_review"
+            else:
+                results['summary']['overall_status'] = "likely_ineligible"
         
         logger.info("🏁 Project evaluation completed")
         return results
@@ -239,6 +284,14 @@ class PuroCheckAgent:
         report.append(f"  ❌ Missing: {summary['missing']}")
         report.append(f"  ⚠️  Unclear: {summary['unclear']}")
         report.append(f"  🎯 Overall Status: {summary['overall_status'].replace('_', ' ').title()}")
+        
+        # Add evaluation completion status
+        if not summary.get('evaluation_completed', True):
+            report.append(f"  ⛔ Evaluation Status: INCOMPLETE")
+            if summary.get('termination_reason'):
+                report.append(f"  🚨 Termination Reason: {summary['termination_reason']}")
+        else:
+            report.append(f"  ✅ Evaluation Status: COMPLETED")
         
         # Detailed results by section
         for section in results['sections']:
