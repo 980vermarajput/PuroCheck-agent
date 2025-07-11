@@ -5,6 +5,9 @@ This guide explains how to run PuroCheck AI using Docker for easy deployment and
 ## 📋 Prerequisites
 
 - Docker and Docker Compose installed
+  - Windows: [Docker Desktop for Windows](https://www.docker.com/products/docker-desktop)
+  - Mac: [Docker Desktop for Mac](https://www.docker.com/products/docker-desktop)
+  - Linux: Docker and Docker Compose packages
 - OpenAI API key or Groq API key
 
 ## 🚀 Quick Start
@@ -21,6 +24,8 @@ cp .env.example .env
 
 ### 2. Start the Application
 
+#### For Mac/Linux:
+
 ```bash
 # Option 1: Use the convenience script
 ./start.sh
@@ -28,6 +33,22 @@ cp .env.example .env
 # Option 2: Manual Docker Compose
 docker-compose up -d
 ```
+
+#### For Windows:
+
+```powershell
+# Option 1: Use the convenience batch script
+# Make sure Docker Desktop is running first
+start.bat
+
+# Option 2: Run the batch file through cmd
+cmd /c start.bat
+
+# Option 3: Manual Docker Compose
+docker-compose up -d
+```
+
+> **Important for Windows users:** Always make sure Docker Desktop is running before executing these commands. The Docker icon in your system tray should be green.
 
 ### 3. Verify Installation
 
@@ -143,7 +164,36 @@ data: {"status": "complete", "message": "Evaluation finished!", "final_summary":
    cat .env
    ```
 
-2. **Port Already in Use**
+2. **Docker Not Running (Windows)**
+
+   If you see an error like:
+
+   ```
+   error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping": open ipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+   ```
+
+   Make sure Docker Desktop is running. Look for the Docker icon in your system tray and ensure it's green.
+
+3. **Environment Variables Not Recognized**
+
+   In .env file, ensure:
+
+   - For Windows: Don't use `export` before variable names
+   - For Mac/Linux: You may need to use `export` before variable names
+
+   Correct format:
+
+   ```
+   # Windows .env format
+   OPENAI_API_KEY=your-key-here
+   GROQ_API_KEY=your-key-here
+
+   # Mac/Linux .env format
+   export OPENAI_API_KEY=your-key-here
+   export GROQ_API_KEY=your-key-here
+   ```
+
+4. **Port Already in Use**
 
    ```bash
    # Change port in docker-compose.yml
@@ -151,14 +201,14 @@ data: {"status": "complete", "message": "Evaluation finished!", "final_summary":
      - "8001:8000"  # Use different external port
    ```
 
-3. **Memory Issues**
+5. **Memory Issues**
 
    ```bash
    # Increase Docker memory limit or use Groq instead of OpenAI
    # In .env file, ensure GROQ_API_KEY is set
    ```
 
-4. **Permission Issues**
+6. **Permission Issues**
    ```bash
    # Fix directory permissions
    sudo chown -R $USER:$USER data/ chroma_db/
@@ -182,6 +232,21 @@ docker-compose restart
 
 # Rebuild and restart
 docker-compose up --build -d
+```
+
+### For Windows Users
+
+```powershell
+# Command prompt commands
+cd path\to\PuroCheck-agent
+start.bat
+
+# If the above doesn't work, try:
+cmd /c start.bat
+
+# Checking Docker status
+docker --version
+docker info
 ```
 
 ## 📊 Monitoring
