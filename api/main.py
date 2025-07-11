@@ -109,7 +109,7 @@ async def evaluate_documents(
         raise HTTPException(status_code=400, detail="Unsupported registry. Use 'puro' or 'verra'")
     
     # Validate file types
-    allowed_extensions = {'.pdf', '.txt', '.docx'}
+    allowed_extensions = {'.pdf', '.txt', '.docx', '.xlsx', '.xls'}
     for file in files:
         if not any(file.filename.lower().endswith(ext) for ext in allowed_extensions):
             raise HTTPException(

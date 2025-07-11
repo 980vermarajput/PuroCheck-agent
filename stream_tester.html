@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PuroCheck AI - Biochar Eligibility Evaluator</title>
+    <title>Eligibility Evaluator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -316,8 +316,7 @@
 </head>
 <body>
     <header>
-        <h1>PuroCheck AI</h1>
-        <p class="subheading">Biochar Project Eligibility Evaluator</p>
+        <h1>Eligibility Evaluator</h1>
     </header>
     
     <div class="config-panel">
@@ -344,13 +343,14 @@
         
         <div class="form-group">
             <label for="fileInput">Upload Project Documents:</label>
-            <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt">
-            <small>Upload PDF, DOCX, or TXT files containing project documentation</small>
+            <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt,.xlsx,.csv,.xlsm,.xls">
+            <small>Upload PDF, DOCX, Excel or TXT files containing project documentation</small>
         </div>
         
         <div class="button-group">
             <button id="startBtn">Start Evaluation</button>
             <button id="clearBtn">Clear Results</button>
+            <button id="downloadBtn" style="display: none; background-color: #27ae60;">Download Report (CSV)</button>
         </div>
     </div>
     
@@ -401,6 +401,7 @@
         const fileInput = document.getElementById('fileInput');
         const startBtn = document.getElementById('startBtn');
         const clearBtn = document.getElementById('clearBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
         const statusPanel = document.getElementById('statusPanel');
         const statusText = document.getElementById('statusText');
         const progressBar = document.getElementById('progressBar');
@@ -418,6 +419,8 @@
         let currentEvaluation = {
             sections: {},
             results: {},
+            allResults: [], // Store all results in an array for CSV export
+            currentSection: null,
             summary: {
                 present: 0,
                 missing: 0,
@@ -429,6 +432,7 @@
         // Event handlers
         startBtn.addEventListener('click', startEvaluation);
         clearBtn.addEventListener('click', clearResults);
+        downloadBtn.addEventListener('click', downloadEvaluationReport);
         
         function startEvaluation() {
             // Validate inputs
@@ -573,6 +577,9 @@
                     progressBar.style.width = '100%';
                     progressText.textContent = '100%';
                     
+                    // Show download button
+                    downloadBtn.style.display = 'block';
+                    
                     // Update summary with final results
                     if (data.results && data.results.summary) {
                         updateSummary(data.results.summary);
@@ -715,6 +722,13 @@
                 `;
                 
                 sectionBody.appendChild(detailsRow);
+                
+                // Store result for CSV export
+                const resultWithSection = {
+                    ...result,
+                    section: currentEvaluation.currentSection || 'Uncategorized'
+                };
+                currentEvaluation.allResults.push(resultWithSection);
             }
             
             // Update summary data
@@ -785,6 +799,7 @@
             sectionsContainer.innerHTML = '';
             statusPanel.style.display = 'none';
             resultsContainer.style.display = 'none';
+            downloadBtn.style.display = 'none';
             
             // Reset counts
             presentCount.textContent = '0';
@@ -797,6 +812,7 @@
             currentEvaluation = {
                 sections: {},
                 results: {},
+                allResults: [],
                 currentSection: null,
                 summary: {
                     present: 0,
@@ -811,6 +827,73 @@
         function truncateText(text, maxLength) {
             if (!text) return '';
             return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+        
+        // Function to download CSV report
+        function downloadEvaluationReport() {
+            if (currentEvaluation.allResults.length === 0) {
+                alert("No evaluation results to download");
+                return;
+            }
+            
+            // CSV Header
+            let csvContent = "Section,Requirement,Status,Reason,Evidence Found,Missing Evidence,Confidence Score\n";
+            
+            // Add each result as a row
+            currentEvaluation.allResults.forEach(result => {
+                // Format evidence lists for CSV
+                const evidenceFormatted = Array.isArray(result.evidence_found) 
+                    ? result.evidence_found.join(" | ").replace(/"/g, '""') 
+                    : "";
+                    
+                const missingEvidenceFormatted = Array.isArray(result.missing_evidence) 
+                    ? result.missing_evidence.join(" | ").replace(/"/g, '""') 
+                    : "";
+                
+                // Format reason for CSV (escape quotes)
+                const reasonFormatted = (result.reason || "").replace(/"/g, '""');
+                
+                // Calculate confidence percentage
+                const confidence = parseFloat(result.confidence_score || 0) * 100;
+                
+                // Create CSV row
+                const row = [
+                    `"${result.section || ''}"`,
+                    `"${result.requirement || ''}"`,
+                    `"${result.status || ''}"`,
+                    `"${reasonFormatted}"`,
+                    `"${evidenceFormatted}"`,
+                    `"${missingEvidenceFormatted}"`,
+                    `${confidence.toFixed(0)}%`
+                ].join(',');
+                
+                csvContent += row + "\n";
+            });
+            
+            // Add summary row
+            csvContent += "\n\nSummary Statistics\n";
+            csvContent += `"Total Requirements","${currentEvaluation.summary.total}"\n`;
+            csvContent += `"Present","${currentEvaluation.summary.present}"\n`;
+            csvContent += `"Missing","${currentEvaluation.summary.missing}"\n`;
+            csvContent += `"Unclear","${currentEvaluation.summary.unclear}"\n`;
+            
+            // Get current date for filename
+            const date = new Date();
+            const formattedDate = date.toISOString().split('T')[0];
+            const registry = registrySelect.value;
+            
+            // Create download link
+            const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${registry}_evaluation_report_${formattedDate}.csv`);
+            document.body.appendChild(link);
+            
+            // Download the CSV file
+            link.click();
+            
+            // Clean up
+            document.body.removeChild(link);
         }
     </script>
 </body>

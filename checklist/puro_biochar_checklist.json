@@ -40,7 +40,8 @@
           "requirement": "Biomass Origin & Type",
           "documentsNeeded": "Feedstock list, sourcing contracts",
           "puroLooksFor": "Match EBC positive list, invasive species justification",
-          "searchKeywords": ["feedstock", "biomass source", "raw material", "wood chips", "agricultural residue", "EBC positive list", "invasive species", "sourcing"]
+          "searchKeywords": ["feedstock", "biomass source", "raw material", "wood chips", "agricultural residue", "EBC positive list", "invasive species", "sourcing"],
+          "context":"The following feedstocks are approved under EBC positive list: Annual energy crops (e.g., corn, rape, sugar beets, sunflowers) grown specifically for energy or material biomass use; Perennial energy crops (e.g., miscanthus, marbled silphyia, meadow cuttings) grown specifically for energetic or material biomass use; Woody biomass from short rotation plantations (SRC); Tree, vine, and shrub pruning; Harvest residues such as straw, cabbage, leaves, stalks, husks; Bark; Wood chips only from mechanically treated wood (pure firewood); Wood and wood residues from mechanical processing (waste wood A1); Sawdust and sawdust shavings; Biomass from nature conservation; General landscaping residues; Pomace, kernels, husks, grist, or press residues (e.g., from oil mills or spent grains); Residues from spices and seasoning; Residues from potato, corn, or rice starch production; Fruits; Molasses residues; Oilseed residues; Residues from the processing of coffee (e.g., silver skin), cocoa (e.g., press residues), or tea; Aquatic plants and algae; Organic oils (only organic, no mineral oils); Biochar (only EBC-certified); and Biochar from own production. These materials meet the requirements for use in biochar production intended for animal feed applications under EBC certification."
         },
         {
           "requirement": "Reactor Specs",
@@ -107,7 +108,7 @@
       "title": "Laboratory Testing (Accredited Labs Only)",
       "items": [
         {
-          "requirement": "H/Corg Ratio",
+          "requirement": "H/Corg Ratio (Stable Carbon)",
           "parameter": "< 0.7",
           "notes": "Carbon permanence indicator",
           "searchKeywords": ["carbon ratio", "H/C ratio", "H/Corg ratio", "oxygen carbon", "molar ratio", "ASTM", "ISO", "lab report", "stability"]

@@ -119,7 +119,7 @@ class ChecklistEvaluator:
         
         for query in search_queries:
             # Use fewer documents for Groq to reduce token usage
-            k = 2 if self.api_provider == "groq" else 3
+            k = 3
             docs = get_relevant_docs(query, self.vector_store, k=k)
             for doc in docs:
                 relevant_context.append({
