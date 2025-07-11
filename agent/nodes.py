@@ -10,6 +10,7 @@ import logging
 from docx import Document
 from langchain.schema import Document as LangChainDocument
 from dotenv import load_dotenv
+import openai
 
 # Load environment variables from .env file
 load_dotenv()
@@ -21,10 +22,21 @@ def get_embedding_model(api_provider: str = "auto"):
     """Get appropriate embedding model based on API provider"""
     groq_key = os.getenv('GROQ_API_KEY')
     openai_key = os.getenv('OPENAI_API_KEY')
+    gemini_key = os.getenv('GEMINI_API_KEY')
+    
+    # Common function to set up OpenAI embedding
+    def setup_openai_embedding(model="text-embedding-3-small", api_key=None, base_url=None):
+        # For use with langchain's Chroma integration, we still need to use OpenAIEmbeddings
+        return OpenAIEmbeddings(
+            model=model,
+            openai_api_key=api_key,
+            openai_api_base=base_url
+        )
     
     if api_provider == "groq" and groq_key:
-        # Use free embedding model for Groq
+        # For Groq, we can use either free embeddings or Groq's OpenAI-compatible API
         try:
+            # Try to use free HuggingFace embeddings first
             from langchain_huggingface import HuggingFaceEmbeddings
             return HuggingFaceEmbeddings(
                 model_name="sentence-transformers/all-MiniLM-L6-v2",
@@ -32,13 +44,31 @@ def get_embedding_model(api_provider: str = "auto"):
                 encode_kwargs={'normalize_embeddings': True}
             )
         except ImportError:
-            print("HuggingFace embeddings not available, falling back to OpenAI")
-            return OpenAIEmbeddings(model="text-embedding-3-small")
+            print("HuggingFace embeddings not available, falling back to OpenAI embeddings")
+            # Use OpenAI-compatible embeddings via Groq
+            return setup_openai_embedding(api_key=openai_key)
+    elif api_provider == "gemini" and gemini_key:
+        # For Gemini, use HuggingFace embeddings since Gemini doesn't have embedding API with OpenAI compatibility
+        try:
+            from langchain_huggingface import HuggingFaceEmbeddings
+            return HuggingFaceEmbeddings(
+                model_name="sentence-transformers/all-MiniLM-L6-v2", 
+                model_kwargs={'device': 'cpu'},
+                encode_kwargs={'normalize_embeddings': True}
+            )
+        except ImportError:
+            print("HuggingFace embeddings not available for Gemini, falling back to OpenAI embeddings")
+            # Fallback to OpenAI embeddings if needed
+            if openai_key:
+                return setup_openai_embedding(api_key=openai_key)
+            else:
+                raise ValueError("Neither HuggingFace embeddings nor OpenAI API key available. Please install langchain-huggingface or set OPENAI_API_KEY.")
     elif api_provider == "openai" and openai_key:
-        return OpenAIEmbeddings(model="text-embedding-3-small")
+        # Use standard OpenAI embeddings
+        return setup_openai_embedding(api_key=openai_key)
     elif api_provider == "auto":
-        # Auto-detect: prefer free embedding if Groq is available
-        if groq_key:
+        # Auto-detect: prefer free embedding if alternative API is available
+        if groq_key or gemini_key:
             try:
                 from langchain_huggingface import HuggingFaceEmbeddings
                 return HuggingFaceEmbeddings(
@@ -50,15 +80,25 @@ def get_embedding_model(api_provider: str = "auto"):
                 print("HuggingFace embeddings not available")
                 if openai_key:
                     print("Falling back to OpenAI embeddings")
-                    return OpenAIEmbeddings(model="text-embedding-3-small")
+                    return setup_openai_embedding(api_key=openai_key)
                 else:
                     raise ValueError("Neither HuggingFace embeddings nor OpenAI API key available. Please install langchain-huggingface or set OPENAI_API_KEY.")
         elif openai_key:
-            return OpenAIEmbeddings(model="text-embedding-3-small")
+            return setup_openai_embedding(api_key=openai_key)
         else:
-            raise ValueError("No API keys found. Please set GROQ_API_KEY or OPENAI_API_KEY environment variable.")
+            raise ValueError("No API keys found. Please set GROQ_API_KEY, GEMINI_API_KEY, or OPENAI_API_KEY environment variable.")
     else:
-        raise ValueError(f"Invalid API provider '{api_provider}' or missing API key")
+        # Check if Gemini was selected but the key isn't available
+        if api_provider == "gemini" and not gemini_key:
+            raise ValueError("Gemini API provider selected but GEMINI_API_KEY environment variable is not set")
+        # Check if Groq was selected but the key isn't available  
+        elif api_provider == "groq" and not groq_key:
+            raise ValueError("Groq API provider selected but GROQ_API_KEY environment variable is not set")
+        # Check if OpenAI was selected but the key isn't available
+        elif api_provider == "openai" and not openai_key:
+            raise ValueError("OpenAI API provider selected but OPENAI_API_KEY environment variable is not set")
+        else:
+            raise ValueError(f"Invalid API provider '{api_provider}'. Supported providers: 'auto', 'openai', 'groq', 'gemini'.")
 
 def load_documents_from_folder(folder_path: str) -> List:
     """

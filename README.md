@@ -5,7 +5,7 @@ A sophisticated RAG (Retrieval-Augmented Generation) agent that evaluates carbon
 ## Features
 
 - 🔍 **Multi-format Document Processing**: Supports PDF, DOCX, TXT, CSV, and Excel files
-- 🤖 **Dual LLM Support**: Compatible with OpenAI GPT and Groq models with automatic API detection
+- 🤖 **OpenAI-Compatible API Support**: Works with any LLM provider that offers OpenAI-compatible APIs (OpenAI, Groq, Google Gemini, etc.)
 - 📊 **Vector Search**: ChromaDB-powered semantic search for relevant document sections
 - ✅ **Compliance Evaluation**: Automated assessment against multiple carbon methodologies
 - � **Robust Error Handling**: Exponential backoff retry logic for API rate limits and token errors
@@ -58,7 +58,10 @@ OPENAI_API_KEY=your_openai_api_key_here
 # For Groq (if using Groq models)
 GROQ_API_KEY=your_groq_api_key_here
 
-# Optional: Set default model provider (auto, openai, or groq)
+# For Google Gemini (if using Gemini models)
+GEMINI_API_KEY=your_gemini_api_key_here
+
+# Optional: Set default model provider (auto, openai, groq, or gemini)
 DEFAULT_API_PROVIDER=auto
 ```
 
@@ -114,7 +117,7 @@ agent = PuroCheckAgent(
 ### Configuration Options
 
 - **`force_rebuild_vectorstore`**: Set to `True` to rebuild the vector database from scratch
-- **`api_provider`**: Choose between "openai", "groq", or "auto" (default)
+- **`api_provider`**: Choose between "openai", "groq", "gemini", or "auto" (default)
 - **`model_name`**: Specify the exact model to use (e.g., "gpt-4", "mixtral-8x7b-32768")
 
 ## Project Structure
@@ -153,6 +156,14 @@ purocheck-agent/
 2. Create an account or log in
 3. Generate an API key
 4. Add it to your `.env` file
+
+### Google Gemini API Key
+
+1. Go to [Google AI Studio](https://ai.google.dev/)
+2. Create an account or log in
+3. Navigate to the API Keys section
+4. Create an API key
+5. Add it to your `.env` file as `GEMINI_API_KEY=your_key_here`
 
 ## Customizing Evaluation Criteria
 

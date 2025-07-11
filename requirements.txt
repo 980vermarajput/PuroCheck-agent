@@ -6,12 +6,14 @@
 langchain>=0.3.0,<0.4.0
 langchain-community>=0.3.0,<0.4.0
 langchain-openai>=0.3.0,<0.4.0
-langchain-groq>=0.3.0,<0.4.0
+
+# OpenAI SDK for compatibility with multiple providers
+openai>=1.8.0
 
 # Vector Database and Embeddings
 chromadb>=1.0.0,<2.0.0
 sentence-transformers>=2.2.0,<3.0.0
-langchain-huggingface>=0.3.0,<0.4.0
+langchain-huggingface>=0.3.0,<0.4.0  # Required for Gemini provider (no native embeddings API)
 
 # Document Processing
 PyMuPDF>=1.23.0,<2.0.0          # PDF processing with pymupdf

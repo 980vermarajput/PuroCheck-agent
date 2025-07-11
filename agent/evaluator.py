@@ -13,6 +13,7 @@ from typing import Dict, List, Any
 from langchain_openai import ChatOpenAI
 from langchain.schema import HumanMessage, SystemMessage
 from dotenv import load_dotenv
+import openai
 
 from .nodes import get_relevant_docs
 from .prompts import SYSTEM_PROMPT, create_evaluation_prompt, get_system_prompt_for_registry
@@ -40,56 +41,84 @@ class ChecklistEvaluator:
         # Determine API provider and model based on available keys
         self.api_provider, self.model_name = self._determine_api_provider(api_provider, model_name)
         
-        # Initialize LLM based on provider
-        if self.api_provider == "groq":
-            self.llm = self._init_groq_llm()
-        else:  # OpenAI
-            self.llm = self._init_openai_llm()
+        # Initialize LLM client with OpenAI API compatibility
+        self.client = self._init_openai_compatible_client()
+        
+        # Initialize Langchain integration for compatibility with existing code
+        self.llm = self._init_langchain_integration()
         
         logger.info(f"Initialized evaluator for {self.registry.upper()} registry with {self.api_provider} using model: {self.model_name}")
-    
     def _determine_api_provider(self, api_provider: str, model_name: str = None) -> tuple[str, str]:
         """Determine which API provider to use based on available keys and preferences"""
         groq_key = os.getenv('GROQ_API_KEY')
         openai_key = os.getenv('OPENAI_API_KEY')
+        gemini_key = os.getenv('GEMINI_API_KEY')
         
         if api_provider == "groq" and groq_key:
             return "groq", model_name or "llama-3.1-8b-instant"
         elif api_provider == "openai" and openai_key:
             return "openai", model_name or "gpt-4o"
+        elif api_provider == "gemini" and gemini_key:
+            return "gemini", model_name or "gemini-1.5-pro"
         elif api_provider == "auto":
-            # Auto-detect based on available keys, prefer Groq for cost efficiency
+            # Auto-detect based on available keys, prefer in order: Groq, Gemini, OpenAI
             if groq_key:
                 return "groq", model_name or "llama-3.1-8b-instant"
+            elif gemini_key:
+                return "gemini", model_name or "gemini-1.5-pro"
             elif openai_key:
                 return "openai", model_name or "gpt-4o"
             else:
-                raise ValueError("No API keys found. Please set GROQ_API_KEY or OPENAI_API_KEY environment variable.")
+                raise ValueError("No API keys found. Please set GROQ_API_KEY, GEMINI_API_KEY, or OPENAI_API_KEY environment variable.")
         else:
             raise ValueError(f"Invalid API provider '{api_provider}' or missing API key")
-    
-    def _init_groq_llm(self):
-        """Initialize Groq LLM"""
-        try:
-            from langchain_groq import ChatGroq
-            return ChatGroq(
+    def _init_openai_compatible_client(self):
+        """Initialize OpenAI-compatible client for the selected provider"""
+        if self.api_provider == "groq":
+            # Configure OpenAI client with Groq base URL
+            client = openai.OpenAI(
+                api_key=os.getenv('GROQ_API_KEY'),
+                base_url="https://api.groq.com/openai/v1"
+            )
+        elif self.api_provider == "gemini":
+            # Configure OpenAI client with Gemini base URL
+            client = openai.OpenAI(
+                api_key=os.getenv('GEMINI_API_KEY'),
+                base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+            )
+        else:  # OpenAI
+            # Use standard OpenAI client
+            client = openai.OpenAI(
+                api_key=os.getenv('OPENAI_API_KEY')
+            )
+        return client
+    def _init_langchain_integration(self):
+        """Initialize Langchain integration for compatibility with existing code"""
+        if self.api_provider == "groq":
+            # For Groq, use the OpenAI integration with custom base URL
+            return ChatOpenAI(
                 model=self.model_name,
                 temperature=0.1,
                 max_tokens=1000,
-                groq_api_key=os.getenv('GROQ_API_KEY')
+                openai_api_key=os.getenv('GROQ_API_KEY'),
+                openai_api_base="https://api.groq.com/openai/v1"
             )
-        except ImportError:
-            logger.error("langchain-groq not installed. Install with: pip install langchain-groq")
-            raise ImportError("Please install langchain-groq: pip install langchain-groq")
-    
-    def _init_openai_llm(self):
-        """Initialize OpenAI LLM"""
-        return ChatOpenAI(
-            model=self.model_name,
-            temperature=0.1,
-            max_tokens=1000,
-            openai_api_key=os.getenv('OPENAI_API_KEY')
-        )
+        elif self.api_provider == "gemini":
+            # For Gemini, use the OpenAI integration with custom base URL
+            return ChatOpenAI(
+                model=self.model_name,
+                temperature=0.1,
+                max_tokens=1000,
+                openai_api_key=os.getenv('GEMINI_API_KEY'),
+                openai_api_base="https://generativelanguage.googleapis.com/v1beta/openai/"
+            )
+        else:  # OpenAI
+            return ChatOpenAI(
+                model=self.model_name,
+                temperature=0.1,
+                max_tokens=1000,
+                openai_api_key=os.getenv('OPENAI_API_KEY')
+            )
     
     def evaluate_requirement(self, checklist_item: Dict[str, Any]) -> 'EvaluationResult':
         """
@@ -137,7 +166,6 @@ class ChecklistEvaluator:
         evaluation_result = self._evaluate_with_retry(
             checklist_item, evaluation_prompt, requirement, relevant_context
         )
-        
         return evaluation_result
     
     def _evaluate_with_retry(
@@ -164,19 +192,27 @@ class ChecklistEvaluator:
         from .agent import EvaluationResult  # Import here to avoid circular import
         
         documents_needed = checklist_item.get('documentsNeeded', 'Not specified')
+        system_prompt = get_system_prompt_for_registry(self.registry)
         
         for attempt in range(max_retries + 1):  # +1 because we want max_retries actual retries after the first attempt
             try:
                 logger.debug(f"Evaluation attempt {attempt + 1}/{max_retries + 1} for requirement: {requirement}")
                 
-                response = self.llm.invoke([
-                    SystemMessage(content=get_system_prompt_for_registry(self.registry)),
-                    HumanMessage(content=evaluation_prompt)
-                ])
+                # Try direct OpenAI-compatible API first
+                try:
+                    response_content = self._evaluate_with_openai_compatible_api(system_prompt, evaluation_prompt)
+                except Exception as api_e:
+                    logger.warning(f"Direct API call failed, falling back to Langchain: {api_e}")
+                    # Fallback to Langchain integration if direct API fails
+                    response = self.llm.invoke([
+                        SystemMessage(content=system_prompt),
+                        HumanMessage(content=evaluation_prompt)
+                    ])
+                    response_content = response.content
                 
                 # If we get here, the API call was successful
                 evaluation_result = self._parse_evaluation_response(
-                    response.content, requirement, relevant_context
+                    response_content, requirement, relevant_context
                 )
                 
                 if attempt > 0:
@@ -445,3 +481,40 @@ class ChecklistEvaluator:
             missing_evidence=missing_evidence,
             confidence_score=confidence_score
         )
+    def _evaluate_with_openai_compatible_api(self, system_prompt, user_prompt):
+            """
+            Evaluate using the OpenAI-compatible API directly
+            
+            This is an alternative to using Langchain that provides more direct control
+            and compatibility with any OpenAI-compatible API.
+            """
+            try:
+                if self.api_provider == "gemini":
+                    # For Gemini, we need to adapt the API request format
+                    gemini_model = self.model_name.replace('-', ':')  # Convert model name format if needed
+                    response = self.client.chat.completions.create(
+                        model=gemini_model,
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=1000,
+                        # Add Gemini-specific parameters if needed
+                        headers={"x-goog-api-key": os.getenv('GEMINI_API_KEY')}
+                    )
+                else:
+                    # Standard OpenAI-compatible request for OpenAI and Groq
+                    response = self.client.chat.completions.create(
+                        model=self.model_name,
+                        messages=[
+                            {"role": "system", "content": system_prompt},
+                            {"role": "user", "content": user_prompt}
+                        ],
+                        temperature=0.1,
+                        max_tokens=1000
+                    )
+                return response.choices[0].message.content
+            except Exception as e:
+                logger.error(f"Error calling OpenAI-compatible API: {e}")
+                raise

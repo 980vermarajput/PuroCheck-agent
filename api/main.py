@@ -178,12 +178,20 @@ async def evaluate_documents(
             logger.info(f"USING PARAMETERS - Registry: '{registry}', API Provider: '{api_provider}'")
             logger.info(f"Vector Store Dir: '{eval_vector_store_dir}'")
             logger.info("=================================================================")
-            
-            # Determine the correct checklist path based on registry
+              # Determine the correct checklist path based on registry
             if registry.lower() == "verra":
                 checklist_path = "checklist/verra_vm0047_checklist.json"
             else:
                 checklist_path = f"checklist/{registry.lower()}_biochar_checklist.json"
+            
+            # Select appropriate model based on provider
+            model_name = None
+            if api_provider == 'openai':
+                model_name = "gpt-4.1-nano"
+            elif api_provider == 'groq':
+                model_name = "llama-3.1-8b-instant"
+            elif api_provider == 'gemini':
+                model_name = "gemini-1.5-pro"
             
             agent = PuroCheckAgent(
                 data_dir=temp_dir,
@@ -192,7 +200,7 @@ async def evaluate_documents(
                 registry=registry.lower(),
                 vector_store_dir=eval_vector_store_dir,
                 force_rebuild_vectorstore=True, 
-                model_name="gpt-4.1-nano" if api_provider=='openai' else None  # Use appropriate model,
+                model_name=model_name
             )
             
             # 4. Process documents
@@ -202,10 +210,22 @@ async def evaluate_documents(
             try:
                 logger.info(f"Initializing agent with {len(saved_files)} documents from temp directory: {temp_dir}")
                 await asyncio.to_thread(agent.initialize)
-                logger.info("Agent initialization successful")
+                logger.info("Agent initialization successful")            # Handle errors with better messages
             except Exception as e:
-                logger.error(f"Agent initialization failed: {str(e)}", exc_info=True)
-                yield f"data: {json.dumps({'status': 'error', 'message': f'Document processing failed: {str(e)}'})}\n\n"
+                error_message = str(e)
+                logger.error(f"Agent initialization failed: {error_message}", exc_info=True)
+                
+                # Provide more helpful error messages
+                if "Gemini API provider" in error_message and "GEMINI_API_KEY" in error_message:
+                    error_message = "Gemini API provider selected but the GEMINI_API_KEY environment variable is not set. Please add your Gemini API key to the .env file."
+                elif "Groq API provider" in error_message and "GROQ_API_KEY" in error_message:
+                    error_message = "Groq API provider selected but the GROQ_API_KEY environment variable is not set. Please add your Groq API key to the .env file."
+                elif "OpenAI API provider" in error_message and "OPENAI_API_KEY" in error_message:
+                    error_message = "OpenAI API provider selected but the OPENAI_API_KEY environment variable is not set. Please add your OpenAI API key to the .env file."
+                elif "langchain_huggingface" in error_message or "HuggingFace embeddings not available" in error_message:
+                    error_message = "Missing HuggingFace embeddings required for Gemini provider. Please install with: pip install langchain-huggingface sentence-transformers"
+                
+                yield f"data: {json.dumps({'status': 'error', 'message': f'Document processing failed: {error_message}'})}\n\n"
                 raise
             
             # 5. Run the full evaluation using the agent's built-in method
