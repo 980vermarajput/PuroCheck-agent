@@ -1,608 +1,652 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eligibility Evaluator</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 20px;
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+      .subheading {
+        color: #7f8c8d;
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+      .config-panel {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 6px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .form-row {
+        display: flex;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+      .form-group {
+        margin-right: 20px;
+        margin-bottom: 15px;
+        flex: 1;
+        min-width: 200px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #34495e;
+      }
+      select,
+      input[type="text"],
+      input[type="file"] {
+        width: 100%;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+      }
+      button {
+        padding: 10px 16px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.2s;
+      }
+      button:hover {
+        background-color: #2980b9;
+      }
+      button:disabled {
+        background-color: #95a5a6;
+        cursor: not-allowed;
+      }
+      #clearBtn {
+        background-color: #e74c3c;
+      }
+      #clearBtn:hover {
+        background-color: #c0392b;
+      }
+
+      /* Status panel */
+      .status-panel {
+        padding: 15px;
+        background-color: #ecf0f1;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .progress-wrapper {
+        margin-top: 10px;
+        height: 25px;
+        background-color: #dfe6e9;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+      .progress-bar {
+        height: 100%;
+        background-color: #3498db;
+        width: 0%;
+        transition: width 0.5s;
+        border-radius: 12px;
+      }
+      .progress-text {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+        line-height: 25px;
+        text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Results table */
+      .results-container {
+        margin-top: 30px;
+        overflow: auto;
+      }
+      .results-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 30px;
+      }
+      .results-table th {
+        background-color: #34495e;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        position: sticky;
+        top: 0;
+      }
+      .results-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: top;
+      }
+      .results-table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      .results-table tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* Status indicators */
+      .status-indicator {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+      .present {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .missing {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .unclear {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      /* Evidence list */
+      .evidence-list {
+        margin-top: 5px;
+        padding-left: 20px;
+        font-size: 13px;
+      }
+
+      /* Confidence score */
+      .confidence-bar {
+        height: 8px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        margin-top: 5px;
+        overflow: hidden;
+      }
+      .confidence-level {
+        height: 100%;
+        background-color: #17a2b8;
+        border-radius: 4px;
+      }
+
+      /* Summary card */
+      .summary-card {
+        background-color: #fff;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-top: 30px;
+      }
+      .summary-title {
+        margin-top: 0;
+        color: #2c3e50;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+      }
+      .summary-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-top: 20px;
+      }
+      .stat-box {
+        flex: 1;
+        min-width: 150px;
+        text-align: center;
+        padding: 15px;
+        border-radius: 6px;
+      }
+      .stat-box h3 {
+        margin: 0;
+        font-size: 32px;
+      }
+      .stat-box p {
+        margin: 5px 0 0;
+        color: #7f8c8d;
+      }
+
+      /* Expanded row details */
+      .details-row {
+        display: none;
+        background-color: #f8f9fa;
+        padding: 15px;
+      }
+      .details-content {
+        max-height: 350px;
+        overflow-y: auto;
+      }
+      .detail-section {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #e9ecef;
+      }
+      .detail-section h5 {
+        color: #495057;
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+
+      /* Spinner */
+      .spinner {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 0, 0, 0.3);
+        border-radius: 50%;
+        border-top-color: #3498db;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        .subheading {
-            color: #7f8c8d;
-            font-size: 1.1em;
-            margin-top: 0;
-        }
-        .config-panel {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .form-row {
-            display: flex;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
+      }
+
+      /* Collapse/expand controls */
+      .toggle-details {
+        cursor: pointer;
+        color: #3498db;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+
+      /* Sections */
+      .section-title {
+        background-color: #34495e;
+        color: white;
+        padding: 10px 15px;
+        margin-top: 30px;
+        margin-bottom: 0;
+        border-radius: 6px 6px 0 0;
+        font-size: 16px;
+      }
+      .section-table {
+        border-radius: 0 0 6px 6px;
+        overflow: hidden;
+        margin-top: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* For mobile screens */
+      @media (max-width: 768px) {
         .form-group {
-            margin-right: 20px;
-            margin-bottom: 15px;
-            flex: 1;
-            min-width: 200px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #34495e;
-        }
-        select, input[type="text"], input[type="file"] {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .button-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        button {
-            padding: 10px 16px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.2s;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        button:disabled {
-            background-color: #95a5a6;
-            cursor: not-allowed;
-        }
-        #clearBtn {
-            background-color: #e74c3c;
-        }
-        #clearBtn:hover {
-            background-color: #c0392b;
-        }
-        
-        /* Status panel */
-        .status-panel {
-            padding: 15px;
-            background-color: #ecf0f1;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .progress-wrapper {
-            margin-top: 10px;
-            height: 25px;
-            background-color: #dfe6e9;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-        .progress-bar {
-            height: 100%;
-            background-color: #3498db;
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 12px;
-        }
-        .progress-text {
-            position: absolute;
-            width: 100%;
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            line-height: 25px;
-            text-shadow: 0 0 3px rgba(0,0,0,0.5);
-        }
-        
-        /* Results table */
-        .results-container {
-            margin-top: 30px;
-            overflow: auto;
-        }
-        .results-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        .results-table th {
-            background-color: #34495e;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-        }
-        .results-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #ddd;
-            vertical-align: top;
-        }
-        .results-table tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .results-table tr:hover {
-            background-color: #f1f1f1;
-        }
-        
-        /* Status indicators */
-        .status-indicator {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
-        .present {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        .missing {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .unclear {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        /* Evidence list */
-        .evidence-list {
-            margin-top: 5px;
-            padding-left: 20px;
-            font-size: 13px;
-        }
-        
-        /* Confidence score */
-        .confidence-bar {
-            height: 8px;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            margin-top: 5px;
-            overflow: hidden;
-        }
-        .confidence-level {
-            height: 100%;
-            background-color: #17a2b8;
-            border-radius: 4px;
-        }
-        
-        /* Summary card */
-        .summary-card {
-            background-color: #fff;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-top: 30px;
-        }
-        .summary-title {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .summary-stats {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
+          min-width: 100%;
+          margin-right: 0;
         }
         .stat-box {
-            flex: 1;
-            min-width: 150px;
-            text-align: center;
-            padding: 15px;
-            border-radius: 6px;
+          min-width: 100%;
         }
-        .stat-box h3 {
-            margin: 0;
-            font-size: 32px;
+        .results-table {
+          font-size: 14px;
         }
-        .stat-box p {
-            margin: 5px 0 0;
-            color: #7f8c8d;
+        .results-table th,
+        .results-table td {
+          padding: 8px;
         }
-        
-        /* Expanded row details */
-        .details-row {
-            display: none;
-            background-color: #f8f9fa;
-            padding: 15px;
+        .column-requirement {
+          max-width: 100px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
-        .details-content {
-            max-height: 350px;
-            overflow-y: auto;
-        }
-        .detail-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e9ecef;
-        }
-        .detail-section h5 {
-            color: #495057;
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-        
-        /* Spinner */
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0,0,0,0.3);
-            border-radius: 50%;
-            border-top-color: #3498db;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Collapse/expand controls */
-        .toggle-details {
-            cursor: pointer;
-            color: #3498db;
-            font-size: 12px;
-            margin-left: 10px;
-        }
-        
-        /* Sections */
-        .section-title {
-            background-color: #34495e;
-            color: white;
-            padding: 10px 15px;
-            margin-top: 30px;
-            margin-bottom: 0;
-            border-radius: 6px 6px 0 0;
-            font-size: 16px;
-        }
-        .section-table {
-            border-radius: 0 0 6px 6px;
-            overflow: hidden;
-            margin-top: 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        /* For mobile screens */
-        @media (max-width: 768px) {
-            .form-group {
-                min-width: 100%;
-                margin-right: 0;
-            }
-            .stat-box {
-                min-width: 100%;
-            }
-            .results-table {
-                font-size: 14px;
-            }
-            .results-table th, .results-table td {
-                padding: 8px;
-            }
-            .column-requirement {
-                max-width: 100px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <h1>Eligibility Evaluator</h1>
+      <h1>Eligibility Evaluator</h1>
     </header>
-    
+
     <div class="config-panel">
-        <h2>Project Evaluation</h2>
-        
-        <div class="form-row">
-            <div class="form-group">
-                <label for="registry">Registry Standard:</label>
-                <select id="registry">
-                    <option value="puro">Puro.earth</option>
-                    <option value="verra">Verra VCS</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="apiProvider">LLM Provider:</label>
-                <select id="apiProvider">
-                    <option value="auto">Auto-select</option>
-                    <option value="openai">OpenAI</option>
-                    <option value="groq">Groq</option>
-                </select>
-            </div>
-        </div>
-        
+      <h2>Project Evaluation</h2>
+
+      <div class="form-row">
         <div class="form-group">
-            <label for="fileInput">Upload Project Documents:</label>
-            <input type="file" id="fileInput" multiple accept=".pdf,.docx,.txt,.xlsx,.csv,.xlsm,.xls">
-            <small>Upload PDF, DOCX, Excel or TXT files containing project documentation</small>
+          <label for="registry">Registry Standard:</label>
+          <select id="registry">
+            <option value="puro">Puro.earth</option>
+            <option value="verra">Verra VCS</option>
+          </select>
         </div>
-        
-        <div class="button-group">
-            <button id="startBtn">Start Evaluation</button>
-            <button id="clearBtn">Clear Results</button>
-            <button id="downloadBtn" style="display: none; background-color: #27ae60;">Download Report (CSV)</button>
+
+        <div class="form-group">
+          <label for="apiProvider">LLM Provider:</label>
+          <select id="apiProvider">
+            <option value="auto">Auto-select</option>
+            <option value="openai">OpenAI</option>
+            <option value="groq">Groq</option>
+          </select>
         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fileInput">Upload Project Documents:</label>
+        <input
+          type="file"
+          id="fileInput"
+          multiple
+          accept=".pdf,.docx,.txt,.xlsx,.csv,.xlsm,.xls"
+        />
+        <small
+          >Upload PDF, DOCX, Excel or TXT files containing project
+          documentation</small
+        >
+      </div>
+
+      <div class="button-group">
+        <button id="startBtn">Start Evaluation</button>
+        <button id="clearBtn">Clear Results</button>
+        <button
+          id="downloadBtn"
+          style="display: none; background-color: #27ae60"
+        >
+          Download Report (CSV)
+        </button>
+      </div>
     </div>
-    
-    <div id="statusPanel" class="status-panel" style="display: none;">
-        <div id="statusText">Preparing evaluation...</div>
-        <div class="progress-wrapper">
-            <div id="progressBar" class="progress-bar"></div>
-            <div id="progressText" class="progress-text">0%</div>
-        </div>
-    </div>        <div id="resultsContainer" class="results-container" style="display: none;">
-        <div id="summaryCard" class="summary-card">
-            <h2 class="summary-title">Evaluation Summary</h2>
-            <div id="summaryContent">
-                <div class="summary-stats">
-                    <div class="stat-box" style="background-color: #d4edda;">
-                        <h3 id="presentCount">0</h3>
-                        <p>Present</p>
-                    </div>
-                    <div class="stat-box" style="background-color: #f8d7da;">
-                        <h3 id="missingCount">0</h3>
-                        <p>Missing</p>
-                    </div>
-                    <div class="stat-box" style="background-color: #fff3cd;">
-                        <h3 id="unclearCount">0</h3>
-                        <p>Unclear</p>
-                    </div>
-                    <div class="stat-box" style="background-color: #e9ecef;">
-                        <h3 id="totalCount">0</h3>
-                        <p>Total</p>
-                    </div>
-                </div>
-                
-                <div id="overallStatus" style="margin-top: 20px; text-align: center; font-size: 18px; font-weight: bold;">
-                    Awaiting evaluation results
-                </div>
+
+    <div id="statusPanel" class="status-panel" style="display: none">
+      <div id="statusText">Preparing evaluation...</div>
+      <div class="progress-wrapper">
+        <div id="progressBar" class="progress-bar"></div>
+        <div id="progressText" class="progress-text">0%</div>
+      </div>
+    </div>
+    <div id="resultsContainer" class="results-container" style="display: none">
+      <div id="summaryCard" class="summary-card">
+        <h2 class="summary-title">Evaluation Summary</h2>
+        <div id="summaryContent">
+          <div class="summary-stats">
+            <div class="stat-box" style="background-color: #d4edda">
+              <h3 id="presentCount">0</h3>
+              <p>Present</p>
             </div>
+            <div class="stat-box" style="background-color: #f8d7da">
+              <h3 id="missingCount">0</h3>
+              <p>Missing</p>
+            </div>
+            <div class="stat-box" style="background-color: #fff3cd">
+              <h3 id="unclearCount">0</h3>
+              <p>Unclear</p>
+            </div>
+            <div class="stat-box" style="background-color: #e9ecef">
+              <h3 id="totalCount">0</h3>
+              <p>Total</p>
+            </div>
+          </div>
+
+          <div
+            id="overallStatus"
+            style="
+              margin-top: 20px;
+              text-align: center;
+              font-size: 18px;
+              font-weight: bold;
+            "
+          >
+            Awaiting evaluation results
+          </div>
         </div>
-        
-        <div id="sectionsContainer">
-            <!-- Section tables will be generated here -->
-        </div>
+      </div>
+
+      <div id="sectionsContainer">
+        <!-- Section tables will be generated here -->
+      </div>
     </div>
-    
+
     <script>
-        // Elements
-        const registrySelect = document.getElementById('registry');
-        const apiProviderSelect = document.getElementById('apiProvider');
-        const fileInput = document.getElementById('fileInput');
-        const startBtn = document.getElementById('startBtn');
-        const clearBtn = document.getElementById('clearBtn');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const statusPanel = document.getElementById('statusPanel');
-        const statusText = document.getElementById('statusText');
-        const progressBar = document.getElementById('progressBar');
-        const progressText = document.getElementById('progressText');
-        const resultsContainer = document.getElementById('resultsContainer');
-        const sectionsContainer = document.getElementById('sectionsContainer');
-        const presentCount = document.getElementById('presentCount');
-        const missingCount = document.getElementById('missingCount');
-        const unclearCount = document.getElementById('unclearCount');
-        const totalCount = document.getElementById('totalCount');
-        const overallStatus = document.getElementById('overallStatus');
-        
-        // State
-        let apiUrl = window.location.origin; // Use the current origin
-        let currentEvaluation = {
-            sections: {},
-            results: {},
-            allResults: [], // Store all results in an array for CSV export
-            currentSection: null,
-            summary: {
-                present: 0,
-                missing: 0,
-                unclear: 0,
-                total: 0
-            }
-        };
-        
-        // Event handlers
-        startBtn.addEventListener('click', startEvaluation);
-        clearBtn.addEventListener('click', clearResults);
-        downloadBtn.addEventListener('click', downloadEvaluationReport);
-        
-        function startEvaluation() {
-            // Validate inputs
-            if (!fileInput.files || fileInput.files.length === 0) {
-                alert('Please select at least one document file to upload');
-                return;
-            }
-            
-            // Clear previous results
-            clearResults();
-            
-            // Show status panel
-            statusPanel.style.display = 'block';
-            statusText.innerHTML = '<div class="spinner"></div> Starting evaluation...';
-            progressBar.style.width = '0%';
-            progressText.textContent = '0%';
-            
-            // Prepare form data
-            const formData = new FormData();
-            for (let i = 0; i < fileInput.files.length; i++) {
-                formData.append('files', fileInput.files[i]);
-            }
-            formData.append('registry', registrySelect.value);
-            formData.append('api_provider', apiProviderSelect.value);
-            
-            // Update UI
-            startBtn.disabled = true;
-            
-            // Make the API request
-            fetch(`${apiUrl}/evaluate`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error ${response.status}`);
-                }
-                
-                // Set up streaming response handling
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                let buffer = '';
-                
-                function processStream() {
-                    return reader.read().then(({ done, value }) => {
-                        if (done) {
-                            // Handle any remaining data in buffer
-                            if (buffer.trim()) {
-                                try {
-                                    processEventData(buffer);
-                                } catch (e) {
-                                    console.error('Error processing final buffer:', e);
-                                }
-                            }
-                            
-                            // Enable start button
-                            startBtn.disabled = false;
-                            statusText.innerHTML = 'Evaluation complete!';
-                            
-                            return;
-                        }
-                        
-                        // Append new data to buffer
-                        buffer += decoder.decode(value, { stream: true });
-                        
-                        // Process complete events in buffer
-                        const events = buffer.split('\n\n');
-                        buffer = events.pop(); // Keep the last incomplete event in buffer
-                        
-                        // Process each complete event
-                        events.forEach(event => {
-                            if (event.trim().startsWith('data: ')) {
-                                try {
-                                    processEventData(event);
-                                } catch (e) {
-                                    console.error('Error processing event:', e);
-                                    console.error('Event:', event);
-                                }
-                            }
-                        });
-                        
-                        // Continue reading
-                        return processStream();
-                    });
-                }
-                
-                return processStream();
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                statusText.innerHTML = `<span style="color: #e74c3c;">Error: ${error.message}</span>`;
-                startBtn.disabled = false;
-            });
+      // Elements
+      const registrySelect = document.getElementById("registry");
+      const apiProviderSelect = document.getElementById("apiProvider");
+      const fileInput = document.getElementById("fileInput");
+      const startBtn = document.getElementById("startBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const statusPanel = document.getElementById("statusPanel");
+      const statusText = document.getElementById("statusText");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+      const resultsContainer = document.getElementById("resultsContainer");
+      const sectionsContainer = document.getElementById("sectionsContainer");
+      const presentCount = document.getElementById("presentCount");
+      const missingCount = document.getElementById("missingCount");
+      const unclearCount = document.getElementById("unclearCount");
+      const totalCount = document.getElementById("totalCount");
+      const overallStatus = document.getElementById("overallStatus");
+
+      // State
+      let apiUrl = window.location.origin; // Use the current origin
+      let currentEvaluation = {
+        sections: {},
+        results: {},
+        allResults: [], // Store all results in an array for CSV export
+        currentSection: null,
+        summary: {
+          present: 0,
+          missing: 0,
+          unclear: 0,
+          total: 0,
+        },
+      };
+
+      // Event handlers
+      startBtn.addEventListener("click", startEvaluation);
+      clearBtn.addEventListener("click", clearResults);
+      downloadBtn.addEventListener("click", downloadEvaluationReport);
+
+      function startEvaluation() {
+        // Validate inputs
+        if (!fileInput.files || fileInput.files.length === 0) {
+          alert("Please select at least one document file to upload");
+          return;
         }
-        
-        function processEventData(eventText) {
-            if (!eventText.trim().startsWith('data: ')) return;
-            
-            // Extract JSON data
-            const jsonText = eventText.trim().substring(6); // Remove 'data: ' prefix
-            const data = JSON.parse(jsonText);
-            
-            // Process the event based on its status
-            switch (data.status) {
-                case 'starting':
-                case 'uploading':
-                case 'initializing':
-                case 'processing':
-                    statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
-                    progressBar.style.width = '5%';
-                    progressText.textContent = 'Starting...';
-                    break;
-                
-                case 'evaluating':
-                    statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
-                    progressBar.style.width = '10%';
-                    progressText.textContent = '10%';
-                    // Show the results container
-                    resultsContainer.style.display = 'block';
-                    break;
-                
-                case 'section_start':
-                    statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
-                    // Store current section
-                    currentEvaluation.currentSection = data.section;
-                    // Create section in UI if it doesn't exist
-                    createSectionIfNeeded(data.section);
-                    break;
-                
-                case 'item_start':
-                    statusText.innerHTML = `<div class="spinner"></div> Evaluating: ${data.requirement}`;
-                    break;
-                
-                case 'item_complete':
-                    // Add the result to the table
-                    addResultToTable(data.result, data.summary);
-                    break;
-                
-                case 'complete':
-                    // Final update
-                    statusText.innerHTML = `✅ ${data.message}`;
-                    progressBar.style.width = '100%';
-                    progressText.textContent = '100%';
-                    
-                    // Show download button
-                    downloadBtn.style.display = 'block';
-                    
-                    // Update summary with final results
-                    if (data.results && data.results.summary) {
-                        updateSummary(data.results.summary);
+
+        // Clear previous results
+        clearResults();
+
+        // Show status panel
+        statusPanel.style.display = "block";
+        statusText.innerHTML =
+          '<div class="spinner"></div> Starting evaluation...';
+        progressBar.style.width = "0%";
+        progressText.textContent = "0%"; // Prepare form data
+        const formData = new FormData();
+
+        // Add files to form data
+        for (let i = 0; i < fileInput.files.length; i++) {
+          formData.append("files", fileInput.files[i]);
+        }
+
+        // Get selected values
+        const registry = registrySelect.value;
+        const apiProvider = apiProviderSelect.value;
+
+        // Add parameters to form data
+        formData.append("registry", registry);
+        formData.append("api_provider", apiProvider);
+
+        // Log form data to console for debugging
+        console.log("Selected registry:", registry);
+        console.log("Selected API provider:", apiProvider);
+
+        // Update UI
+        startBtn.disabled = true; // Make the API request
+
+        // We'll try both query parameters and form data to see which one works
+        fetch(
+          `${apiUrl}/evaluate?registry=${encodeURIComponent(
+            registry
+          )}&api_provider=${encodeURIComponent(apiProvider)}`,
+          {
+            method: "POST",
+            // Don't set Content-Type header - browser will set it correctly for FormData with boundary
+            body: formData,
+          }
+        )
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error ${response.status}`);
+            }
+
+            // Set up streaming response handling
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+
+            function processStream() {
+              return reader.read().then(({ done, value }) => {
+                if (done) {
+                  // Handle any remaining data in buffer
+                  if (buffer.trim()) {
+                    try {
+                      processEventData(buffer);
+                    } catch (e) {
+                      console.error("Error processing final buffer:", e);
                     }
-                    break;
-                
-                case 'error':
-                    statusText.innerHTML = `<span style="color: #e74c3c;">❌ ${data.message}</span>`;
-                    break;
-                
-                case 'heartbeat':
-                    // Just a heartbeat to keep connection alive, nothing to update
-                    break;
+                  }
+
+                  // Enable start button
+                  startBtn.disabled = false;
+                  statusText.innerHTML = "Evaluation complete!";
+
+                  return;
+                }
+
+                // Append new data to buffer
+                buffer += decoder.decode(value, { stream: true });
+
+                // Process complete events in buffer
+                const events = buffer.split("\n\n");
+                buffer = events.pop(); // Keep the last incomplete event in buffer
+
+                // Process each complete event
+                events.forEach((event) => {
+                  if (event.trim().startsWith("data: ")) {
+                    try {
+                      processEventData(event);
+                    } catch (e) {
+                      console.error("Error processing event:", e);
+                      console.error("Event:", event);
+                    }
+                  }
+                });
+
+                // Continue reading
+                return processStream();
+              });
             }
+
+            return processStream();
+          })
+          .catch((error) => {
+            console.error("Fetch error:", error);
+            statusText.innerHTML = `<span style="color: #e74c3c;">Error: ${error.message}</span>`;
+            startBtn.disabled = false;
+          });
+      }
+
+      function processEventData(eventText) {
+        if (!eventText.trim().startsWith("data: ")) return;
+
+        // Extract JSON data
+        const jsonText = eventText.trim().substring(6); // Remove 'data: ' prefix
+        const data = JSON.parse(jsonText);
+
+        // Process the event based on its status
+        switch (data.status) {
+          case "starting":
+          case "uploading":
+          case "initializing":
+          case "processing":
+            statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
+            progressBar.style.width = "5%";
+            progressText.textContent = "Starting...";
+            break;
+
+          case "evaluating":
+            statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
+            progressBar.style.width = "10%";
+            progressText.textContent = "10%";
+            // Show the results container
+            resultsContainer.style.display = "block";
+            break;
+
+          case "section_start":
+            statusText.innerHTML = `<div class="spinner"></div> ${data.message}`;
+            // Store current section
+            currentEvaluation.currentSection = data.section;
+            // Create section in UI if it doesn't exist
+            createSectionIfNeeded(data.section);
+            break;
+
+          case "item_start":
+            statusText.innerHTML = `<div class="spinner"></div> Evaluating: ${data.requirement}`;
+            break;
+
+          case "item_complete":
+            // Add the result to the table
+            addResultToTable(data.result, data.summary);
+            break;
+
+          case "complete":
+            // Final update
+            statusText.innerHTML = `✅ ${data.message}`;
+            progressBar.style.width = "100%";
+            progressText.textContent = "100%";
+
+            // Show download button
+            downloadBtn.style.display = "block";
+
+            // Update summary with final results
+            if (data.results && data.results.summary) {
+              updateSummary(data.results.summary);
+            }
+            break;
+
+          case "error":
+            statusText.innerHTML = `<span style="color: #e74c3c;">❌ ${data.message}</span>`;
+            break;
+
+          case "heartbeat":
+            // Just a heartbeat to keep connection alive, nothing to update
+            break;
         }
-        
-        function createSectionIfNeeded(sectionTitle) {
-            if (!sectionTitle || currentEvaluation.sections[sectionTitle]) return;
-            
-            // Create section element
-            const sectionElement = document.createElement('div');
-            sectionElement.className = 'section';
-            sectionElement.innerHTML = `
+      }
+
+      function createSectionIfNeeded(sectionTitle) {
+        if (!sectionTitle || currentEvaluation.sections[sectionTitle]) return;
+
+        // Create section element
+        const sectionElement = document.createElement("div");
+        sectionElement.className = "section";
+        sectionElement.innerHTML = `
                 <h3 class="section-title">${sectionTitle}</h3>
                 <table class="results-table section-table">
                     <thead>
@@ -612,140 +656,179 @@
                             <th style="width: 55%;">Reason</th>
                         </tr>
                     </thead>
-                    <tbody id="section-${sectionTitle.replace(/\s+/g, '-').toLowerCase()}">
+                    <tbody id="section-${sectionTitle
+                      .replace(/\s+/g, "-")
+                      .toLowerCase()}">
                     </tbody>
                 </table>
             `;
-            
-            sectionsContainer.appendChild(sectionElement);
-            currentEvaluation.sections[sectionTitle] = true;
+
+        sectionsContainer.appendChild(sectionElement);
+        currentEvaluation.sections[sectionTitle] = true;
+      }
+
+      function addResultToTable(result, summary) {
+        if (!result || !result.requirement) return;
+
+        // Use current section if available
+        let sectionBody = null;
+        if (currentEvaluation.currentSection) {
+          const sectionId = `section-${currentEvaluation.currentSection
+            .replace(/\s+/g, "-")
+            .toLowerCase()}`;
+          sectionBody = document.getElementById(sectionId);
         }
-        
-        function addResultToTable(result, summary) {
-            if (!result || !result.requirement) return;
-            
-            // Use current section if available
-            let sectionBody = null;
-            if (currentEvaluation.currentSection) {
-                const sectionId = `section-${currentEvaluation.currentSection.replace(/\s+/g, '-').toLowerCase()}`;
-                sectionBody = document.getElementById(sectionId);
+
+        // If we couldn't find the section, fallback to looking through all sections
+        if (!sectionBody) {
+          for (const sectionTitle in currentEvaluation.sections) {
+            const sectionId = `section-${sectionTitle
+              .replace(/\s+/g, "-")
+              .toLowerCase()}`;
+            const sectionElement = document.getElementById(sectionId);
+
+            if (sectionElement) {
+              sectionBody = sectionElement;
+              break;
             }
-            
-            // If we couldn't find the section, fallback to looking through all sections
-            if (!sectionBody) {
-                for (const sectionTitle in currentEvaluation.sections) {
-                    const sectionId = `section-${sectionTitle.replace(/\s+/g, '-').toLowerCase()}`;
-                    const sectionElement = document.getElementById(sectionId);
-                    
-                    if (sectionElement) {
-                        sectionBody = sectionElement;
-                        break;
-                    }
-                }
+          }
+        }
+
+        if (!sectionBody) return;
+
+        // Check if this result already exists in the table
+        const existingRow = document.getElementById(
+          `req-${result.requirement.replace(/\s+/g, "-").toLowerCase()}`
+        );
+        if (existingRow) {
+          // Update existing row
+          existingRow.innerHTML = generateResultRow(result);
+        } else {
+          console.log("Result received:", result);
+          // Create new row
+          const row = document.createElement("tr");
+          row.id = `req-${result.requirement
+            .replace(/\s+/g, "-")
+            .toLowerCase()}`;
+          row.innerHTML = generateResultRow(result);
+
+          // Add click handler for expanding details
+          row.addEventListener("click", function () {
+            const detailsId = `details-${result.requirement
+              .replace(/\s+/g, "-")
+              .toLowerCase()}`;
+            const detailsRow = document.getElementById(detailsId);
+
+            if (detailsRow) {
+              // Toggle visibility
+              if (detailsRow.style.display === "table-row") {
+                detailsRow.style.display = "none";
+                row.querySelector(".toggle-details").textContent =
+                  "Show details";
+              } else {
+                detailsRow.style.display = "table-row";
+                row.querySelector(".toggle-details").textContent =
+                  "Hide details";
+              }
             }
-            
-            if (!sectionBody) return;
-            
-            // Check if this result already exists in the table
-            const existingRow = document.getElementById(`req-${result.requirement.replace(/\s+/g, '-').toLowerCase()}`);
-            if (existingRow) {
-                // Update existing row
-                existingRow.innerHTML = generateResultRow(result);
-            } else {
-                console.log("Result received:", result);
-                // Create new row
-                const row = document.createElement('tr');
-                row.id = `req-${result.requirement.replace(/\s+/g, '-').toLowerCase()}`;
-                row.innerHTML = generateResultRow(result);
-                
-                // Add click handler for expanding details
-                row.addEventListener('click', function() {
-                    const detailsId = `details-${result.requirement.replace(/\s+/g, '-').toLowerCase()}`;
-                    const detailsRow = document.getElementById(detailsId);
-                    
-                    if (detailsRow) {
-                        // Toggle visibility
-                        if (detailsRow.style.display === 'table-row') {
-                            detailsRow.style.display = 'none';
-                            row.querySelector('.toggle-details').textContent = 'Show details';
-                        } else {
-                            detailsRow.style.display = 'table-row';
-                            row.querySelector('.toggle-details').textContent = 'Hide details';
-                        }
-                    }
-                });
-                
-                sectionBody.appendChild(row);
-                
-                // Create details row
-                const detailsRow = document.createElement('tr');
-                detailsRow.id = `details-${result.requirement.replace(/\s+/g, '-').toLowerCase()}`;
-                detailsRow.className = 'details-row';
-                
-                console.log("Result received:", result);
-                console.log("Confidence score:", result.confidence_score, "Type:", typeof result.confidence_score);
-                // Calculate confidence percentage properly
-                const confidence = parseFloat(result.confidence_score || 0) * 100;
-                console.log("Calculated confidence:", confidence);
-                
-                detailsRow.innerHTML = `
+          });
+
+          sectionBody.appendChild(row);
+
+          // Create details row
+          const detailsRow = document.createElement("tr");
+          detailsRow.id = `details-${result.requirement
+            .replace(/\s+/g, "-")
+            .toLowerCase()}`;
+          detailsRow.className = "details-row";
+
+          console.log("Result received:", result);
+          console.log(
+            "Confidence score:",
+            result.confidence_score,
+            "Type:",
+            typeof result.confidence_score
+          );
+          // Calculate confidence percentage properly
+          const confidence = parseFloat(result.confidence_score || 0) * 100;
+          console.log("Calculated confidence:", confidence);
+
+          detailsRow.innerHTML = `
                     <td colspan="3" class="details-content">
                         <h4>Detailed Analysis</h4>
-                        <p><strong>Requirement:</strong> ${result.requirement}</p>
-                        <p><strong>Status:</strong> <span class="status-indicator ${result.status}">${result.status.toUpperCase()}</span></p>
+                        <p><strong>Requirement:</strong> ${
+                          result.requirement
+                        }</p>
+                        <p><strong>Status:</strong> <span class="status-indicator ${
+                          result.status
+                        }">${result.status.toUpperCase()}</span></p>
                         
                         <p><strong>Reason:</strong> ${result.reason}</p>
                         
                         <div class="detail-section">
                             <h5>Evidence Found:</h5>
-                            ${result.evidence_found && result.evidence_found.length > 0 ? 
-                                `<ul>
-                                    ${result.evidence_found.map(evidence => `<li>${evidence}</li>`).join('')}
-                                </ul>` : '<p>No evidence found</p>'}
+                            ${
+                              result.evidence_found &&
+                              result.evidence_found.length > 0
+                                ? `<ul>
+                                    ${result.evidence_found
+                                      .map((evidence) => `<li>${evidence}</li>`)
+                                      .join("")}
+                                </ul>`
+                                : "<p>No evidence found</p>"
+                            }
                         </div>
                         
-                        ${result.missing_evidence && result.missing_evidence.length > 0 ? 
-                            `<div class="detail-section">
+                        ${
+                          result.missing_evidence &&
+                          result.missing_evidence.length > 0
+                            ? `<div class="detail-section">
                                 <h5>Missing Evidence:</h5>
                                 <ul>
-                                    ${result.missing_evidence.map(evidence => `<li>${evidence}</li>`).join('')}
+                                    ${result.missing_evidence
+                                      .map((evidence) => `<li>${evidence}</li>`)
+                                      .join("")}
                                 </ul>
-                            </div>` : ''}
+                            </div>`
+                            : ""
+                        }
                         
                         <div class="detail-section">
-                            <p><strong>Confidence Score:</strong> ${confidence.toFixed(0)}%</p>
+                            <p><strong>Confidence Score:</strong> ${confidence.toFixed(
+                              0
+                            )}%</p>
                             <div class="confidence-bar" style="width: 100%; height: 12px;">
                                 <div class="confidence-level" style="width: ${confidence}%; height: 12px;"></div>
                             </div>
                         </div>
                     </td>
                 `;
-                
-                sectionBody.appendChild(detailsRow);
-                
-                // Store result for CSV export
-                const resultWithSection = {
-                    ...result,
-                    section: currentEvaluation.currentSection || 'Uncategorized'
-                };
-                currentEvaluation.allResults.push(resultWithSection);
-            }
-            
-            // Update summary data
-            updateSummary(summary);
-            
-            // Update progress bar
-            if (summary) {
-                const progress = Math.round((summary.total / 31) * 100); // Assuming 31 total requirements
-                progressBar.style.width = `${progress}%`;
-                progressText.textContent = `${progress}%`;
-            }
+
+          sectionBody.appendChild(detailsRow);
+
+          // Store result for CSV export
+          const resultWithSection = {
+            ...result,
+            section: currentEvaluation.currentSection || "Uncategorized",
+          };
+          currentEvaluation.allResults.push(resultWithSection);
         }
-        
-        function generateResultRow(result) {
-            const statusClass = result.status || 'unclear';
-            
-            return `
+
+        // Update summary data
+        updateSummary(summary);
+
+        // Update progress bar
+        if (summary) {
+          const progress = Math.round((summary.total / 31) * 100); // Assuming 31 total requirements
+          progressBar.style.width = `${progress}%`;
+          progressText.textContent = `${progress}%`;
+        }
+      }
+
+      function generateResultRow(result) {
+        const statusClass = result.status || "unclear";
+
+        return `
                 <td class="column-requirement">
                     ${result.requirement}
                     <span class="toggle-details">Show details</span>
@@ -757,144 +840,157 @@
                 </td>
                 <td>${truncateText(result.reason, 250)}</td>
             `;
+      }
+
+      function updateSummary(summary) {
+        if (!summary) return;
+
+        // Update summary counts
+        if (summary.present !== undefined)
+          presentCount.textContent = summary.present;
+        if (summary.missing !== undefined)
+          missingCount.textContent = summary.missing;
+        if (summary.unclear !== undefined)
+          unclearCount.textContent = summary.unclear;
+        if (summary.total !== undefined) totalCount.textContent = summary.total;
+
+        // Update current evaluation summary
+        currentEvaluation.summary = {
+          present: summary.present || 0,
+          missing: summary.missing || 0,
+          unclear: summary.unclear || 0,
+          total: summary.total || 0,
+        };
+
+        // Update overall status if available
+        if (summary.overall_status) {
+          let statusText = summary.overall_status.replace(/_/g, " ");
+          statusText = statusText.charAt(0).toUpperCase() + statusText.slice(1);
+
+          let statusColor = "#3498db"; // Default blue
+          if (statusText.includes("eligible")) {
+            statusColor = "#27ae60"; // Green
+          } else if (statusText.includes("ineligible")) {
+            statusColor = "#e74c3c"; // Red
+          } else if (statusText.includes("review")) {
+            statusColor = "#f39c12"; // Orange
+          }
+
+          overallStatus.innerHTML = `Overall Status: <span style="color: ${statusColor};">${statusText}</span>`;
         }
-        
-        function updateSummary(summary) {
-            if (!summary) return;
-            
-            // Update summary counts
-            if (summary.present !== undefined) presentCount.textContent = summary.present;
-            if (summary.missing !== undefined) missingCount.textContent = summary.missing;
-            if (summary.unclear !== undefined) unclearCount.textContent = summary.unclear;
-            if (summary.total !== undefined) totalCount.textContent = summary.total;
-            
-            // Update current evaluation summary
-            currentEvaluation.summary = {
-                present: summary.present || 0,
-                missing: summary.missing || 0,
-                unclear: summary.unclear || 0,
-                total: summary.total || 0
-            };
-            
-            // Update overall status if available
-            if (summary.overall_status) {
-                let statusText = summary.overall_status.replace(/_/g, ' ');
-                statusText = statusText.charAt(0).toUpperCase() + statusText.slice(1);
-                
-                let statusColor = '#3498db'; // Default blue
-                if (statusText.includes('eligible')) {
-                    statusColor = '#27ae60'; // Green
-                } else if (statusText.includes('ineligible')) {
-                    statusColor = '#e74c3c'; // Red
-                } else if (statusText.includes('review')) {
-                    statusColor = '#f39c12'; // Orange
-                }
-                
-                overallStatus.innerHTML = `Overall Status: <span style="color: ${statusColor};">${statusText}</span>`;
-            }
+      }
+
+      function clearResults() {
+        // Reset UI elements
+        sectionsContainer.innerHTML = "";
+        statusPanel.style.display = "none";
+        resultsContainer.style.display = "none";
+        downloadBtn.style.display = "none";
+
+        // Reset counts
+        presentCount.textContent = "0";
+        missingCount.textContent = "0";
+        unclearCount.textContent = "0";
+        totalCount.textContent = "0";
+        overallStatus.textContent = "Awaiting evaluation results";
+
+        // Reset state
+        currentEvaluation = {
+          sections: {},
+          results: {},
+          allResults: [],
+          currentSection: null,
+          summary: {
+            present: 0,
+            missing: 0,
+            unclear: 0,
+            total: 0,
+          },
+        };
+      }
+
+      // Helper function to truncate text
+      function truncateText(text, maxLength) {
+        if (!text) return "";
+        return text.length > maxLength
+          ? text.substring(0, maxLength) + "..."
+          : text;
+      }
+
+      // Function to download CSV report
+      function downloadEvaluationReport() {
+        if (currentEvaluation.allResults.length === 0) {
+          alert("No evaluation results to download");
+          return;
         }
-        
-        function clearResults() {
-            // Reset UI elements
-            sectionsContainer.innerHTML = '';
-            statusPanel.style.display = 'none';
-            resultsContainer.style.display = 'none';
-            downloadBtn.style.display = 'none';
-            
-            // Reset counts
-            presentCount.textContent = '0';
-            missingCount.textContent = '0';
-            unclearCount.textContent = '0';
-            totalCount.textContent = '0';
-            overallStatus.textContent = 'Awaiting evaluation results';
-            
-            // Reset state
-            currentEvaluation = {
-                sections: {},
-                results: {},
-                allResults: [],
-                currentSection: null,
-                summary: {
-                    present: 0,
-                    missing: 0,
-                    unclear: 0,
-                    total: 0
-                }
-            };
-        }
-        
-        // Helper function to truncate text
-        function truncateText(text, maxLength) {
-            if (!text) return '';
-            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-        }
-        
-        // Function to download CSV report
-        function downloadEvaluationReport() {
-            if (currentEvaluation.allResults.length === 0) {
-                alert("No evaluation results to download");
-                return;
-            }
-            
-            // CSV Header
-            let csvContent = "Section,Requirement,Status,Reason,Evidence Found,Missing Evidence,Confidence Score\n";
-            
-            // Add each result as a row
-            currentEvaluation.allResults.forEach(result => {
-                // Format evidence lists for CSV
-                const evidenceFormatted = Array.isArray(result.evidence_found) 
-                    ? result.evidence_found.join(" | ").replace(/"/g, '""') 
-                    : "";
-                    
-                const missingEvidenceFormatted = Array.isArray(result.missing_evidence) 
-                    ? result.missing_evidence.join(" | ").replace(/"/g, '""') 
-                    : "";
-                
-                // Format reason for CSV (escape quotes)
-                const reasonFormatted = (result.reason || "").replace(/"/g, '""');
-                
-                // Calculate confidence percentage
-                const confidence = parseFloat(result.confidence_score || 0) * 100;
-                
-                // Create CSV row
-                const row = [
-                    `"${result.section || ''}"`,
-                    `"${result.requirement || ''}"`,
-                    `"${result.status || ''}"`,
-                    `"${reasonFormatted}"`,
-                    `"${evidenceFormatted}"`,
-                    `"${missingEvidenceFormatted}"`,
-                    `${confidence.toFixed(0)}%`
-                ].join(',');
-                
-                csvContent += row + "\n";
-            });
-            
-            // Add summary row
-            csvContent += "\n\nSummary Statistics\n";
-            csvContent += `"Total Requirements","${currentEvaluation.summary.total}"\n`;
-            csvContent += `"Present","${currentEvaluation.summary.present}"\n`;
-            csvContent += `"Missing","${currentEvaluation.summary.missing}"\n`;
-            csvContent += `"Unclear","${currentEvaluation.summary.unclear}"\n`;
-            
-            // Get current date for filename
-            const date = new Date();
-            const formattedDate = date.toISOString().split('T')[0];
-            const registry = registrySelect.value;
-            
-            // Create download link
-            const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `${registry}_evaluation_report_${formattedDate}.csv`);
-            document.body.appendChild(link);
-            
-            // Download the CSV file
-            link.click();
-            
-            // Clean up
-            document.body.removeChild(link);
-        }
+
+        // CSV Header
+        let csvContent =
+          "Section,Requirement,Status,Reason,Evidence Found,Missing Evidence,Confidence Score\n";
+
+        // Add each result as a row
+        currentEvaluation.allResults.forEach((result) => {
+          // Format evidence lists for CSV
+          const evidenceFormatted = Array.isArray(result.evidence_found)
+            ? result.evidence_found.join(" | ").replace(/"/g, '""')
+            : "";
+
+          const missingEvidenceFormatted = Array.isArray(
+            result.missing_evidence
+          )
+            ? result.missing_evidence.join(" | ").replace(/"/g, '""')
+            : "";
+
+          // Format reason for CSV (escape quotes)
+          const reasonFormatted = (result.reason || "").replace(/"/g, '""');
+
+          // Calculate confidence percentage
+          const confidence = parseFloat(result.confidence_score || 0) * 100;
+
+          // Create CSV row
+          const row = [
+            `"${result.section || ""}"`,
+            `"${result.requirement || ""}"`,
+            `"${result.status || ""}"`,
+            `"${reasonFormatted}"`,
+            `"${evidenceFormatted}"`,
+            `"${missingEvidenceFormatted}"`,
+            `${confidence.toFixed(0)}%`,
+          ].join(",");
+
+          csvContent += row + "\n";
+        });
+
+        // Add summary row
+        csvContent += "\n\nSummary Statistics\n";
+        csvContent += `"Total Requirements","${currentEvaluation.summary.total}"\n`;
+        csvContent += `"Present","${currentEvaluation.summary.present}"\n`;
+        csvContent += `"Missing","${currentEvaluation.summary.missing}"\n`;
+        csvContent += `"Unclear","${currentEvaluation.summary.unclear}"\n`;
+
+        // Get current date for filename
+        const date = new Date();
+        const formattedDate = date.toISOString().split("T")[0];
+        const registry = registrySelect.value;
+
+        // Create download link
+        const encodedUri = encodeURI(
+          "data:text/csv;charset=utf-8," + csvContent
+        );
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute(
+          "download",
+          `${registry}_evaluation_report_${formattedDate}.csv`
+        );
+        document.body.appendChild(link);
+
+        // Download the CSV file
+        link.click();
+
+        // Clean up
+        document.body.removeChild(link);
+      }
     </script>
-</body>
+  </body>
 </html>

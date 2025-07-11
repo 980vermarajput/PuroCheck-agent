@@ -1,519 +1,339 @@
 {
-  "sections": [
-    {
-      "title": "General Applicability",
-      "items": [
-        {
-          "requirement": "Project must increase vegetative cover through afforestation, reforestation or revegetation.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "project",
-            "increase",
-            "vegetative",
-            "cover",
-            "through",
-            "afforestation",
-            "reforestation",
-            "revegetation"
-          ]
-        },
-        {
-          "requirement": "Area-based and census-based approaches must be applied in non-overlapping areas with ≥10m buffer.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "area",
-            "census",
-            "approaches",
-            "applied",
-            "non",
-            "overlapping",
-            "areas",
-            "≥10m",
-            "buffer"
-          ]
-        },
-        {
-          "requirement": "The selected quantification approach (area or census) must be defined at project start and used throughout.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "selected",
-            "quantification",
-            "approach",
-            "area",
-            "census",
-            "defined",
-            "project",
-            "start",
-            "used",
-            "throughout"
-          ]
-        },
-        {
-          "requirement": "Project start date must be clearly documented (site preparation or land use change).",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "project",
-            "start",
-            "date",
-            "clearly",
-            "documented",
-            "site",
-            "preparation",
-            "land",
-            "change"
-          ]
-        },
-        {
-          "requirement": "For projects on wetlands or organic soils, VM0036 must be used for relevant carbon pools.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "projects",
-            "wetlands",
-            "organic",
-            "soils",
-            "vm0036",
-            "used",
-            "relevant",
-            "carbon",
-            "pools"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Approach Selection",
-      "items": [
-        {
-          "requirement": "Select either 'area-based' or 'census-based' approach based on project characteristics.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "select",
-            "either",
-            "area",
-            "based",
-            "census",
-            "approach",
-            "project",
-            "characteristics"
-          ]
-        },
-        {
-          "requirement": "Area-based: uses plot-based biomass sampling and remote sensing with performance benchmark.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "area",
-            "uses",
-            "plot",
-            "biomass",
-            "sampling",
-            "remote",
-            "sensing",
-            "performance",
-            "benchmark"
-          ]
-        },
-        {
-          "requirement": "Census-based: uses direct planting only, with full census (N) and no land use change.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "uses",
-            "direct",
-            "planting",
-            "only",
-            "full",
-            "land",
-            "change"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Eligibility Criteria",
-      "items": [
-        {
-          "requirement": "Area-based: Includes planting or assisted regeneration, with carbon stock estimates established before or within 2 years of start date.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "area",
-            "includes",
-            "planting",
-            "assisted",
-            "regeneration",
-            "carbon",
-            "stock",
-            "estimates",
-            "established",
-            "before",
-            "within",
-            "years",
-            "start",
-            "date"
-          ]
-        },
-        {
-          "requirement": "Census-based: ≥50 planting units per ha; planting units tracked individually with stable pre-existing land use; no deep soil inversion or biomass extraction within 10 years.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "planting",
-            "units",
-            "tracked",
-            "individually",
-            "stable",
-            "pre",
-            "existing",
-            "land",
-            "deep",
-            "soil",
-            "inversion",
-            "biomass",
-            "extraction",
-            "within",
-            "years"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Additionality",
-      "items": [
-        {
-          "requirement": "Area-based: Demonstrate regulatory surplus, apply performance benchmark, and investment analysis if carbon is sole income.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "area",
-            "demonstrate",
-            "regulatory",
-            "surplus",
-            "performance",
-            "benchmark",
-            "investment",
-            "analysis",
-            "carbon",
-            "sole",
-            "income"
-          ]
-        },
-        {
-          "requirement": "Census-based: Must show regulatory surplus and perform investment analysis; conduct common practice analysis if adoption rate ≥15%.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "show",
-            "regulatory",
-            "surplus",
-            "perform",
-            "investment",
-            "analysis",
-            "conduct",
-            "common",
-            "practice",
-            "adoption",
-            "rate",
-            "≥15"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Carbon Quantification",
-      "items": [
-        {
-          "requirement": "Use stock difference method for estimating biomass change.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "stock",
-            "difference",
-            "method",
-            "estimating",
-            "biomass",
-            "change"
-          ]
-        },
-        {
-          "requirement": "Apply uncertainty deduction of at least 10%; must not exceed 100% of estimated removals.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "uncertainty",
-            "deduction",
-            "not",
-            "exceed",
-            "100",
-            "estimated",
-            "removals"
-          ]
-        },
-        {
-          "requirement": "Include significant carbon pools or provide justification for conservative exclusions.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "include",
-            "significant",
-            "carbon",
-            "pools",
-            "provide",
-            "justification",
-            "conservative",
-            "exclusions"
-          ]
-        },
-        {
-          "requirement": "Census-based: Zero baseline; Area-based: Apply performance benchmark baseline.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "zero",
-            "baseline",
-            "area",
-            "performance",
-            "benchmark"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Leakage and Emissions",
-      "items": [
-        {
-          "requirement": "Area-based projects must apply VMD0054 module to estimate leakage from displaced activity.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "area",
-            "projects",
-            "vmd0054",
-            "module",
-            "estimate",
-            "leakage",
-            "displaced",
-            "activity"
-          ]
-        },
-        {
-          "requirement": "Census-based projects are exempt from leakage deductions due to no land use change.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "projects",
-            "exempt",
-            "leakage",
-            "deductions",
-            "due",
-            "land",
-            "change"
-          ]
-        },
-        {
-          "requirement": "Account for emissions from burning and fertilizer where applicable, using conservative parameters.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "account",
-            "emissions",
-            "burning",
-            "fertilizer",
-            "where",
-            "applicable",
-            "conservative",
-            "parameters"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Monitoring",
-      "items": [
-        {
-          "requirement": "Prepare a monitoring plan that defines tasks, boundaries, roles, and data handling.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "prepare",
-            "monitoring",
-            "plan",
-            "defines",
-            "tasks",
-            "boundaries",
-            "roles",
-            "data",
-            "handling"
-          ]
-        },
-        {
-          "requirement": "Collect field data (biomass, mortality, plot attributes) and stocking index (if area-based).",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "collect",
-            "field",
-            "data",
-            "biomass",
-            "mortality",
-            "plot",
-            "attributes",
-            "stocking",
-            "index",
-            "area"
-          ]
-        },
-        {
-          "requirement": "Archive all monitoring and QA/QC data for at least 2 years after the crediting period ends.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "archive",
-            "all",
-            "monitoring",
-            "data",
-            "years",
-            "after",
-            "crediting",
-            "period",
-            "ends"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Ex-Ante Estimation",
-      "items": [
-        {
-          "requirement": "Estimate removals for entire crediting period using growth and yield models.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "estimate",
-            "removals",
-            "entire",
-            "crediting",
-            "period",
-            "growth",
-            "yield",
-            "models"
-          ]
-        },
-        {
-          "requirement": "Apply a minimum of 10% uncertainty deduction.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "minimum",
-            "uncertainty",
-            "deduction"
-          ]
-        },
-        {
-          "requirement": "Census-based: baseline is zero. Area-based: use modeled performance benchmark for comparison.",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "census",
-            "baseline",
-            "zero",
-            "area",
-            "modeled",
-            "performance",
-            "benchmark",
-            "comparison"
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Supporting Documentation",
-      "items": [
-        {
-          "requirement": "Project Description (PD)",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "project",
-            "description"
-          ]
-        },
-        {
-          "requirement": "GIS shapefiles for all project areas and accounting boundaries",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "gis",
-            "shapefiles",
-            "all",
-            "project",
-            "areas",
-            "accounting",
-            "boundaries"
-          ]
-        },
-        {
-          "requirement": "Monitoring Plan with parameters and SOPs",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "monitoring",
-            "plan",
-            "parameters",
-            "sops"
-          ]
-        },
-        {
-          "requirement": "Evidence of additionality and adoption rate (if applicable)",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "evidence",
-            "additionality",
-            "adoption",
-            "rate",
-            "applicable"
-          ]
-        },
-        {
-          "requirement": "Carbon pool sampling data (t=0 and ongoing)",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "carbon",
-            "pool",
-            "sampling",
-            "data",
-            "ongoing"
-          ]
-        },
-        {
-          "requirement": "Remote sensing imagery, benchmark slope calculations (area-based only)",
-          "documentsNeeded": "Project evidence per VM0047",
-          "verraWillCheckFor": "Compliance with VM0047 requirement",
-          "searchKeywords": [
-            "remote",
-            "sensing",
-            "imagery",
-            "benchmark",
-            "slope",
-            "calculations",
-            "area",
-            "only"
-          ]
-        }
-      ]
-    }
-  ]
+    "sections": [
+      {
+        "title": "1. General Applicability Conditions (for all projects)",
+        "items": [
+          {
+            "requirement": "Project activities increase vegetative cover.",
+            "verraRequires": "Demonstration that project activities lead to an increase in vegetative cover.",
+            "documentsNeeded": "Project Design Document (PDD) with a detailed description of activities. Maps showing current and projected vegetative cover.",
+            "verraChecksFor": "Review of PDD and maps to ensure project design directly contributes to increased vegetative cover and plausibility of outcomes.",
+            "keywords": ["vegetative cover", "vegetation increase", "canopy cover", "biomass growth", "forest cover"]
+          },
+          {
+            "requirement": "Where area-based and census-based approaches are used together, they are applied in non-overlapping areas defined at the project start (see Section 5 on the delineation of spatial boundaries to ensure non-overlap).",
+            "verraRequires": "Clear delineation of spatial boundaries for each approach, ensuring no overlap and a minimum 10-meter buffer between instances.",
+            "documentsNeeded": "GIS maps clearly delineating project boundaries and sub-areas for each approach. Documentation of the 10-meter buffer.",
+            "verraChecksFor": "Verification of GIS data and maps for non-overlapping areas and buffer presence to prevent double counting.",
+            "keywords": ["non-overlapping areas", "10-meter buffer", "spatial boundaries", "area-based census-based", "boundary delineation"]
+          },
+          {
+            "requirement": "For lands enrolled in a project, the quantification approach is selected at the project start date and used for the entire project crediting period.",
+            "verraRequires": "Consistent application of the chosen quantification approach (area-based or census-based) from the project start date throughout the crediting period.",
+            "documentsNeeded": "Project Design Document (PDD) stating the chosen approach. Monitoring reports demonstrating consistent application.",
+            "verraChecksFor": "Review of PDD and monitoring reports to confirm consistent application of the chosen quantification approach.",
+            "keywords": ["quantification approach", "consistent application", "crediting period", "approach selection", "methodology consistency"]
+          },
+          {
+            "requirement": "The project start date is documented as the earliest of the following: a) The date on which site preparation activities began; b) The land use change date.",
+            "verraRequires": "Accurate and justified project start date.",
+            "documentsNeeded": "Official records of site preparation activities (e.g., contracts, work logs). Documentation of land use change (e.g., satellite imagery, land title changes).",
+            "verraChecksFor": "Cross-referencing documented dates with project activities and land use history to confirm the earliest eligible start date.",
+            "keywords": ["project start date", "site preparation", "land use change", "earliest date", "project commencement"]
+          },
+          {
+            "requirement": "Where projects take place on organic soils or wetlands, ARR activities are developed using a multiple project activity design, applying this methodology to account for aboveground biomass and using a Wetland Restoration and Conservation methodology (e.g., VM0036 Methodology for Rewetting Drained Temperate Peatlands) to account for other carbon pools.",
+            "verraRequires": "Correct application of VM0047 for aboveground biomass and a separate, approved methodology for other carbon pools (e.g., SOC in wetlands).",
+            "documentsNeeded": "Project Design Document (PDD) outlining the combined methodology approach. Relevant sections of both methodologies applied.",
+            "verraChecksFor": "Review of PDD to ensure correct application of multiple methodologies for different carbon pools, especially for organic soils and wetlands, to avoid omissions or double counting.",
+            "keywords": ["organic soils", "wetlands", "VM0036", "multiple methodology", "wetland restoration"]
+          }
+        ]
+      },
+      {
+        "title": "2. Area-based Approach Applicability Conditions",
+        "items": [
+          {
+            "requirement": "Project activities can involve direct planting, indirect activities (assisted natural regeneration like liana cutting, weed management, or animal grazing barriers), or a combination.",
+            "verraRequires": "Clear description of project activities (direct planting, indirect activities, or combination).",
+            "documentsNeeded": "PDD detailing the specific ARR activities.",
+            "verraChecksFor": "Review of PDD to ensure activities align with allowed types for area-based approach.",
+            "keywords": ["direct planting", "indirect activities", "natural regeneration", "liana cutting", "weed management"]
+          },
+          {
+            "requirement": "Establish a t=0 carbon stock estimate for all significant carbon pools.",
+            "verraRequires": "If site preparation initiated the project start date: 1. T=0 estimates for all significant carbon pools established before site preparation. 2. T=0 estimates established no more than two years before the project start date. 3. Remote sensing-based estimates for pre-existing woody biomass allowed if plot-based measurements not before site preparation (not for other pools). 4. If any other significant carbon pool (e.g., SOC, dead wood) is impacted during site preparation and no t=0 measurement was established, the project is ineligible.",
+            "documentsNeeded": "T=0 inventory reports for all significant carbon pools. Field data sheets, plot establishment records. Remote sensing data and analysis for woody biomass (if applicable).",
+            "verraChecksFor": "Verification of t=0 data collection dates, methods, and completeness for all significant carbon pools relative to the project start date and site preparation activities.",
+            "keywords": ["t=0 carbon stock", "site preparation", "significant carbon pools", "two years", "remote sensing"]
+          },
+          {
+            "requirement": "Establish a t=0 carbon stock estimate for all significant carbon pools (continued).",
+            "verraRequires": "If the project start date is defined by a land use change or did not include site preparation causing significant carbon stock decrease: 1. Establish t=0 estimates within two years after the project start date. 2. Plot-based sampling must occur for all significant carbon pools. 3. Provide evidence that site preparation did not involve clearing, burning, or mechanical disturbance significantly reducing monitored carbon pools.",
+            "documentsNeeded": "T=0 inventory reports for all significant carbon pools. Field data sheets, plot establishment records. Evidence of no significant carbon stock decrease during site preparation (e.g., georeferenced photos, field survey data, satellite imagery, signed attestations).",
+            "verraChecksFor": "Verification of t=0 data collection dates (within 2 years post-start). Confirmation of plot-based sampling for all significant pools. Review of evidence to ensure no significant carbon stock decrease from site preparation.",
+            "keywords": ["t=0 carbon stock", "plot-based sampling", "no carbon decrease", "clearing burning", "mechanical disturbance"]
+          },
+          {
+            "requirement": "Leakage must be monitored and quantified using VMD0054 and cannot be assumed de minimis.",
+            "verraRequires": "Documentation and quantification of all potential leakage sources as per VMD0054.",
+            "documentsNeeded": "Leakage assessment report following VMD0054. Monitoring plan for leakage.",
+            "verraChecksFor": "Verification that all relevant leakage sources are identified, monitored, and quantified according to VMD0054, and that leakage is not assumed de minimis.",
+            "keywords": ["leakage", "VMD0054", "not de minimis", "leakage monitoring", "leakage quantification"]
+          }
+        ]
+      },
+      {
+        "title": "3. Census-based Approach Applicability Conditions",
+        "items": [
+          {
+            "requirement": "Project activities must only include direct planting.",
+            "verraRequires": "Confirmation that only direct planting activities are undertaken.",
+            "documentsNeeded": "PDD explicitly stating direct planting as the sole activity.",
+            "verraChecksFor": "Review of PDD to confirm that no indirect ARR activities are included.",
+            "keywords": ["direct planting only", "no indirect activities", "sole activity", "planting exclusive", "direct planting"]
+          },
+          {
+            "requirement": "Pre-project land use must be maintained throughout the project lifetime (e.g., agricultural production continues on agricultural land).",
+            "verraRequires": "Evidence that the pre-project land use is maintained.",
+            "documentsNeeded": "Land use maps, land management plans, aerial imagery, or other documentation showing consistent land use.",
+            "verraChecksFor": "Verification that the land use prior to the project is sustained throughout the crediting period.",
+            "keywords": ["pre-project land use", "land use maintained", "agricultural production", "consistent land use", "land use continuation"]
+          },
+          {
+            "requirement": "Planting density must not exceed 50 planting units per hectare, scaled proportionally for instances less than one hectare. For instances larger than one hectare, planting must be dispersed to maintain this limit across the entire area.",
+            "verraRequires": "Documentation of planting density to confirm it does not exceed 50 planting units/hectare, with proportional scaling for smaller instances and dispersed planting for larger areas.",
+            "documentsNeeded": "Planting plans, GIS data showing planting unit locations, calculations of planting density.",
+            "verraChecksFor": "Verification of planting density calculations and spatial distribution to ensure compliance with the 50 units/hectare limit.",
+            "keywords": ["50 planting units", "planting density", "per hectare", "proportional scaling", "dispersed planting"]
+          },
+          {
+            "requirement": "A complete census of all planting units (N) must mark the project start (t=0), including only planting units planted by the project proponent. Existing vegetation is not included.",
+            "verraRequires": "A complete census of all project-planted units at t=0, excluding existing vegetation.",
+            "documentsNeeded": "T=0 census report, planting records, GPS logs of planted units.",
+            "verraChecksFor": "Verification of the t=0 census data, ensuring it only includes new planting units by the project proponent.",
+            "keywords": ["complete census", "t=0 census", "planting units N", "project proponent", "exclude existing vegetation"]
+          },
+          {
+            "requirement": "Replanting is allowed if N does not exceed 50 live planting units per hectare established by the project activity.",
+            "verraRequires": "Documentation of replanting activities, ensuring the total live planting units do not exceed 50 per hectare.",
+            "documentsNeeded": "Replanting records, updated census data, monitoring reports on live planting unit density.",
+            "verraChecksFor": "Verification that replanting maintains the overall density limit of 50 live planting units per hectare.",
+            "keywords": ["replanting", "50 live units", "replanting allowed", "live planting density", "replanting records"]
+          },
+          {
+            "requirement": "Individual woody biomass planting units must be clearly defined and identifiable in the field using: a) GPS points: Spacing between units must be greater than or equal to the GPS unit's positional accuracy (e.g., if GPS accuracy is 5 meters, minimum spacing is 5 meters). b) Physical markers: Each unit must have a durable, in-field physical identifier with a unique, clearly visible, and easily locatable ID.",
+            "verraRequires": "Evidence that each planting unit is clearly identifiable via GPS points (with specified spacing) or durable physical markers with unique IDs.",
+            "documentsNeeded": "GPS logs of planting units, photos of physical markers with IDs, description of marking system.",
+            "verraChecksFor": "Field verification of planting unit identification methods (GPS accuracy, physical marker durability and uniqueness).",
+            "keywords": ["GPS points", "physical markers", "GPS accuracy", "unique identifiers", "planting unit identification"]
+          },
+          {
+            "requirement": "If a planting unit cannot be located during monitoring, it is conservatively assumed dead.",
+            "verraRequires": "A monitoring protocol that assumes unlocatable planting units are dead.",
+            "documentsNeeded": "Monitoring plan, monitoring reports reflecting this assumption.",
+            "verraChecksFor": "Verification that the monitoring plan includes this conservative assumption for unlocatable units.",
+            "keywords": ["unlocatable units", "assumed dead", "conservative assumption", "monitoring protocol", "cannot be located"]
+          },
+          {
+            "requirement": "The project activity occurs: a) Within an area with less than 10% pre-existing woody biomass cover; And/or b) in an area subject to continuous cropping or in \"settlements\" or \"other lands\" land use categories.",
+            "verraRequires": "Documentation of pre-existing woody biomass cover and/or land use category.",
+            "documentsNeeded": "Baseline land cover maps, historical satellite imagery, land use records, official land classification documents.",
+            "verraChecksFor": "Verification of baseline woody biomass cover (less than 10%) and/or confirmation of land use categories (continuous cropping, settlements, other lands).",
+            "keywords": ["10% woody biomass", "continuous cropping", "settlements", "other lands", "pre-existing cover"]
+          },
+          {
+            "requirement": "Soil disturbance from project activities (e.g., site preparation) must meet the following: a) Permitted only at the time of planting; also allowed for replanting or additional planting waves under the same conditions. b) Localized soil disturbance (e.g., pit planting) may exceed 25 cm depth. c) Soil inversion (e.g., plowing) must not exceed 25 cm depth and may only occur once during the crediting period.",
+            "verraRequires": "Documentation of soil disturbance activities, ensuring compliance with depth, frequency, and timing restrictions.",
+            "documentsNeeded": "Site preparation plans, field logs of disturbance activities, photos, soil analysis reports.",
+            "verraChecksFor": "Verification of soil disturbance methods, depth, frequency, and timing to ensure compliance with methodology limits.",
+            "keywords": ["soil disturbance", "25 cm depth", "soil inversion", "planting time only", "once per period"]
+          }
+        ]
+      },
+      {
+        "title": "4. Exclusion Conditions",
+        "items": [
+          {
+            "requirement": "Area-based Approach Exclusions: a) Projects on lands that met the definition of managed forest at any point in the 10 years preceding the project start date. b) Clearing of pre-existing woody biomass involves timber harvesting or results in degradation of native ecosystems. c) Projects planting fewer than 50 planting units per hectare that could use the census-based approach.",
+            "verraRequires": "Evidence that the project area does not fall under these exclusion criteria.",
+            "documentsNeeded": "Historical land use records, satellite imagery (past 10 years), forest management plans (if applicable), timber harvest records, ecological assessments. Planting plans and density calculations.",
+            "verraChecksFor": "Verification of historical land use to ensure no managed forest status in the preceding 10 years. Assessment of clearing activities to ensure no timber harvesting or native ecosystem degradation. Review of planting density to confirm area-based approach is appropriate.",
+            "keywords": ["managed forest", "10 years", "timber harvesting", "native ecosystem", "50 units hectare"]
+          },
+          {
+            "requirement": "Census-based Approach Exclusions: a) Woody biomass, serving a similar purpose as project planting units, has been removed within the last 10 years. b) Soil disturbance involves soil inversion exceeding a depth of 25 cm.",
+            "verraRequires": "Evidence that the project area does not fall under these exclusion criteria.",
+            "documentsNeeded": "Historical land use records, satellite imagery (past 10 years), land management records, site preparation plans, soil disturbance records.",
+            "verraChecksFor": "Verification of historical land management to ensure no recent removal of similar woody biomass. Assessment of soil disturbance methods and depths to ensure no inversion exceeding 25 cm.",
+            "keywords": ["woody biomass removed", "10 years", "soil inversion", "25 cm depth", "similar purpose"]
+          }
+        ]
+      },
+      {
+        "title": "5. Project Boundary",
+        "items": [
+          {
+            "requirement": "If both approaches are used, accounting boundaries must not overlap.",
+            "verraRequires": "Clear demonstration of non-overlapping accounting boundaries if both approaches are used.",
+            "documentsNeeded": "GIS maps, boundary descriptions.",
+            "verraChecksFor": "Verification of spatial boundaries to ensure no overlap between area-based and census-based accounting areas.",
+            "keywords": ["accounting boundaries", "non-overlapping", "both approaches", "boundary overlap", "spatial boundaries"]
+          },
+          {
+            "requirement": "Refer to Tables 1 and 2 in the methodology for selected carbon pools in baseline and project scenarios.",
+            "verraRequires": "Identification and justification of all significant carbon pools included or excluded, based on Tables 1 and 2 and Appendix 2 (significance test).",
+            "documentsNeeded": "PDD with carbon pool assessment. Significance test results (Appendix 2 application).",
+            "verraChecksFor": "Verification that all significant carbon pools are correctly identified and accounted for (or conservatively excluded) as per methodology tables and significance test.",
+            "keywords": ["Tables 1 2", "carbon pools", "significance test", "Appendix 2", "carbon pool assessment"]
+          },
+          {
+            "requirement": "Appendix 2 must be applied to test the significance of carbon pools and GHG emission sources to determine if they are de minimis (less than 5% of total carbon removal).",
+            "verraRequires": "Application of Appendix 2 to test significance of carbon pools and GHG emission sources.",
+            "documentsNeeded": "Appendix 2 calculation sheets, justification for de minimis assumptions.",
+            "verraChecksFor": "Verification of the correct application of Appendix 2 to determine significance and justify de minimis exclusions.",
+            "keywords": ["Appendix 2", "significance test", "de minimis", "5% threshold", "GHG emission sources"]
+          }
+        ]
+      },
+      {
+        "title": "6. Carbon Pools",
+        "items": [
+          {
+            "requirement": "Area-based Approach: - Included (Major Carbon Pools): Aboveground woody biomass, Belowground woody biomass. - Included (Conditional): Aboveground non-woody biomass, Belowground non-woody biomass, Dead wood, Litter (if significantly reduced by project activity per Appendix 2). - Included (Conditional for SOC): Soil organic carbon (SOC) if soil disturbance occurs more than once, involves harvesting, or includes soil inversion exceeding 25 cm depth. Optional if no soil disturbance. Excluded (Conservative): Harvested wood products.",
+            "verraRequires": "Quantification of all required carbon pools (major and conditional based on significance/disturbance). Justification for exclusions.",
+            "documentsNeeded": "Inventory reports for each included carbon pool. Field data sheets, lab analysis reports (for SOC). Significance test results (Appendix 2).",
+            "verraChecksFor": "Verification of carbon pool measurements, calculations, and adherence to inclusion/exclusion criteria based on project activities and significance tests.",
+            "keywords": ["aboveground woody biomass", "belowground woody biomass", "SOC conditional", "dead wood", "harvested wood excluded"]
+          },
+          {
+            "requirement": "Census-based Approach: - Included (Major Carbon Pools): Aboveground woody biomass, Belowground woody biomass. - Excluded (Conservative): Aboveground non-woody biomass, Belowground non-woody biomass, Dead wood, Litter, Soil organic carbon (SOC), Harvested wood products.",
+            "verraRequires": "Quantification of aboveground and belowground woody biomass. Acknowledgment of conservative exclusion of other pools.",
+            "documentsNeeded": "Inventory reports for aboveground and belowground woody biomass.",
+            "verraChecksFor": "Verification of woody biomass measurements and confirmation that other pools are conservatively excluded.",
+            "keywords": ["aboveground woody biomass", "belowground woody biomass", "conservative exclusion", "SOC excluded", "other pools excluded"]
+          }
+        ]
+      },
+      {
+        "title": "7. GHG Sources (for both approaches)",
+        "items": [
+          {
+            "requirement": "Project Emissions (Included): CH₄ and N₂O from burning of biomass (if significant), N₂O from nitrogen fertilizer (if significant).",
+            "verraRequires": "Quantification of significant CH₄ and N₂O emissions from biomass burning and N₂O from nitrogen fertilizer.",
+            "documentsNeeded": "Emissions calculations, records of biomass burning activities, fertilizer application records, lab analysis for nitrogen content. Significance test results (Appendix 2).",
+            "verraChecksFor": "Verification of emission calculations, activity data, and application of significance tests for inclusion.",
+            "keywords": ["CH4 N2O", "biomass burning", "nitrogen fertilizer", "significant emissions", "emissions calculations"]
+          },
+          {
+            "requirement": "Project Emissions (Excluded - De minimis/Conservative): CO₂ from burning of biomass, CO₂, CH₄, N₂O from burning of fossil fuels, CO₂, CH₄ from nitrogen fertilizer.",
+            "verraRequires": "Justification for exclusion of these project emissions as de minimis or conservative.",
+            "documentsNeeded": "Significance test results (Appendix 2) showing emissions are de minimis.",
+            "verraChecksFor": "Verification that these emissions are correctly identified as de minimis or conservatively excluded based on Appendix 2.",
+            "keywords": ["CO2 excluded", "fossil fuel emissions", "de minimis", "conservative exclusion", "emissions excluded"]
+          },
+          {
+            "requirement": "Baseline Emissions (Excluded - Conservative): CO₂, CH₄, N₂O from burning of biomass; CO₂, CH₄, N₂O from nitrogen fertilizer; CO₂, CH₄, N₂O from burning of fossil fuels.",
+            "verraRequires": "Acknowledgment of conservative exclusion of these baseline emissions.",
+            "documentsNeeded": "PDD stating conservative exclusion.",
+            "verraChecksFor": "Verification that these baseline emissions are conservatively excluded.",
+            "keywords": ["baseline emissions", "conservative exclusion", "CO2 CH4 N2O", "baseline excluded", "biomass burning"]
+          }
+        ]
+      },
+      {
+        "title": "8. Baseline Scenario",
+        "items": [
+          {
+            "requirement": "Area-based: A performance benchmark is used, set by data from representative control plots outside the project area. Procedures are in Appendix 1.",
+            "verraRequires": "Establishment and monitoring of representative control plots. Application of Appendix 1 procedures for performance benchmark.",
+            "documentsNeeded": "Control plot establishment records, monitoring data from control plots, Appendix 1 calculations.",
+            "verraChecksFor": "Verification of control plot representativeness, data quality, and correct application of Appendix 1 for baseline setting.",
+            "keywords": ["performance benchmark", "control plots", "Appendix 1", "representative plots", "baseline benchmark"]
+          },
+          {
+            "requirement": "Census-based: Uses a project method for setting the crediting baseline. If the project is in an area with less than 10% pre-existing woody biomass cover and in areas of continuous cropping, settlements, or other lands, the baseline is set to zero, assuming ARR would not occur without intervention.",
+            "verraRequires": "Justification for the chosen baseline method. If applicable, evidence of less than 10% pre-existing woody biomass cover and land use category (continuous cropping, settlements, or other lands) to justify a zero baseline.",
+            "documentsNeeded": "PDD justifying baseline approach. Baseline land cover maps, historical satellite imagery, land use records.",
+            "verraChecksFor": "Verification of baseline justification, especially for zero baseline scenarios, by assessing pre-existing woody biomass cover and land use categories.",
+            "keywords": ["zero baseline", "10% woody biomass", "continuous cropping", "settlements", "other lands"]
+          }
+        ]
+      },
+      {
+        "title": "9. Additionality",
+        "items": [
+          {
+            "requirement": "Area-based: Regulatory surplus, performance benchmark, and investment analysis (not required if projects don't generate revenues or financial incentives other than carbon credits).",
+            "verraRequires": "Demonstration of regulatory surplus, performance benchmark, and investment analysis (unless exempt).",
+            "documentsNeeded": "Regulatory analysis report. Performance benchmark calculations. Financial analysis (e.g., IRR, NPV) if applicable.",
+            "verraChecksFor": "Verification of regulatory compliance, performance benchmark justification, and financial viability without carbon credits (or justification for exemption).",
+            "keywords": ["regulatory surplus", "performance benchmark", "investment analysis", "financial viability", "carbon credits only"]
+          },
+          {
+            "requirement": "Census-based: Regulatory surplus, investment analysis, and common practice.",
+            "verraRequires": "Demonstration of regulatory surplus, investment analysis, and common practice.",
+            "documentsNeeded": "Regulatory analysis report. Financial analysis (e.g., IRR, NPV). Common practice analysis report.",
+            "verraChecksFor": "Verification of regulatory compliance, financial viability without carbon credits, and assessment against common practice in the region.",
+            "keywords": ["regulatory surplus", "investment analysis", "common practice", "financial viability", "regional practice"]
+          }
+        ]
+      },
+      {
+        "title": "10. Quantification of Reductions and Removals",
+        "items": [
+          {
+            "requirement": "Estimates of carbon dioxide removals are annualized by dividing by the number of years in the monitoring interval.",
+            "verraRequires": "Calculation of annualized carbon dioxide removals.",
+            "documentsNeeded": "Monitoring reports, carbon stock change calculations, annualized removal calculations.",
+            "verraChecksFor": "Verification of the correct calculation and annualization of carbon dioxide removals.",
+            "keywords": ["annualized removals", "monitoring interval", "carbon dioxide removals", "annual calculations", "removal calculations"]
+          },
+          {
+            "requirement": "Area-based Quantification: Calculation of carbon dioxide removals (CRt) involves project carbon stock change, performance benchmark, uncertainty, project emissions, and leakage.",
+            "verraRequires": "Comprehensive calculation of CRt including all specified components.",
+            "documentsNeeded": "Carbon stock change calculations for project and baseline. Uncertainty assessment. Project emission calculations. Leakage quantification report.",
+            "verraChecksFor": "Verification of all components of the CRt calculation, ensuring accuracy and adherence to methodology formulas.",
+            "keywords": ["CRt calculation", "carbon stock change", "performance benchmark", "uncertainty", "leakage"]
+          },
+          {
+            "requirement": "Projects using the area-based approach forecast a performance benchmark using a growth and yield model to estimate biomass changes, converted to stocking index values.",
+            "verraRequires": "Application of a growth and yield model to forecast performance benchmark and convert to stocking index values.",
+            "documentsNeeded": "Documentation of the growth and yield model used, model inputs, and stocking index derivation.",
+            "verraChecksFor": "Verification of the appropriateness of the growth and yield model, its application, and the accuracy of stocking index derivation.",
+            "keywords": ["growth yield model", "stocking index", "biomass changes", "performance benchmark", "model forecast"]
+          },
+          {
+            "requirement": "Census-based Quantification: Involves biomass stock in aboveground woody biomass, initial population size, mortality, and number of planting units sampled.",
+            "verraRequires": "Quantification of carbon removals based on these parameters.",
+            "documentsNeeded": "Biomass stock calculations for aboveground woody biomass. Records of initial population size, mortality rates, and sampled units.",
+            "verraChecksFor": "Verification of data inputs and calculations for census-based carbon removal.",
+            "keywords": ["biomass stock", "initial population", "mortality", "sampled units", "census quantification"]
+          }
+        ]
+      },
+      {
+        "title": "11. Monitoring",
+        "items": [
+          {
+            "requirement": "Data and Parameters Available at Validation: Includes project area, emission factors for direct and indirect nitrous oxide emissions from nitrogen additions, and initial population size (N) for census-based projects.",
+            "verraRequires": "Documentation of these fixed parameters at validation.",
+            "documentsNeeded": "PDD, project area maps, emission factor sources, t=0 census report (for N).",
+            "verraChecksFor": "Verification of the accuracy and source of fixed parameters at validation.",
+            "keywords": ["validation parameters", "emission factors", "initial population N", "project area", "fixed parameters"]
+          },
+          {
+            "requirement": "Data and Parameters Monitored: a) Average carbon stock in aboveground woody biomass (measured via plot-based sampling for area-based, representative sampling for census-based). b) Average carbon stock in belowground woody biomass (measured via plot-based sampling for area-based, representative sampling for census-based). c) Average carbon stock in dead wood (measured via plot-based sampling). d) Soil organic carbon stocks (measured from SOC content and bulk density). e) Mass and nitrogen content of synthetic and organic fertilizers applied. f) Number of planting units sampled and mortality for census-based projects.",
+            "verraRequires": "Regular monitoring and reporting of these parameters.",
+            "documentsNeeded": "Monitoring reports, field data sheets, lab analysis reports (for SOC, N content), fertilizer application logs, census data updates.",
+            "verraChecksFor": "Verification of monitoring data quality, consistency, and adherence to sampling protocols for each parameter.",
+            "keywords": ["monitored parameters", "carbon stock", "plot sampling", "SOC content", "fertilizer application"]
+          },
+          {
+            "requirement": "Monitoring Plan: Must include: a) Description of each monitoring task and technical requirements. b) Definition of the accounting boundary, ensuring non-overlap if both approaches are used. c) Parameters to be measured, including tables for woody plant attributes. d) Data to be collected and collection techniques (e.g., standard operating procedures for field data collection, sample designs). e) Anticipated frequency of monitoring for each variable. f) QA/QC procedures. g) Data archiving procedures (electronic, kept for at least two years after the last crediting period). h) Roles, responsibilities, and capacity of the monitoring team. i) Schedule and procedures for acquiring, archiving, and processing remote sensing data to derive stocking indices. j) A full description of the stocking index and its derivation process.",
+            "verraRequires": "A comprehensive monitoring plan covering all specified elements.",
+            "documentsNeeded": "Detailed Monitoring Plan document. SOPs for data collection. QA/QC manual. Data archiving protocols. Team organisational chart and capacity statements. Remote sensing data management plan. Stocking index derivation methodology.",
+            "verraChecksFor": "Verification of the comprehensiveness, clarity, and implementability of the monitoring plan. Assessment of QA/QC procedures and data management.",
+            "keywords": ["monitoring plan", "QA/QC procedures", "data archiving", "stocking index", "remote sensing"]
+          },
+          {
+            "requirement": "Database Requirements for Project and Control Plots (Area-based): A database must be maintained with: a) Description of the stocking index and its derivation. b) List of project plots (unique IDs, locations, size, configuration, time series of stocking index values). c) List of control plots (unique IDs, locations, size, configuration, weights, time series of stocking index values). d) Remote sensing datasets and timestamps used to derive stocking index values.",
+            "verraRequires": "Maintenance of a robust database for project and control plot data.",
+            "documentsNeeded": "Database documentation, actual database files (e.g., spreadsheets, GIS files) containing all required information.",
+            "verraChecksFor": "Verification of database integrity, completeness, and accuracy of plot data and stocking index values.",
+            "keywords": ["database maintenance", "stocking index", "project plots", "control plots", "unique IDs"]
+          }
+        ]
+      }
+    ]
 }

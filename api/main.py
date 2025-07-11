@@ -5,7 +5,7 @@ This module provides REST API endpoints for the PuroCheck AI eligibility agent.
 Supports document upload and streaming evaluation results.
 """
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi import FastAPI, UploadFile, File, HTTPException, BackgroundTasks, Form, Query
 from fastapi.responses import StreamingResponse, HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -86,8 +86,8 @@ async def health_check():
 @app.post("/evaluate")
 async def evaluate_documents(
     files: List[UploadFile] = File(...),
-    registry: str = "puro",
-    api_provider: str = "auto"
+    registry: str = Query("puro"),
+    api_provider: str = Query("auto")
 ):
     """
     Evaluate uploaded documents against registry checklist with streaming results
@@ -101,6 +101,18 @@ async def evaluate_documents(
         StreamingResponse with evaluation progress and results
     """
     
+    # Debug logging for parameters
+    logger.info("====================== REQUEST PARAMETERS ======================")
+    logger.info(f"RAW PARAMETERS RECEIVED - Registry: '{registry}', API Provider: '{api_provider}'")
+    logger.info(f"Parameter types - Registry: {type(registry)}, API Provider: {type(api_provider)}")
+    logger.info(f"Files received: {[f.filename for f in files]}")
+    logger.info("===============================================================")
+    
+    # Ensure parameters are properly processed
+    registry = registry.strip().lower() if registry else "puro"
+    api_provider = api_provider.strip().lower() if api_provider else "auto"
+    
+    logger.info(f"PROCESSED PARAMETERS - Registry: '{registry}', API Provider: '{api_provider}'")
     # Validate inputs
     if not files:
         raise HTTPException(status_code=400, detail="No files uploaded")
@@ -109,7 +121,7 @@ async def evaluate_documents(
         raise HTTPException(status_code=400, detail="Unsupported registry. Use 'puro' or 'verra'")
     
     # Validate file types
-    allowed_extensions = {'.pdf', '.txt', '.docx', '.xlsx', '.xls'}
+    allowed_extensions = {'.pdf', '.txt', '.docx', '.xlsx', '.xls','.csv'}
     for file in files:
         if not any(file.filename.lower().endswith(ext) for ext in allowed_extensions):
             raise HTTPException(
@@ -158,14 +170,24 @@ async def evaluate_documents(
             
             # 3. Initialize agent
             yield f"data: {json.dumps({'status': 'initializing', 'message': 'Initializing PuroCheck agent...'})}\n\n"
-            
             # Create a unique vector store directory for this evaluation
             eval_vector_store_dir = os.path.join(temp_dir, "vector_store")
             os.makedirs(eval_vector_store_dir, exist_ok=True)
+              # Debug log to check parameter values
+            logger.info("====================== AGENT INITIALIZATION ======================")
+            logger.info(f"USING PARAMETERS - Registry: '{registry}', API Provider: '{api_provider}'")
+            logger.info(f"Vector Store Dir: '{eval_vector_store_dir}'")
+            logger.info("=================================================================")
+            
+            # Determine the correct checklist path based on registry
+            if registry.lower() == "verra":
+                checklist_path = "checklist/verra_vm0047_checklist.json"
+            else:
+                checklist_path = f"checklist/{registry.lower()}_biochar_checklist.json"
             
             agent = PuroCheckAgent(
                 data_dir=temp_dir,
-                checklist_path=f"checklist/{registry.lower()}_biochar_checklist.json",
+                checklist_path=checklist_path,
                 api_provider=api_provider,
                 registry=registry.lower(),
                 vector_store_dir=eval_vector_store_dir,
@@ -335,7 +357,12 @@ async def get_checklist(registry: str):
         raise HTTPException(status_code=404, detail="Registry not found")
     
     try:
-        checklist_path = f"checklist/{registry.lower()}_biochar_checklist.json"
+        # Determine the correct checklist path based on registry
+        if registry.lower() == "verra":
+            checklist_path = "checklist/verra_vm0047_checklist.json"
+        else:
+            checklist_path = f"checklist/{registry.lower()}_biochar_checklist.json"
+            
         with open(checklist_path, 'r') as f:
             checklist = json.load(f)
         return {
