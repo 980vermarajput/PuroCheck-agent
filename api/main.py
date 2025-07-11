@@ -191,7 +191,8 @@ async def evaluate_documents(
                 api_provider=api_provider,
                 registry=registry.lower(),
                 vector_store_dir=eval_vector_store_dir,
-                force_rebuild_vectorstore=True 
+                force_rebuild_vectorstore=True, 
+                model_name="gpt-4.1-nano" if api_provider=='openai' else None  # Use appropriate model,
             )
             
             # 4. Process documents
